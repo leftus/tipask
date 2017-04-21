@@ -132,18 +132,19 @@
 
 <footer id="footer">
     <div class="container">
-        @if(request()->route()->getName() == 'website.index')
+        <!-- @if(request()->route()->getName() == 'website.index')
         <ul class="list-unstyled list-inline">
             <li>友情链接</li>
             @foreach($friendshipLinks as $link)
             <li><a target="_blank" href="{{ $link->url }}" title="{{ $link->slogan }}">{{ $link->name }}</a></li>
             @endforeach
         </ul>
-        @endif
+        @endif -->
         <div class="text-center">
-            <a href="{{ route('website.index') }}">{{ Setting()->get('website_name') }}</a><span class="span-line">|</span>
-            <a href="mailto:{{ Setting()->get('website_admin_email') }}" target="_blank">联系我们</a><span class="span-line">|</span>
-            <a href="http://www.miibeian.gov.cn" target="_blank">{{ Setting()->get('website_icp') }}</a>
+            <a href="{{ route('website.index') }}">{{ Setting()->get('website_name') }}</a>
+            <!-- <span class="span-line">|</span> -->
+            <!-- <a href="mailto:{{ Setting()->get('website_admin_email') }}" target="_blank">联系我们</a><span class="span-line">|</span>
+            <a href="http://www.miibeian.gov.cn" target="_blank">{{ Setting()->get('website_icp') }}</a> -->
         </div>
         <div class="copyright mt-10">
 
