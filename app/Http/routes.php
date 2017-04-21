@@ -34,9 +34,9 @@ Route::get('/experts/{categorySlug?}/{provinceId?}',['as'=>'website.experts','us
 Route::get('/shop',['as'=>'website.shop','uses'=>'IndexController@shop']);
 
 /*酷巴酷简介*/
-Route::get('/kbak',function(){
+Route::get('/kbak',['as'=>'website.kbak',function(){
     return view('theme::home.kbak');
-});
+}]);
 
 
 /*用户账号管理，包含用户登录注册等操作*/

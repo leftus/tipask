@@ -16,6 +16,9 @@
 	.one{
 		width:362px;
 	}
+	.logo{
+		margin-top: 0;
+	}
 </style>
 <script type="text/javascript" src="/Home/js/site/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="/Home/js/site/touch.js"></script>
