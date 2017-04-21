@@ -36,7 +36,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <div class="logo"><a class="navbar-brand logo" href="{{ route('website.index') }}"></a></div>
+                <a href="{{ route('website.index') }}"><div class="logo"></div></a>
             </div>
 
             <div class="collapse navbar-collapse" id="global-navbar">
