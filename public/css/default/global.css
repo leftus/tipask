@@ -157,7 +157,7 @@ ul{list-style: none;padding: 0;}
 
 /*网站logo*/
 .logo{float:left;margin:0;display:inline-block;width:125px;}
-.logo a{display:block;height:50px;width:120px; background-image:url("logo.png");background-size: 120px 50px;background-repeat: no-repeat;}
+.logo a{display:block;height:50px;width:120px; background-image:url("logo.png");background-size: 56px 50px;background-repeat: no-repeat;margin-left: 0;}
 
 /*用户头像*/
 .avatar-16{width:16px;height:16px;border-radius:50%;}
