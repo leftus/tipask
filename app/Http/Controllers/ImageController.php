@@ -37,15 +37,11 @@ class ImageController extends Controller
 
     public function show($image_name)
     {
-        $imageFile = storage_path('app'.$image_name);
+        $imageFile = storage_path('app/'.str_replace("-","/",$image_name));
         if(!is_file($imageFile)){
-            $imageFile = storage_path('app/'.str_replace("-","/",$image_name));
-            if(!is_file($imageFile)){
               abort(404);
-            }
         }
         return Image::make($imageFile)->response();
-
     }
 
 
