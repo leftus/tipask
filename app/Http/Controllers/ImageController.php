@@ -44,6 +44,7 @@ class ImageController extends Controller
               abort(404);
             }
         }
+        dd($imageFile);
         return Image::make($imageFile)->response();
 
     }
