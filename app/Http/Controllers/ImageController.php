@@ -41,6 +41,7 @@ class ImageController extends Controller
         //dump($imageFile);
         if(!is_file($imageFile)){
             $imageFile = storage_path('app'.$image_name);
+            dump($imageFile);
             if(!is_file($imageFile)){
               abort(404);
             }
