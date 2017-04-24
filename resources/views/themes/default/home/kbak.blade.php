@@ -13,12 +13,20 @@
 <link rel="stylesheet" href="/Home/css/site/index_1116.css" />
 <link rel="stylesheet" href="/Home/css/site/animate.min.css" />
 <style type="text/css">
-	.one{
-		width:362px;
-	}
-	.logo{
-		margin-top: 0;
-	}
+.one{
+	width:362px;
+}
+.logo{
+	margin-top: 0;
+}
+.opacitas {
+    position: absolute;
+    top: -226px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
 </style>
 <script type="text/javascript" src="/Home/js/site/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="/Home/js/site/touch.js"></script>
