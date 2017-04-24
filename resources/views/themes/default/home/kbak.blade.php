@@ -32,10 +32,6 @@ var _hmt = _hmt || [];
 })();
 </script>
 <script type="text/javascript" src="/Home/js/site/touch.js"></script>
-	<!-- banner -->
-	 <div class="banner_new"> 	
-	 	<div id="shiyong" style="background:url(/Home/images/site/shiyong.png) no-repeat top center;background-size:100% 100%;"></div>
-	 </div>
 	<!-- 选择我们的理由 -->
 	<div class="w">
 	  	<div class="subtitle clearfix">

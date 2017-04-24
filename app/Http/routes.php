@@ -35,7 +35,8 @@ Route::get('/shop',['as'=>'website.shop','uses'=>'IndexController@shop']);
 
 /*酷巴酷简介*/
 Route::get('/kbak',['as'=>'website.kbak',function(){
-    return view('theme::home.kbak');
+    $banner = 1;
+    return view('theme::home.kbak')->with(compact('banner'));
 }]);
 
 

@@ -121,6 +121,13 @@
     @endif
 </div>
 
+@if(isset($banner) && $banner==1)
+<!-- banner -->
+ <div class="banner_new">   
+    <div id="shiyong" style="background:url(/Home/images/site/shiyong.png) no-repeat top center;background-size:100% 100%;"></div>
+ </div>
+@endif
+
 <div class="wrap">
     @yield('jumbotron')
     @yield('container')
