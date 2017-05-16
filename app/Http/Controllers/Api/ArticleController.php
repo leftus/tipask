@@ -33,7 +33,7 @@ class ArticleController extends Controller
         $data->msg = "获取成功";
         $chunk = $list[$page-1];
         foreach($chunk as $v){
-            $v->logo = "http://shop.m9n.com/image/show/cms/uploads/allimg/170510/".$v->logo;
+            $v->logo = "http://shop.m9n.com/image/show".$v->logo;
         }
         $data->data = $chunk;
         return response()->json($data);
