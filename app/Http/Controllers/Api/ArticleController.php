@@ -28,7 +28,7 @@ class ArticleController extends Controller
             $page = 1;
         }
         $data = new \stdClass();
-        $list = Article::get(['id','title','summary','logo','user_id'])->chunk(10);
+        $list = Article::get()->chunk(10);
         $data->code = 0;
         $data->msg = "获取成功";
         $data->data = $list[$page-1];
