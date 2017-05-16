@@ -32,8 +32,11 @@ class ArticleController extends Controller
         $data->code = 0;
         $data->msg = "获取成功";
         $chunk = $list[$page-1];
+        $image = array();
         foreach($chunk as $v){
             $v->logo = "http://shop.m9n.com/image/show".$v->logo;
+            $image[] = $v->logo;
+            $v->logo = $image;
         }
         $data->data = $chunk;
         return response()->json($data);
