@@ -28,10 +28,14 @@ class ArticleController extends Controller
             $page = 1;
         }
         $data = new \stdClass();
-        $list = Article::get()->chunk(10);
+        $list = Article::get(['id','title','summary','logo','views','created_at'])->chunk(10);
         $data->code = 0;
         $data->msg = "获取成功";
-        $data->data = $list[$page-1];
+        $chunk = $list[$page-1];
+        foreach($chunk as $v){
+            $v->logo = "http://shop.m9n.com/image/show//cms/uploads/allimg/170510/".$v->logo;
+        }
+        $data->data = $chunk;
         return response()->json($data);
     }
     /**
