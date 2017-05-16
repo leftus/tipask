@@ -36,7 +36,7 @@ class ArticleController extends Controller
         foreach($chunk as $v){
             $v->logo = "http://shop.m9n.com/image/show".$v->logo;
             $image[] = $v->logo;
-            $v->logo = $image;
+            $v->image = $image;
         }
         $data->data = $chunk;
         return response()->json($data);
