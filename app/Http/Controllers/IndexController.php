@@ -77,7 +77,7 @@ class IndexController extends Controller
         /*财富榜*/
 
         $topCoinUsers = Cache::remember('top_coin_users',Setting()->get('website_cache_time',1),function() {
-            return  UserData::top('coins',8);
+            return  UserData::top('coins',10);
         });
 
         /*友情链接*/
@@ -220,5 +220,10 @@ class IndexController extends Controller
         $exchanges = Exchange::newest();
         return view('theme::home.shop')->with(compact('goods','exchanges'));
     }
-
+	//文章详情
+	public function article_detail_h5($id)
+	{
+		$content = Article::where('id',$id)->value('content');
+		return view('theme::home.article_h5',['content'=>$content]);
+	}
 }
