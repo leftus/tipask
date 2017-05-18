@@ -235,13 +235,23 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
     /*文章列表*/
     Route::post('article/list',['as'=>'api.article.list','uses'=>'ArticleController@lists']);
 	/*文章详情*/
-    Route::post('article/detail',['as'=>'api.ArticleDetail.list','uses'=>'ArticleController@detail']);
+    Route::post('article/detail',['as'=>'api.article.detail','uses'=>'ArticleController@detail']);
 	
 	
 	 /*分类列表*/
     Route::get('categorie/list',['as'=>'api.categorie.list','uses'=>'CategorieController@lists']);
 	
 	
+	
+	
+	/*自定义链接添加*/
+    Route::post('link/add',['as'=>'api.link.add','uses'=>'LinkController@add']);
+	/*自定义链接修改*/
+    Route::post('link/update',['as'=>'api.link.add','uses'=>'LinkController@update']);
+	/*自定义链接删除*/
+    Route::post('link/delete',['as'=>'api.link.delete','uses'=>'LinkController@delete']);
+	/*自定义链接列表*/
+    Route::post('link/list',['as'=>'api.link.list','uses'=>'LinkController@lists']);
 	
 	
 	
