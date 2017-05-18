@@ -29,7 +29,7 @@ class CategorieController extends Controller
         }
         $data = new \stdClass();
         //$list = Category::orderBy('id','desc')->get(['id','title','summary','logo','views','created_at'])->chunk(10);
-		$list = Category::orderBy('id','desc')->get()->chunk(10);
+		$list = Category::orderBy('id','desc')->select('id','name')->get();
         return response()->json(array('code'=>0,'msg'=>'成功','data'=>$list));
     }
     /**
