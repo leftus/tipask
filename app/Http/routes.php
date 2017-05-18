@@ -230,9 +230,9 @@ Route::Group(['namespace'=>'Ask'],function(){
 /*营销工具Api*/
 Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
     /*文章列表*/
-    Route::get('article/list',['as'=>'api.article.list','uses'=>'ArticleController@lists']);
+    Route::post('article/list',['as'=>'api.article.list','uses'=>'ArticleController@lists']);
 	 /*分类列表*/
-    Route::get('categorie/list',['as'=>'api.article.list','uses'=>'CategorieController@lists']);
+    Route::get('categorie/list',['as'=>'api.articles.list','uses'=>'CategorieController@lists']);
 });
 
 
