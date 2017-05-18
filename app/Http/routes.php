@@ -40,6 +40,9 @@ Route::get('/kbak',['as'=>'website.kbak',function(){
 }]);
 
 
+/*H5接口页面*/
+Route::get('/article_detail_h5/{id}','IndexController@article_detail_h5');
+
 /*用户账号管理，包含用户登录注册等操作*/
 Route::Group(['namespace'=>'Account'],function(){
     Route::match(['get','post'],'login',['as'=>'auth.user.login','uses'=>'UserController@login']);
@@ -231,11 +234,13 @@ Route::Group(['namespace'=>'Ask'],function(){
 Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
     /*文章列表*/
     Route::post('article/list',['as'=>'api.article.list','uses'=>'ArticleController@lists']);
-	
+	/*文章详情*/
+    Route::post('article/detail',['as'=>'api.ArticleDetail.list','uses'=>'ArticleController@detail']);
 	
 	
 	 /*分类列表*/
     Route::get('categorie/list',['as'=>'api.categorie.list','uses'=>'CategorieController@lists']);
+	
 	
 	
 	

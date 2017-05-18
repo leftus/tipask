@@ -54,68 +54,19 @@ class ArticleController extends Controller
 		}
 		return response()->json($data);
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id,Request $request)
-    {
- 
-    }
-
-    /**
-     * 显示文字编辑页面
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id,Request $request)
-    {
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
-    {
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    public function detail(Request $request)
+	{
+		$article_id = $request->input('article_id');
+		if(empty($article_id))
+		{
+			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
+		}
+		$data = Article::where('id',$article_id)->select('id','title','source','created_at','comments')->first();
+		if(empty($data->source))
+		{
+			$data->source = '';
+		}
+		$data->content = url('article_detail_h5',[$data->id]);
+		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$data));
+	}
 }
