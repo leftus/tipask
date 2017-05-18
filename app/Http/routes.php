@@ -231,7 +231,10 @@ Route::Group(['namespace'=>'Ask'],function(){
 Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
     /*文章列表*/
     Route::get('article/list',['as'=>'api.article.list','uses'=>'ArticleController@lists']);
+	 /*分类列表*/
+    Route::get('categorie/list',['as'=>'api.article.list','uses'=>'CategorieController@lists']);
 });
+
 
 /*文章模块*/
 Route::Group(['namespace'=>'Blog'],function(){
