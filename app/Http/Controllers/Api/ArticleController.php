@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
@@ -23,23 +24,35 @@ class ArticleController extends Controller
     ***/
     public function lists(Request $request)
     {
-        $page = $request->input('page');
+        
+		$page = $request->input('page');
+		$cate  = $request->input('cate');
         if(empty($page)){
             $page = 1;
         }
-        $data = new \stdClass();
-        $list = Article::orderBy('id','desc')->get(['id','title','summary','logo','views','created_at'])->chunk(10);
+		if(empty($cate)){
+            return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
+        }
+       $data = new \stdClass();
+       $list = Article::orderBy('id','desc')->where('category_id',$cate)->get(['id','title','summary','logo','views','created_at'])->chunk(10);
+		
         $data->code = 0;
         $data->msg = "获取成功";
-        $chunk = $list[$page-1];
-        foreach($chunk as $v){
-            $v->logo = "http://shop.m9n.com/image/show".$v->logo;
-            $image = array();
-            $image[] = $v->logo;
-            $v->logo = $image;
-        }
-        $data->data = $chunk;
-        return response()->json($data);
+		if(count($list)>0)
+		{
+			$chunk = $list[$page-1];
+			
+			foreach($chunk as $v){
+				$v->logo = "http://shop.m9n.com/image/show".$v->logo;
+				$image = array();
+				$image[] = $v->logo;
+				$v->logo = $image;
+			}
+			$data->data = $chunk;
+		}else{
+			$data->data = [];
+		}
+		return response()->json($data);
     }
     /**
      * Show the form for creating a new resource.
