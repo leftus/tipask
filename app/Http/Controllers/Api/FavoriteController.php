@@ -51,13 +51,20 @@ class FavoriteController extends Controller
 		{
 			return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
 		}
-		$favorite = Favorite::whereRaw('user_id='.$user_id.' and article_id='.$article_id)->value('id');
-		if($favorite>0)
+		if(is_array($article_id))
 		{
-			Favorite::where('id',$favorite)->delete();
+			$article_list = implode(',',$article_id);
+			Favorite::whereRaw('article_id in('.$article_list.') and user_id='.$user_id)->delete();
 		}else{
-			return response()->json(array('code'=>4,'msg'=>'未收藏此文章','data'=>array()));
+			$favorite = Favorite::whereRaw('user_id='.$user_id.' and article_id='.$article_id)->value('id');
+			if($favorite>0)
+			{
+				Favorite::where('id',$favorite)->delete();
+			}else{
+				return response()->json(array('code'=>4,'msg'=>'未收藏此文章','data'=>array()));
+			}
 		}
+		
 		
 		return response()->json(array('code'=>0,'msg'=>'取消成功','data'=>array()));
     }
