@@ -270,6 +270,8 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
 	
 	 /*用户登录*/
     Route::post('user/login',['as'=>'api.login.list','uses'=>'UserController@login']);
+	 /*个人中心*/
+    Route::post('user/info',['as'=>'api.user.info','uses'=>'UserController@info']);
 });
 
 
