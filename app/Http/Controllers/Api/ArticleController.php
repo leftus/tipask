@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Article;
 use App\Models\Advert;
 use App\Models\Link;
+use App\Models\Favorite;
 use App\Models\Question;
 use App\Models\Tag;
 use App\Models\UserData;
@@ -35,7 +36,7 @@ class ArticleController extends Controller
 		if(empty($cate)){
             return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
         }
-       $data = new \stdClass();
+       $data = new \stdClass(); 
        $list = Article::orderBy('id','desc')->where('category_id',$cate)->get(['id','title','summary','logo','views','created_at'])->chunk(10);
 		
         $data->code = 0;
@@ -59,6 +60,7 @@ class ArticleController extends Controller
     public function detail(Request $request)
 	{
 		$article_id = $request->input('article_id');
+		$user_id    = $request->input('user_id');
 		if(empty($article_id))
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
@@ -81,6 +83,16 @@ class ArticleController extends Controller
 		if(empty($data->source))
 		{
 			$data->source = '';
+		}
+		//判断是否收藏
+		$data->is_favorite = 0;
+		if(!empty($user_id))
+		{
+			$favorite = Favorite::whereRaw('user_id='.$user_id.' and article_id='.$article_id)->value('id');
+			if($favorite>0)
+			{
+				$data->is_favorite = 1;
+			}
 		}
 		$data->content = url('article_detail_h5',[$data->id]);
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$data));
