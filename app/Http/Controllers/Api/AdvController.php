@@ -40,7 +40,7 @@ class AdvController extends Controller
 		$path = '';
 		//如果有图片则上传
 		if(isset($_FILES['file'])){
-			$upload_dir = storage_path('app/public/upload/'.$user_id.'/'.$date.'/');
+			$upload_dir = ('./upload/'.$user_id.'/'.$date.'/');
 			if(!file_exists($upload_dir)){
 				mkdir($upload_dir,0777,true);
 			}
