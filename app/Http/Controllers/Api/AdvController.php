@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Advert;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -23,11 +24,17 @@ class AdvController extends Controller
 		$descri     = $request->input('descri');
 		$tel        = $request->input('tel');
 		$link_id    = $request->input('link_id');
-		if(empty($user_id)||empty($article_id)||empty($title)||empty($descri)||empty($tel)||empty($link_id))
+		$token      = $request->input('token');
+		if(empty($user_id)||empty($article_id)||empty($title)||empty($descri)||empty($tel)||empty($link_id)||empty($token))
 		{
-			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
+			//return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
 		}
-		
+		//验证token
+		$user = User::where('id',$user_id)->select('password','sort')->first();
+		if(md5(($user->password).($user->sort)) != $token)
+		{
+			return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
+		}
 		$date = date('Y-m-d');
 		$path = '';
 		//如果有图片则上传
