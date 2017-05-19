@@ -89,12 +89,19 @@ class LinkController extends Controller
     {	
 		$user_id = $request->input('user_id');
 		$page    = $request->input('page');
+		$token      = $request->input('token');
 		if(empty($page)){
             $page = 1;
         }
-		if(empty($user_id))
+		if(empty($user_id)||empty($token))
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
+		}
+		//验证token
+		$user = User::where('id',$user_id)->select('password','sort')->first();
+		if(md5(($user->password).($user->sort)) != $token)
+		{
+			return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
 		}
         $list = Link::orderBy('id','desc')->where('user_id',$user_id)->get(['title','jump_url','id'])->chunk(10);
 		

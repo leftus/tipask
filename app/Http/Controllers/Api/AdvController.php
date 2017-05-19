@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Advert;
 use App\Models\User;
+use App\Models\Link;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 class AdvController extends Controller
 {
     /***
-    *文章列表
+    *添加广告
     *
     ***/
     public function add(Request $request)
@@ -27,7 +28,7 @@ class AdvController extends Controller
 		$token      = $request->input('token');
 		if(empty($user_id)||empty($article_id)||empty($title)||empty($descri)||empty($tel)||empty($link_id)||empty($token))
 		{
-			//return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
+			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
 		}
 		//验证token
 		$user = User::where('id',$user_id)->select('password','sort')->first();
@@ -69,19 +70,35 @@ class AdvController extends Controller
 		Advert::insert($advert);
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>array()));
     }
-    public function detail(Request $request)
+    public function lists(Request $request)
 	{
-		$article_id = $request->input('article_id');
-		if(empty($article_id))
+		$user_id    = $request->input('user_id');
+		$token      = $request->input('token');
+		$page       = $request->input('page');
+		if(empty($page))
+		{
+			$page = 1;
+		}
+		
+		if(empty($user_id)||empty($token))
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
 		}
-		$data = Article::where('id',$article_id)->select('id','title','source','created_at','comments')->first();
-		if(empty($data->source))
+		//验证token
+		$user = User::where('id',$user_id)->select('password','sort')->first();
+		if(md5(($user->password).($user->sort)) != $token)
 		{
-			$data->source = '';
+			return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
 		}
-		$data->content = url('article_detail_h5',[$data->id]);
-		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$data));
+		$take = 10;
+		$skip = ($page-1)*$take;
+		$advert = Advert::select('id','title','descri','tel','link_id','img','create_time')->where('user_id',$user_id)->skip($skip)->take($take)->orderBy('id','desc')->get();
+		foreach($advert as $v)
+		{
+			$v->jump_url   = Link::where('id',$v->link_id)->value('jump_url');
+			unset($v->link_id);
+			
+		}
+		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$advert));
 	}
 }
