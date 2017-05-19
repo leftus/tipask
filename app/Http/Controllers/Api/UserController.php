@@ -48,7 +48,7 @@ class UserController extends Controller
 		 //修改密钥
 		 User::where('id','=',$user->id)->update(['sort'=>$sort]);
 		 $token = md5($password.$sort);
-		 $user->headimg = './image/avatar/'.($user->id).'_middle.jpg';
+		 $user->headimg = '/image/avatar/'.($user->id).'_middle.jpg';
 		 $user->token   = $token;
 		 return response()->json(array('code'=>0,'msg'=>'成功','data'=>$user));
     }
@@ -77,7 +77,7 @@ class UserController extends Controller
 		{
 			$user->city = '未知';
 		}
-		$user->headimg = './image/avatar/'.($user->id).'_middle.jpg';
+		$user->headimg = '/image/avatar/'.($user->id).'_middle.jpg';
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$user));
 		
 		
