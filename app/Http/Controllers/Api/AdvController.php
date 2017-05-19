@@ -1,0 +1,80 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Models\Advert;
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+
+class AdvController extends Controller
+{
+    /***
+    *文章列表
+    *
+    ***/
+    public function add(Request $request)
+    {
+        $user_id    = $request->input('user_id');
+		$article_id = $request->input('article_id');
+		$title      = $request->input('title');
+		$descri     = $request->input('descri');
+		$tel        = $request->input('tel');
+		$link_id    = $request->input('link_id');
+		if(empty($user_id)||empty($article_id)||empty($title)||empty($descri)||empty($tel)||empty($link_id))
+		{
+			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
+		}
+		
+		$date = date('Y-m-d');
+		$path = '';
+		//如果有图片则上传
+		if(isset($_FILES['file'])){
+			$upload_dir = storage_path('app/public/upload/'.$user_id.'/'.$date.'/');
+			if(!file_exists($upload_dir)){
+				mkdir($upload_dir,0777,true);
+			}
+			$name = $_FILES['file']['name'];
+			$type = $_FILES['file']['type'];
+			$size = $_FILES['file']['size'];
+			$tmp_name = $_FILES['file']['tmp_name'];
+			$error = $_FILES['file']['error'];
+			if($error>0){
+				return response()->json(array('code'=>3,'msg'=>'上传错误','data'=>$error));
+			}
+			$pathinfo = pathinfo($name);
+			$extension = $pathinfo['extension'];
+			$md5_file = md5_file($tmp_name);
+			if(file_exists($upload_dir.$md5_file.'.'.$extension)){
+				chmod($upload_dir.$md5_file.'.'.$extension,0777);
+				unlink($upload_dir.$md5_file.'.'.$extension);
+			}
+			if(move_uploaded_file($_FILES['file']['tmp_name'],$upload_dir.$md5_file.'.'.$extension)){
+				$path = $upload_dir.$md5_file.'.'.$extension;
+			}else{
+				return response()->json(array('code'=>4,'msg'=>'上传失败','data'=>$upload_dir.$md5_file.'.'.$extension));
+			}
+		} 
+		
+		$advert = ['user_id'=>$user_id,'article_id'=>$article_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id,'img'=>$path,'create_time'=>date('Y-m-d H:i:s',time())];
+		Advert::insert($advert);
+		return response()->json(array('code'=>0,'msg'=>'成功','data'=>array()));
+    }
+    public function detail(Request $request)
+	{
+		$article_id = $request->input('article_id');
+		if(empty($article_id))
+		{
+			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
+		}
+		$data = Article::where('id',$article_id)->select('id','title','source','created_at','comments')->first();
+		if(empty($data->source))
+		{
+			$data->source = '';
+		}
+		$data->content = url('article_detail_h5',[$data->id]);
+		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$data));
+	}
+}

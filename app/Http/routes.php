@@ -254,6 +254,9 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
     Route::post('link/list',['as'=>'api.link.list','uses'=>'LinkController@lists']);
 	
 	
+	/*添加广告*/
+    Route::post('adv/add',['as'=>'api.adv.dd','uses'=>'AdvController@add']);
+	
 	
 	 /*用户登录*/
     Route::post('user/login',['as'=>'api.login.list','uses'=>'UserController@login']);
