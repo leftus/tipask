@@ -270,6 +270,12 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
     Route::post('adv/list',['as'=>'api.adv.list','uses'=>'AdvController@lists']);
 	
 	
+	/*消息推送-全部*/
+    Route::post('msg/post_all',['as'=>'api.msg.post','uses'=>'MsgController@post_all']);
+	/*我的消息*/
+    Route::post('msg/list',['as'=>'api.msg.post','uses'=>'MsgController@lists']);
+	
+	
 	 /*用户登录*/
     Route::post('user/login',['as'=>'api.login.list','uses'=>'UserController@login']);
 	 /*个人中心*/
