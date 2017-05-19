@@ -28,7 +28,7 @@ class UserController extends Controller
 		}else{
 			return response()->json(array('code'=>2,'msg'=>'参数错误','data'=>array()));
 		}
-         $user = User::whereRaw($where)->select('id','name','province','city','title')->first();
+         $user = User::whereRaw($where)->select('id','name','province','city','title','password')->first();
 		 $sort = rand(1000,9999);
 		 if($user)
 		 {
@@ -43,9 +43,11 @@ class UserController extends Controller
 				$user->city = '未知';
 			}
 		 }
+		 $password = $user->password;
+		 unset($user->password);
 		 //修改密钥
 		 User::where('id','=',$user->id)->update(['sort'=>$sort]);
-		 $token = md5($openid.$sort);
+		 $token = md5($password.$sort);
 		 $user->headimg = User::getAvatarPath($user->id);
 		 $user->token   = $token;
 		 return response()->json(array('code'=>0,'msg'=>'成功','data'=>$user));
