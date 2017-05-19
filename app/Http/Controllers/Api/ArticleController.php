@@ -37,24 +37,19 @@ class ArticleController extends Controller
             return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
         }
        $data = new \stdClass(); 
-       $list = Article::orderBy('id','desc')->where('category_id',$cate)->get(['id','title','summary','logo','views','created_at'])->chunk(10);
+	   $take = 10;
+		$skip = ($page-1)*$take;
+       $list = Article::orderBy('id','desc')->where('category_id',$cate)->skip($skip)->take($take)->select('id','title','summary','logo','views','created_at')->get();
 		
         $data->code = 0;
         $data->msg = "获取成功";
-		if(count($list)>0)
-		{
-			$chunk = $list[$page-1];
-			
-			foreach($chunk as $v){
+		foreach($list as $v){
 				$v->logo = "http://shop.m9n.com/image/show".$v->logo;
 				$image = array();
 				$image[] = $v->logo;
 				$v->logo = $image;
 			}
-			$data->data = $chunk;
-		}else{
-			$data->data = [];
-		}
+		$data->data = $list;
 		return response()->json($data);
     }
     public function detail(Request $request)

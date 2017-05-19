@@ -103,16 +103,11 @@ class LinkController extends Controller
 		{
 			return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
 		}
-        $list = Link::orderBy('id','desc')->where('user_id',$user_id)->get(['title','jump_url','id'])->chunk(10);
+		$take = 10;
+		$skip = ($page-1)*$take;
+        $list = Link::orderBy('id','desc')->where('user_id',$user_id)->skip($skip)->take($take)->select('title','jump_url','id')->get();
 		
-		if(count($list)>0)
-		{
-			$chunk = $list[$page-1];
-			
-		}else{
-			$chunk = [];
-		}
-        return response()->json(array('code'=>0,'msg'=>'成功','data'=>$chunk));
+        return response()->json(array('code'=>0,'msg'=>'成功','data'=> $list));
     }
  
 }
