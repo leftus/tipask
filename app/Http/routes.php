@@ -236,6 +236,10 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
     Route::post('article/list',['as'=>'api.article.list','uses'=>'ArticleController@lists']);
 	/*文章详情*/
     Route::post('article/detail',['as'=>'api.article.detail','uses'=>'ArticleController@detail']);
+	/*收藏文章*/
+    Route::post('favorite/add',['as'=>'api.favorit.add','uses'=>'FavoriteController@add']);
+	/*收藏文章*/
+    Route::post('favorite/delete',['as'=>'api.favorit.delete','uses'=>'FavoriteController@del']);
 	
 	
 	 /*分类列表*/
