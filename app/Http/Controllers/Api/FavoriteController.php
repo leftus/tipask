@@ -32,8 +32,14 @@ class FavoriteController extends Controller
 		{
 			return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
 		}
-		$favorite = ['user_id'=>$user_id,'article_id'=>$article_id,'create_time'=>date('Y-m-d H:i:s',time())];
-		Favorite::insert($favorite);
+		$check_fav = Favorite::whereRaw('user_id='.$user_id.' and article_id='.$article_id)->value('id');
+		if($check_fav>0)
+		{
+			return response()->json(array('code'=>6,'msg'=>'此用户已收藏','data'=>array()));
+		}else{
+			$favorite = ['user_id'=>$user_id,'article_id'=>$article_id,'create_time'=>date('Y-m-d H:i:s',time())];
+			Favorite::insert($favorite);
+		}
 		return response()->json(array('code'=>0,'msg'=>'收藏成功','data'=>array()));
     }
     public function del(Request $request)
