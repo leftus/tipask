@@ -14,7 +14,7 @@ class Article extends Model
     use BelongsToUserTrait,MorphManyTagsTrait,MorphManyCommentsTrait,BelongsToCategoryTrait;
     protected $table = 'articles';
     protected $fillable = ['title', 'user_id','category_id', 'content','tags','summary','status','logo'];
-
+	public $timestamps = false;
 
     public static function boot()
     {

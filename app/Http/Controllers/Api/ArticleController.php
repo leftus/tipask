@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Article;
+use App\Models\Advert;
+use App\Models\Link;
 use App\Models\Question;
 use App\Models\Tag;
 use App\Models\UserData;
@@ -62,6 +64,20 @@ class ArticleController extends Controller
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
 		}
 		$data = Article::where('id',$article_id)->select('id','title','source','created_at','comments')->first();
+		$data->created_at = date('Y-m-d',strtotime($data->created_at));
+		$advert = Advert::where('article_id',$article_id)->select('title','descri','img','tel','link_id')->first();
+		if($advert)
+		{
+			$link   = Link::where('id',$advert->link_id)->value('jump_url');
+			$advert->jump_url = $link;
+			unset($advert->link_id);
+			$data->isadv = 1;
+		}else{
+			$advert = new \stdClass();
+			$data->isadv = 0;
+			$advert->title = $advert->descri = $advert->img = $advert->tel = $advert->jump_url ='';
+		}
+		$data->advert = $advert;
 		if(empty($data->source))
 		{
 			$data->source = '';
