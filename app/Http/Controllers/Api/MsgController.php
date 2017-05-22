@@ -48,11 +48,14 @@ class MsgController extends Controller
 		$msg  = Msg::whereRaw('to_user in ('.$user_id.',0) and type=1')->select('id','content')->get();
 		foreach($msg as $k=>$v)
 		{
-			$msg[$k] = Article::where('id',$v->content)->select('id','title','summary','logo','views','created_at')->first();
-			$msg[$k]->logo = "http://shop.m9n.com/image/show".$v->logo;
-			$image = array();
-			$image[] = $v->logo;
-			$msg[$k]->logo = $image;
+			$article = Article::where('id',$v->content)->select('id','title','summary','logo','views','created_at')->first();
+			$v->id = $article->id;
+			$v->title = $article->title;
+			$v->summary = $article->summary;
+			$v->logo = $article->logo;
+			$v->views = $article->views;
+			$v->created_at = $article->created_at;
+			unset($v->content);
 		}
 		
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=> $msg));
