@@ -49,12 +49,18 @@ class MsgController extends Controller
 		foreach($msg as $k=>$v)
 		{
 			$article = Article::where('id',$v->content)->select('id','title','summary','logo','views','created_at')->first();
-			$v->id = $article->id;
-			$v->title = $article->title;
-			$v->summary = $article->summary;
-			$v->logo = $article->logo;
-			$v->views = $article->views;
-			$v->created_at = $article->created_at;
+			if($article)
+			{
+				$v->id = $article->id;
+				$v->title = $article->title;
+				$v->summary = $article->summary;
+				$v->logo = $article->logo;
+				$v->views = $article->views;
+				$v->created_at = $article->created_at;
+			}else{
+				$v->id = $v->title = $v->summary = $v->logo = $v->views = $v->created_at = '';
+			}
+			
 			unset($v->content);
 		}
 		
