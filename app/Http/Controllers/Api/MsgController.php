@@ -45,7 +45,7 @@ class MsgController extends Controller
 		}
 		$take = 10;
 		$skip = ($page-1)*$take;
-		$msg  = Msg::whereRaw('to_user in ('.$user_id.',0) and type=1')->select('id','content')->get();
+		$msg  = Msg::whereRaw('to_user in ('.$user_id.',0) and type=1')->skip($skip)->take($take)->select('id','content')->get();
 		foreach($msg as $k=>$v)
 		{
 			$article = Article::where('id',$v->content)->select('id','title','summary','logo','views','created_at')->first();

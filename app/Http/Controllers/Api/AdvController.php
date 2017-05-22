@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 class AdvController extends Controller
 {
     /***
-    *添加广告
+    *添加/修改广告
     *
     ***/
     public function add(Request $request)
@@ -65,10 +65,18 @@ class AdvController extends Controller
 				return response()->json(array('code'=>4,'msg'=>'上传失败','data'=>$upload_dir.$md5_file.'.'.$extension));
 			}
 		} 
+		$is_adv = Advert::where('user_id','=',$user_id)->value('id');
+		if($is_adv>0){
+			$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id,'img'=>$path,'create_time'=>date('Y-m-d H:i:s',time())];
+			Advert::where('user_id','=',$user_id)->update($advert);
+			return response()->json(array('code'=>0,'msg'=>'修改成功','data'=>array()));
+		}else{
+			$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id,'img'=>$path,'create_time'=>date('Y-m-d H:i:s',time())];
+			Advert::insert($advert);
+			return response()->json(array('code'=>0,'msg'=>'添加成功','data'=>array()));
+		}
 		
-		$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id,'img'=>$path,'create_time'=>date('Y-m-d H:i:s',time())];
-		Advert::insert($advert);
-		return response()->json(array('code'=>0,'msg'=>'成功','data'=>array()));
+		
     }
     public function lists(Request $request)
 	{
@@ -91,7 +99,7 @@ class AdvController extends Controller
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$advert));
 	}
 	 /***
-    *修改广告
+    *修改广告（暂时弃用）
     *
     ***/
     public function update(Request $request)
@@ -144,6 +152,6 @@ class AdvController extends Controller
 		
 		$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id,'img'=>$path,'create_time'=>date('Y-m-d H:i:s',time())];
 		Advert::where('user_id','=',$user_id)->update($advert);
-		return response()->json(array('code'=>0,'msg'=>'成功','data'=>array()));
+		return response()->json(array('code'=>0,'msg'=>'修改成功','data'=>array()));
     }
 }
