@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class Msg extends Model
 { 
-    protected $table = 'Msg';
+    protected $table = 'msg';
     
     public $timestamps = false;
 
