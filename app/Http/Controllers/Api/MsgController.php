@@ -18,12 +18,7 @@ class MsgController extends Controller
     ***/
     public function post_all(Request $request)
     {	
-		$title   = $request->input('title');
-		$content = $request->input('content');
-		//androd
-		var_dump(XingeApp::PushAllAndroid(2200259225, "e93553fa967e5a698af8e6505372abee", $title, $content));
-		//ios
-		//var_dump(XingeApp::PushAllIos(2200259225, "e93553fa967e5a698af8e6505372abee",$content, XingeApp::IOSENV_DEV));
+		
     }
 	
 	/***
