@@ -124,12 +124,23 @@ class IndexController extends AdminController
                 }
             }
             /*文章统计*/
+			/*
             foreach($articles as $article){
-                if( $i === 6 &&  $article->created_at->timestamp > $labelTimes[$i]->timestamp ){
+				if( $i === 6 &&  $article->created_at->timestamp > $labelTimes[$i]->timestamp ){
                     $articleRange[$i]++;
                     break;
                 }
                 if( $article->created_at->timestamp > $labelTimes[$i]->timestamp && $article->created_at->timestamp < $labelTimes[$i+1]->timestamp ){
+                    $articleRange[$i]++;
+                }
+            }
+			*/
+			foreach($articles as $article){
+				if( $i === 6 &&  strtotime($article->created_at) > $labelTimes[$i]->timestamp ){
+                    $articleRange[$i]++;
+                    break;
+                }
+                if( strtotime($article->created_at) > $labelTimes[$i]->timestamp && strtotime($article->created_at) < $labelTimes[$i+1]->timestamp ){
                     $articleRange[$i]++;
                 }
             }
