@@ -54,11 +54,12 @@ class MsgController extends Controller
 				$v->id = $article->id;
 				$v->title = $article->title;
 				$v->summary = $article->summary;
-				$v->logo = $article->logo;
+				$v->logo = ["http://shop.m9n.com/image/show".$article->logo];
 				$v->views = $article->views;
 				$v->created_at = $article->created_at;
 			}else{
-				$v->id = $v->title = $v->summary = $v->logo = $v->views = $v->created_at = '';
+				$v->id = $v->title = $v->summary = $v->views = $v->created_at = '';
+				$v->logo = array();
 			}
 			
 			unset($v->content);
