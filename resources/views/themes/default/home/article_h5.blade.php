@@ -11,7 +11,7 @@
 		}
 	</style>
 </head>
-<body>
+<body id="content">
 <?php
 	echo $content;
 ?>
