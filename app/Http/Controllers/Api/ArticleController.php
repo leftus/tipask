@@ -62,8 +62,13 @@ class ArticleController extends Controller
 		}
 		$data = Article::where('id',$article_id)->select('id','title','source','created_at','comments')->first();
 		$data->created_at = date('Y-m-d',strtotime($data->created_at));
-		$advert = Advert::where('article_id',$article_id)->select('title','descri','img','tel','link_id')->first();
-		if($advert)
+		if($user_id>0)
+		{
+			$advert = Advert::where('user_id',$user_id)->select('title','descri','img','tel','link_id')->first();
+			
+		}
+		
+		if(!empty($advert))
 		{
 			$link   = Link::where('id',$advert->link_id)->value('jump_url');
 			$advert->jump_url = $link;

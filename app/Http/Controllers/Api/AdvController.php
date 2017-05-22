@@ -20,13 +20,13 @@ class AdvController extends Controller
     public function add(Request $request)
     {
         $user_id    = $request->input('user_id');
-		$article_id = $request->input('article_id');
+		//$article_id = $request->input('article_id');
 		$title      = $request->input('title');
 		$descri     = $request->input('descri');
 		$tel        = $request->input('tel');
 		$link_id    = $request->input('link_id');
 		$token      = $request->input('token');
-		if(empty($user_id)||empty($article_id)||empty($title)||empty($descri)||empty($tel)||empty($link_id)||empty($token))
+		if(empty($user_id)||empty($title)||empty($descri)||empty($tel)||empty($link_id)||empty($token))
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
 		}
@@ -66,7 +66,7 @@ class AdvController extends Controller
 			}
 		} 
 		
-		$advert = ['user_id'=>$user_id,'article_id'=>$article_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id,'img'=>$path,'create_time'=>date('Y-m-d H:i:s',time())];
+		$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id,'img'=>$path,'create_time'=>date('Y-m-d H:i:s',time())];
 		Advert::insert($advert);
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>array()));
     }
@@ -74,11 +74,6 @@ class AdvController extends Controller
 	{
 		$user_id    = $request->input('user_id');
 		$token      = $request->input('token');
-		$page       = $request->input('page');
-		if(empty($page))
-		{
-			$page = 1;
-		}
 		
 		if(empty($user_id)||empty($token))
 		{
@@ -90,15 +85,9 @@ class AdvController extends Controller
 		{
 			return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
 		}
-		$take = 10;
-		$skip = ($page-1)*$take;
-		$advert = Advert::select('id','title','descri','tel','link_id','img','create_time')->where('user_id',$user_id)->skip($skip)->take($take)->orderBy('id','desc')->get();
-		foreach($advert as $v)
-		{
-			$v->jump_url   = Link::where('id',$v->link_id)->value('jump_url');
-			unset($v->link_id);
-			
-		}
+		$advert = Advert::select('id','title','descri','tel','link_id','img','create_time')->where('user_id',$user_id)->first();
+		$advert->jump_url   = Link::where('id',$advert->link_id)->value('jump_url');
+		unset($advert->link_id);
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$advert));
 	}
 }
