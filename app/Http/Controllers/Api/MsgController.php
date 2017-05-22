@@ -49,7 +49,8 @@ class MsgController extends Controller
 		foreach($msg as $k=>$v)
 		{
 			$msg[$k] = Article::where('id',$v->content)->select('id','title','summary','logo','views','created_at')->first();
-			//$msg[$k]->logo = ["http://shop.m9n.com/image/show".$v->logo];
+			$new_logo = "http://shop.m9n.com/image/show".$v->logo;
+			$msg[$k]->logo = array($new_logo);
 		}
 		
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=> $msg));
