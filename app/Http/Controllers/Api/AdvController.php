@@ -94,7 +94,7 @@ class AdvController extends Controller
     *修改广告
     *
     ***/
-    public function add(Request $request)
+    public function update(Request $request)
     {
         $user_id    = $request->input('user_id');
 		$title      = $request->input('title');
