@@ -456,8 +456,9 @@ Route::Group(['prefix'=>'admin','namespace'=>'Admin','middleware' =>['auth','aut
     Route::get("xunSearch/clear",['as'=>'admin.xunSearch.clear','uses'=>'XunSearchController@clear']);
     Route::get("xunSearch/rebuild",['as'=>'admin.xunSearch.rebuild','uses'=>'XunSearchController@rebuild']);
 
-
-
+	/*推送消息*/
+    Route::resource('msg', 'MsgController',['except' => ['show']]);
+	Route::get('msg/postmsg',['as'=>'admin.msg.postmsg','uses'=>'MsgController@postmsg']);
 });
 
 

@@ -57,6 +57,7 @@
             <li><a href="{{ route('admin.goods.index') }}"><i class="fa fa-circle-o"></i> 积分商城</a></li>
             <li><a href="{{ route('admin.exchange.index') }}"><i class="fa fa-circle-o"></i> 兑换记录</a></li>
             <li><a href="{{ route('admin.friendshipLink.index') }}"><i class="fa fa-circle-o"></i> 友情链接</a></li>
+			<li><a href="{{ route('admin.msg.index') }}"><i class="fa fa-circle-o"></i> 推送消息</a></li>
         </ul>
     </li>
 
