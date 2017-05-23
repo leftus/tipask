@@ -82,16 +82,16 @@ class AdvController extends Controller
 	{
 		$user_id    = $request->input('user_id');
 		$token      = $request->input('token');
-		
+		$tmp = new \stdClass();
 		if(empty($user_id)||empty($token))
 		{
-			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>''));
+			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>$tmp));
 		}
 		//验证token
 		$user = User::where('id',$user_id)->select('password','sort')->first();
 		if(md5(($user->password).($user->sort)) != $token)
 		{
-			return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>''));
+			return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>$tmp));
 		}
 		$advert = Advert::select('id','title','descri','tel','link_id','img','create_time')->where('user_id',$user_id)->first();
 		$advert->jump_url   = Link::where('id',$advert->link_id)->value('jump_url');
