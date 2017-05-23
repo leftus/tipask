@@ -12,15 +12,7 @@ use App\Http\Controllers\Controller;
 
 class MsgController extends Controller
 {
-    /***
-    *给所有设备下发通知 推送类型 1：文章 2：内容
-    *
-    ***/
-    public function post_all(Request $request)
-    {	
-		
-    }
-	
+    
 	/***
     *我的消息
     *
