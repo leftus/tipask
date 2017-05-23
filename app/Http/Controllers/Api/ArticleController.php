@@ -64,14 +64,15 @@ class ArticleController extends Controller
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
 		}
-		$data = Article::where('id',$article_id)->select('id','title','source','created_at','comments')->first();
+		$data = Article::where('id',$article_id)->select('id','title','source','created_at','views')->first();
 		$data->created_at = date('Y-m-d',strtotime($data->created_at));
 		if($user_id>0)
 		{
 			$advert = Advert::where('user_id',$user_id)->select('title','descri','img','tel','link_id')->first();
 			
 		}
-		
+		$data->comments = $data->views;
+		unset($data->views);
 		if(!empty($advert))
 		{
 			$link   = Link::where('id',$advert->link_id)->value('jump_url');
