@@ -39,7 +39,7 @@ class ArticleController extends Controller
        $data = new \stdClass(); 
 	   $take = 10;
 		$skip = ($page-1)*$take;
-       $list = Article::orderBy('id','desc')->where('category_id',$cate)->skip($skip)->take($take)->select('id','title','summary','logo','views','created_at')->get();
+       $list = Article::orderBy('id','desc')->where('category_id',$cate)->skip($skip)->take($take)->select('id','title','summary','source','logo','views','created_at')->get();
 		
         $data->code = 0;
         $data->msg = "获取成功";
@@ -48,6 +48,10 @@ class ArticleController extends Controller
 				$image = array();
 				$image[] = $v->logo;
 				$v->logo = $image;
+				if(empty($v->source))
+				{
+					$v->source = '';
+				}
 			}
 		$data->data = $list;
 		return response()->json($data);
