@@ -95,7 +95,7 @@ class AdvController extends Controller
 		}
 		$advert = Advert::select('id','title','descri','tel','link_id','img','create_time')->where('user_id',$user_id)->first();
 		$advert->jump_url   = Link::where('id',$advert->link_id)->value('jump_url');
-		unset($advert->link_id);
+		//unset($advert->link_id);
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$advert));
 	}
 	 /***
