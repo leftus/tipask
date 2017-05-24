@@ -25,7 +25,7 @@ class AdvController extends Controller
 		$descri     = $request->input('descri');
 		$tel        = $request->input('tel');
 		$link_id    = $request->input('link_id');
-		$token      = $request->input('token');
+		$token      = $request->input('token'); 
 		if(empty($user_id)||empty($title)||empty($descri)||empty($tel)||empty($link_id)||empty($token))
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
@@ -39,7 +39,7 @@ class AdvController extends Controller
 		$date = date('Y-m-d');
 		$path = '';
 		//如果有图片则上传
-		if(isset($_FILES['file'])){
+		if(isset($_FILES['file'])&&$_FILES['file']['size']>0){
 			$upload_dir = ('./upload/'.$user_id.'/'.$date.'/');
 			if(!file_exists($upload_dir)){
 				mkdir($upload_dir,0777,true);
@@ -64,19 +64,23 @@ class AdvController extends Controller
 			}else{
 				return response()->json(array('code'=>4,'msg'=>'上传失败','data'=>$upload_dir.$md5_file.'.'.$extension));
 			}
-		} 
-		$is_adv = Advert::where('user_id','=',$user_id)->value('id');
-		if($is_adv>0){
-			$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id,'img'=>$path,'create_time'=>date('Y-m-d H:i:s',time())];
-			Advert::where('user_id','=',$user_id)->update($advert);
-			return response()->json(array('code'=>0,'msg'=>'修改成功','data'=>array()));
-		}else{
-			$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id,'img'=>$path,'create_time'=>date('Y-m-d H:i:s',time())];
-			Advert::insert($advert);
-			return response()->json(array('code'=>0,'msg'=>'添加成功','data'=>array()));
 		}
-		
-		
+		$is_adv = Advert::where('user_id','=',$user_id)->value('id');
+		$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id];
+		if($path)
+		{
+			$advert = $advert+array('img'=>$path);
+		}
+		if($is_adv>0){
+			$advert = $advert+array('update_time'=>date('Y-m-d H:i:s',time()));
+			Advert::where('user_id','=',$user_id)->update($advert);
+			$msg = '修改成功';
+		}else{
+			$advert = $advert+array('create_time'=>date('Y-m-d H:i:s',time()));
+			Advert::insert($advert);
+			$msg = '添加成功';
+		} 
+		return response()->json(array('code'=>0,'msg'=>$msg,'data'=>array()));
     }
     public function lists(Request $request)
 	{
