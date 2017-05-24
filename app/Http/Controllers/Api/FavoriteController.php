@@ -100,7 +100,7 @@ class FavoriteController extends Controller
 		foreach($favorite as $k=>$v)
 		{
 			$favorite[$k] = Article::where('id',$v->article_id)->select('id','title','summary','logo','views','created_at')->first();
-			$favorite[$k]->logo = ["http://shop.m9n.com/image/show".($favorite[$k]->logo)];
+			$favorite[$k]->logo = ["http://shop.m9n.com/image/show/".($favorite[$k]->logo)];
 		}
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$favorite));
 	}
