@@ -20,7 +20,15 @@ class LinkController extends Controller
 		$title   = $request->input('title');
 		$url     = $request->input('url');
 		$token      = $request->input('token');
-        if(empty($user_id)||empty($title)||empty($url)||empty($token))
+		if(empty($title))
+		{
+			return response()->json(array('code'=>1,'msg'=>'缺少标题','data'=>array()));
+		}
+		if(empty($url))
+		{
+			return response()->json(array('code'=>1,'msg'=>'缺少链接地址','data'=>array()));
+		}
+        if(empty($user_id)||empty($token))
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
 		}
