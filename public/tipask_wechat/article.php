@@ -138,6 +138,7 @@
 				$.get("./ajax/ajax_favorite.php?aid="+id+'&isfav='+is_favorite,function(data,status){
 					data = eval('(' + data + ')');
 					alert(data.msg);
+					document.location.reload();
 				});
 			}
 		}
