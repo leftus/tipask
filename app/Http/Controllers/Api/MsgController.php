@@ -53,7 +53,13 @@ class MsgController extends Controller
 				$v->id = $article->id;
 				$v->title = $article->title;
 				$v->summary = $article->summary;
-				$v->logo = ["http://shop.m9n.com/image/show/".$article->logo];
+				if(substr($article->logo,0,1)=='/')
+				{
+					$logo = "http://shop.m9n.com/image/show".($article->logo);
+				}else{
+					$logo = "http://shop.m9n.com/image/show/".($article->logo);
+				}
+				$v->logo = [$logo];
 				$v->views = $article->views;
 				$v->created_at = $article->created_at;
 			}else{
