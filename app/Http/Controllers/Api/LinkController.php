@@ -98,6 +98,13 @@ class LinkController extends Controller
 		$user_id = $request->input('user_id');
 		$page    = $request->input('page');
 		$token      = $request->input('token');
+		$count_show = $request->input('count_show');
+		if(empty($count_show))
+		{
+			$count_show = 0;
+		}else{
+			$count_show = 1;
+		}
 		if(empty($page)){
             $page = 1;
         }
@@ -114,7 +121,11 @@ class LinkController extends Controller
 		$take = 10;
 		$skip = ($page-1)*$take;
         $list = Link::orderBy('id','desc')->where('user_id',$user_id)->skip($skip)->take($take)->select('title','jump_url','id')->get();
-		
+		if($count_show)
+		{
+			$count = Link::where('user_id',$user_id)->count('id');
+			return response()->json(array('code'=>0,'msg'=>'成功','count'=>$count,'data'=>$list));
+		}
         return response()->json(array('code'=>0,'msg'=>'成功','data'=> $list));
     }
  

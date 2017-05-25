@@ -22,6 +22,13 @@ class MsgController extends Controller
 		$user_id = $request->input('user_id');
 		$page    = $request->input('page');
 		$token      = $request->input('token');
+		$count_show = $request->input('count_show');
+		if(empty($count_show))
+		{
+			$count_show = 0;
+		}else{
+			$count_show = 1;
+		}
 		if(empty($page)){
             $page = 1;
         }
@@ -56,7 +63,11 @@ class MsgController extends Controller
 			
 			unset($v->content);
 		}
-		
+		if($count_show)
+		{
+			$count = Msg::whereRaw('to_user in ('.$user_id.',0) and type=1')->count('id');
+			return response()->json(array('code'=>0,'msg'=>'成功','count'=>$count,'data'=>$msg));
+		}
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=> $msg));
     }
 	

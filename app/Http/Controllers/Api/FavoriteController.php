@@ -79,6 +79,13 @@ class FavoriteController extends Controller
         $user_id    = $request->input('user_id');
 		$token      = $request->input('token');
 		$page       = $request->input('page');
+		$count_show = $request->input('count_show');
+		if(empty($count_show))
+		{
+			$count_show = 0;
+		}else{
+			$count_show = 1;
+		}
 		if(empty($page))
 		{
 			$page = 1;
@@ -101,6 +108,11 @@ class FavoriteController extends Controller
 		{
 			$favorite[$k] = Article::where('id',$v->article_id)->select('id','title','summary','logo','views','created_at')->first();
 			$favorite[$k]->logo = ["http://shop.m9n.com/image/show/".($favorite[$k]->logo)];
+		}
+		if($count_show)
+		{
+			$count = Favorite::where('user_id',$user_id)->count('id');
+			return response()->json(array('code'=>0,'msg'=>'成功','count'=>$count,'data'=>$favorite));
 		}
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$favorite));
 	}

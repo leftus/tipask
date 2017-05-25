@@ -30,6 +30,13 @@ class ArticleController extends Controller
         
 		$page = $request->input('page');
 		$cate  = $request->input('cate');
+		$count_show = $request->input('count_show');
+		if(empty($count_show))
+		{
+			$count_show = 0;
+		}else{
+			$count_show = 1;
+		}
         if(empty($page)){
             $page = 1;
         }
@@ -39,12 +46,16 @@ class ArticleController extends Controller
        $data = new \stdClass(); 
 	   $take = 10;
 		$skip = ($page-1)*$take;
-       $list = Article::orderBy('id','desc')->where('category_id',$cate)->skip($skip)->take($take)->select('id','title','summary','source','logo','views','created_at')->get();
-		
+        $list = Article::orderBy('id','desc')->where('category_id',$cate)->skip($skip)->take($take)->select('id','title','summary','source','logo','views','created_at')->get();
+		if($count_show)
+		{
+			$count = Article::orderBy('id','desc')->where('category_id',$cate)->count('id');
+			$data->count = $count;
+		}
         $data->code = 0;
         $data->msg = "获取成功";
 		foreach($list as $v){
-				$v->logo = "http://shop.m9n.com/image/show/".$v->logo;
+				$v->logo = "http://shop.m9n.com/image/show/./".$v->logo;
 				$image = array();
 				$image[] = $v->logo;
 				$v->logo = $image;
