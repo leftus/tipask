@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Msg;
 use App\Models\XingeApp;
+use App\Models\Message;
+use App\Models\Style;
+use App\Models\ClickAction;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Config;
-
+//require_once ('XingeApp.php');
 class MsgController extends AdminController
 {
     /*权限验证规则*/
@@ -122,14 +125,50 @@ class MsgController extends AdminController
 		$msg = Msg::where('id',$id)->first();
 		$title   = $msg->title;
 		$content = $msg->content;
+		//IOS
+		$push = new XingeApp(2200259225, 'e93553fa967e5a698af8e6505372abee');
+		$mess = new Message();
+		$mess->setType(Message::TYPE_NOTIFICATION);
+		$mess->setTitle($title);
+		$mess->setContent($content);
+		$mess->setExpireTime(86400);
+		$style = new Style(0);
+		$action = new ClickAction();
+		$action->setActionType(ClickAction::TYPE_URL);
+		$action->setUrl("http://xg.qq.com");
+		#打开url需要用户确认
+		$action->setComfirmOnUrl(1);
+		$mess->setStyle($style);
+		$mess->setAction($action);
+		$ios_callback = $push->PushAllDevices(0, $mess);
+		$error = 0;
+		if($ios_callback['ret_code']!=0)
+		{
+			$error++;
+			$message = '错误码:'.$ios_callback['ret_code'].',错误信息：'.$ios_callback['err_msg'];
+			return $this->error(route('admin.msg.index'),$message);
+		}else{
+			$push_id = $ios_callback['result']['push_id'];
+		}
 		//androd
-		$androd_callback = XingeApp::PushAllAndroid(2100259224, "46dc9b997f1f3db3bbab8ed057a8959a", $title, $content);
-		
-		//ios
-		//var_dump(XingeApp::PushAllIos(2200259225, "e93553fa967e5a698af8e6505372abee",$content, XingeApp::IOSENV_DEV));
+		$push = new XingeApp(2100259224, '46dc9b997f1f3db3bbab8ed057a8959a');
+		$mess = new Message();
+		$mess->setType(Message::TYPE_NOTIFICATION);
+		$mess->setTitle($title);
+		$mess->setContent($content);
+		$mess->setExpireTime(86400);
+		$style = new Style(0);
+		$action = new ClickAction();
+		$action->setActionType(ClickAction::TYPE_URL);
+		$action->setUrl("http://xg.qq.com");
+		#打开url需要用户确认
+		$action->setComfirmOnUrl(1);
+		$mess->setStyle($style);
+		$mess->setAction($action);
+		$androd_callback = $push->PushAllDevices(0, $mess);
 		if($androd_callback['ret_code']==0)
 		{
-			$push_id = $androd_callback['result']['push_id'];
+			$push_id = $push_id.'||'.$androd_callback['result']['push_id'];
 			Msg::where('id','=',$id)->update(['push_id'=>$push_id,'post_time'=>date('Y-m-d H:i:s',time())]);
 			return $this->success(route('admin.msg.index'),'发布成功');
 		}else{

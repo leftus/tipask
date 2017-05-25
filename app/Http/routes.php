@@ -268,6 +268,8 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
     Route::post('adv/add',['as'=>'api.adv.add','uses'=>'AdvController@add']);
 	/*广告列表*/
     Route::post('adv/list',['as'=>'api.adv.list','uses'=>'AdvController@lists']);
+	/*广告修改*/
+    Route::post('adv/update',['as'=>'api.adv.update','uses'=>'AdvController@update']);
 	
 	
 	/*消息推送-全部*/

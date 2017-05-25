@@ -107,7 +107,13 @@ class FavoriteController extends Controller
 		foreach($favorite as $k=>$v)
 		{
 			$favorite[$k] = Article::where('id',$v->article_id)->select('id','title','summary','logo','views','created_at')->first();
-			$favorite[$k]->logo = ["http://shop.m9n.com/image/show/".($favorite[$k]->logo)];
+			if(substr($favorite[$k]->logo,0,1)=='/')
+			{
+				$logo = "http://shop.m9n.com/image/show".($favorite[$k]->logo);
+			}else{
+				$logo = "http://shop.m9n.com/image/show/".($favorite[$k]->logo);
+			}
+			$favorite[$k]->logo = [$logo];
 		}
 		if($count_show)
 		{
