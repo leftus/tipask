@@ -8,7 +8,7 @@
 		$user_id = 0;
 	}
 	
-	$post = 'article_id='.$_GET['article_id'];
+	$post = 'article_id='.$_GET['article_id'].'&user_id='.$user_id;
 	$ch = curl_init();
 	curl_setopt($ch,CURLOPT_URL,$root_url.'/api/article/detail');
 	curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);//关闭直接输出
@@ -19,13 +19,19 @@
 	curl_close($ch);
 	
 	if($listData['code']==0)
-	{
+	{ 
 		$listData = $listData['data'];
+		if($listData['is_favorite']){
+			$is_favorite = 'images/favorited.png';
+		}else{
+			$is_favorite = 'images/shoucang.png';
+		}
 		$str = file_get_contents($listData['content']);
 		   if(preg_match_all("/<body\s{0,10}id=\"content\">([\w\W]*)<\/body>/",$str,$new)){
 		   }else{
 			   echo '未找到';
 		   }
+		
 	}else{
 		echo '获取失败！';
 		exit();
@@ -72,7 +78,7 @@
 	 	<a href="##" onclick="history.back();"><div class="fl arttab1"><span class="artimg1"><img src="images/fanhui.png" alt=""></span></div></a>
 	 	<p class="fl arttab2"><?php echo $listData['source'];?></p>
 	 	<div   class="fl clearfix arttab1">
-	 		<span class="fl artimg2" onclick="add_favorite(<?php echo $listData['id'].','.$listData['is_favorite'].','.$user_id;?>)"><img src="images/shoucang.png" alt=""></span> <!--收藏-->
+	 		<span class="fl artimg2" onclick="add_favorite(<?php echo $listData['id'].','.$listData['is_favorite'].','.$user_id;?>)"><img src="<?php echo $is_favorite;?>" alt=""></span> <!--收藏-->
 	 		<span class="fl artimg3" id="sharetxt"><img src="images/fenxiang.png" alt=""></span><!--分享-->
 	 	</div>
 	 </div>
