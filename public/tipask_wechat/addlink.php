@@ -19,7 +19,7 @@
 			alert_msg($ListDate['msg']);
 			header("Location: login.php");
 		}else{
-			header('Location: diylink.php');
+			go_url('diylink.php','添加成功');
 		}
     }
 

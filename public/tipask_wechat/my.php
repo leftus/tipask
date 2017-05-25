@@ -13,7 +13,7 @@
 	$ListDate = json_decode($ListDate,true);
 	curl_close($ch);
 	if($ListDate['code']!=0){
-		go_url('login.php',$ListDate['msg']);
+		go_url('login.php','请先登录');
 	}else{
 		$ListDate = $ListDate['data'];
 	}
