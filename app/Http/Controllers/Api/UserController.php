@@ -110,9 +110,7 @@ class UserController extends Controller
 		{
 			return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
 		}
-		$user = User::where('id',$user_id)->select('id','name','province','city','title')->first();
-		$user->province = Area::where('id',$user->province)->value('name');
-		$user->city = Area::where('id',$user->city)->value('name');
+		$user = User::where('id',$user_id)->select('id','name','province','city','title','headimg')->first();
 		if(empty($user->province))
 		{
 			$user->province = '未知';
@@ -121,7 +119,10 @@ class UserController extends Controller
 		{
 			$user->city = '未知';
 		}
-		$user->headimg = './image/avatar/'.($user->id).'_middle.jpg';
+		if(empty($user->headimg))
+		{
+			$user->headimg = '未知';
+		}
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$user));
 		
 		
