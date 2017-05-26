@@ -34,8 +34,7 @@ class AdvController extends Controller
 		$user = User::where('id',$user_id)->select('password','sort')->first();
 		if(md5(($user->password).($user->sort)) != $token)
 		{
-			$str = ($user->password).'||'.($user->sort).'||'.md5(($user->password).($user->sort)).'||'.$token;
-			return response()->json(array('code'=>3,'msg'=>$str ,'data'=>array()));
+			return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
 		}
 		$date = date('Y-m-d');
 		$path = '';
