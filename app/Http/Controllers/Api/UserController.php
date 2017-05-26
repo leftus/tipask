@@ -18,9 +18,15 @@ class UserController extends Controller
 		$login_type = $request->input('login_type');
 		
 		//新用户
-		$head   = $request->head;
-		$sex    = $request->sex;
-		$nickname = $request->nickname;
+		$sex    = $request->input('sex');
+		$nickname = $request->input('nickname');
+		$city     = $request->input('city');
+		$province = $request->input('province');
+		$country  = $request->input('country');
+		$headimgurl = $request->input('headimgurl');
+		
+		
+		
 		if(in_array($sex,["f","女","w",2])){
 		  $sex = 2;//女
 		}elseif(in_array($sex,["m","男",1])){
@@ -33,15 +39,18 @@ class UserController extends Controller
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
 		}
+		$wx_openid = $fc_openid = $wx2_openid ='';
 		if($login_type=='wechat')
 		{
 			$where = "wx_openid='$openid'";
 			$wx_openid = $openid;
-			$fc_openid = '';
 		}elseif($login_type=='facebook'){
 			$where =  "fc_openid='$openid'";
-			$wx_openid = '';
 			$fc_openid = $openid;
+		}elseif($login_type=='wx2'){
+			$where =  "wx2_openid='$openid'";
+			$wx2_openid = $openid;
+			
 		}else{
 			return response()->json(array('code'=>2,'msg'=>'参数错误','data'=>array()));
 		}
@@ -60,27 +69,27 @@ class UserController extends Controller
 				$user->city = '未知';
 			}
 			$password = $user->password;
-			 unset($user->password);
+			unset($user->password);
 			 //修改密钥
-			 User::where('id','=',$user->id)->update(['sort'=>$sort]);
-			 $token = md5($password.$sort);
-			 $user->headimg = './image/avatar/'.($user->id).'_middle.jpg';
-			 $user->token   = $token;
+			User::where('id','=',$user->id)->update(['sort'=>$sort]);
+			$token = md5($password.$sort);
+			$user->headimg = './image/avatar/'.($user->id).'_middle.jpg';
+			$user->token   = $token;
 		 }else{
 			$user = new \stdClass();
 			//新用户插入
 			$password = md5('HTTP://shop.m9n.com');
 			$email = time().'@none.com';
-			$new_user = ['name'=>$nickname,'wx_openid'=>$wx_openid,'fc_openid'=>$fc_openid,'email'=>$email,'password'=>$password,'gender'=>$sex,'created_at'=>date('Y-m-d H:i:s',time()),'sort'=>$sort];
+			
+			$new_user = ['name'=>$nickname,'wx_openid'=>$wx_openid,'fc_openid'=>$fc_openid,'wx2_openid'=>$wx2_openid,'email'=>$email,'password'=>$password,'city'=>$city,'province'=>$province,'headimg'=>$headimgurl,'gender'=>$sex,'created_at'=>date('Y-m-d H:i:s',time()),'sort'=>$sort];
 			$user->id   = User::insert($new_user); 
 			$user->name = $nickname;
-			$user->province = '';
-			$user->city = '';
+			$user->province = $province;
+			$user->city = $city;
 			$user->title = '';
 			$user->token = md5($password.$sort);
-		 }
-		 
-		 return response()->json(array('code'=>0,'msg'=>'成功','data'=>$user));
+		}
+		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$user));
     }
 	public function info(Request $request)
 	{
