@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Area;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -58,8 +59,8 @@ class UserController extends Controller
 		 $sort = rand(1000,9999);
 		 if($user)
 		 {
-			$user->province = Area::where('id',$user->province)->value('name');
-			$user->city = Area::where('id',$user->city)->value('name');
+			//$user->province = Area::where('id',$user->province)->value('name');
+			//$user->city = Area::where('id',$user->city)->value('name');
 			if(empty($user->province))
 			{
 				$user->province = '未知';
@@ -67,6 +68,10 @@ class UserController extends Controller
 			if(empty($user->city))
 			{
 				$user->city = '未知';
+			}
+			if(empty($user->title))
+			{
+				$user->title = '';
 			}
 			$password = $user->password;
 			unset($user->password);
@@ -82,8 +87,7 @@ class UserController extends Controller
 			$email = time().'@none.com';
 			
 			$new_user = ['name'=>$nickname,'wx_openid'=>$wx_openid,'fc_openid'=>$fc_openid,'wx2_openid'=>$wx2_openid,'email'=>$email,'password'=>$password,'city'=>$city,'province'=>$province,'headimg'=>$headimgurl,'gender'=>$sex,'created_at'=>date('Y-m-d H:i:s',time()),'sort'=>$sort];
-			User::insert($new_user); 
-			$user->User::insertGetId();
+			$user->id   = User::insertGetId($new_user); 
 			$user->name = $nickname;
 			$user->province = $province;
 			$user->city = $city;
