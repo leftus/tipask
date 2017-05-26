@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Msg;
+use App\Models\Article;
 use App\Models\XingeApp;
 use App\Models\Message;
 use App\Models\Style;
@@ -31,6 +32,18 @@ class MsgController extends AdminController
     public function index(Request $request)
     {
        $msgs = Msg::orderBy('id','DESC')->paginate(10);
+	   foreach($msgs as $v)
+	   {
+		   if($v->type==1)
+		   {
+			   $v->content = Article::where('id',$v->content)->value('title');
+			   
+		   }
+		   if($v->to_user==0)
+		   {
+			  $v->to_user='全部';
+		   }
+	   }
 	   return view('admin.msg.index')->with('msgs',$msgs);
     }
 
@@ -41,7 +54,8 @@ class MsgController extends AdminController
      */
     public function create()
     {
-        return view('admin.msg.create');
+		$article = Article::select('id','title')->orderBy('id','desc')->get();
+        return view('admin.msg.create')->with('article',$article);;
 
     }
 
@@ -59,11 +73,16 @@ class MsgController extends AdminController
         $msgs = msg::create($request->all());
 		$msgs->title = $request->input('title');
         $msgs->type = $request->input('type');
-        $msgs->content = $request->input('content');
+		$type = $request->input('type');
+		if($type==1)
+		{
+			$msgs->content = $request->input('select_article');
+		}else{
+			$msgs->content = $request->input('content');
+		}
         $msgs->to_user = $request->input('to_user');
         $msgs->create_time = date('Y-m-d H:i:s',time());
         $msgs->save();
-
         return $this->success(route('admin.msg.index'),'新增消息成功');
     }
 
@@ -80,7 +99,8 @@ class MsgController extends AdminController
         if(!$msgs){
             return $this->error(route('admin.msg.index'),'消息不存在，请核实');
         }
-        return view('admin.msg.edit')->with('msgs',$msgs);
+		$article = Article::select('id','title')->orderBy('id','desc')->get();
+        return view('admin.msg.edit')->with('msgs',$msgs)->with('article',$article);
     }
 
     /**
@@ -100,12 +120,18 @@ class MsgController extends AdminController
         $this->validate($request,$this->validateRules);
         $msgs->title = $request->input('title');
         $msgs->type = $request->input('type');
-        $msgs->content = $request->input('content');
+		$type = $request->input('type');
+		if($type==1)
+		{
+			$msgs->content = $request->input('select_article');
+		}else{
+			$msgs->content = $request->input('content');
+		}
         $msgs->to_user = $request->input('to_user');
         $msgs->update_time = date('Y-m-d H:i:s',time());
         
         $msgs->save();
-        return $this->success(route('admin.msg.index'),'商品修改成功');
+        return $this->success(route('admin.msg.index'),'消息修改成功');
 
     }
 

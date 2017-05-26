@@ -1,5 +1,9 @@
 @extends('admin/public/layout')
 @section('title')编辑消息@endsection
+@section('css')
+    <link href="{{ asset('/static/js/select2/css/select2.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('/static/js/select2/css/select2-bootstrap.min.css')}}" rel="stylesheet">
+@endsection
 @section('content')
     <section class="content-header">
         <h1>
@@ -11,8 +15,10 @@
             <div class="col-xs-12">
                 <div class="box box-primary">
                     <form role="form" name="editForm" method="POST" enctype="multipart/form-data" action="{{ route('admin.msg.update',['id'=>$msgs->id]) }}">
+					
                         <input name="_method" type="hidden" value="PUT">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+						 <input type="hidden" id="tags" name="skill" value="0" />
                         <div class="box-body">
 
                             <div class="form-group @if($errors->has('title')) has-error @endif">
@@ -22,29 +28,44 @@
                             </div>
 							<div class="form-group">
                                 <label>消息类型</label>
-                                <span class="text-muted">(推送消息类型，1：文章 2：文本)</span>
+                                <span class="text-muted"></span>
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="type" value="1" @if($msgs->type === 1 ) checked @endif /> 文章
+                                        <input type="radio" name="type" class="article_type" value="1" @if($msgs->type === 1 ) checked @endif /> 文章
                                     </label>&nbsp;&nbsp;
                                     <label>
-                                        <input type="radio" name="type" value="2" @if($msgs->type === 2 ) checked @endif /> 内容
+                                        <input type="radio" name="type" class="article_type" value="2" @if($msgs->type === 2 ) checked @endif /> 内容
                                     </label>
                                 </div>
                             </div>
 
-                            <div class="form-group @if($errors->has('content')) has-error @endif">
+                            <div id="post_content" style="display:none;"  class="form-group @if($errors->has('content')) has-error @endif">
                                 <label>消息内容</label>
                                 <input type="text" name="content" class="form-control " placeholder="推送内容" value="{{ old('content',$msgs->content) }}">
                                 @if($errors->has('content')) <p class="help-block">{{ $errors->first('content') }}</p> @endif
                             </div>
+							<div id="post_article" class="form-group">
+								<label>推送文章</label>
+								<div>
+									<select id="select_article" name="select_article" class="form-control" >
 
-
-                            <div class="form-group @if($errors->has('to_user')) has-error @endif">
+										@if($article)
+												@foreach($article as $v)
+													@if(($v->id) == ($msgs->content))
+															<option value="{{ $v->id }}" >{{ $v->title }}</option>
+													@endif
+												@endforeach
+											@endif
+									</select>
+								</div>
+							</div>
+							<div class="form-group @if($errors->has('to_user')) has-error @endif">
                                 <label>推送对象</label>
-                                <input type="text" name="to_user" class="form-control " placeholder="推送给所有人填0" value="{{ old('to_user',$msgs->to_user) }}">
+                                <input type="text" name="to_user" class="form-control " placeholder="推送给所有人填0" value="{{ old('content',$msgs->to_user) }}">
                                 @if($errors->has('to_user')) <p class="help-block">{{ $errors->first('to_user') }}</p> @endif
                             </div>
+
+                            
 
 
                         </div>
@@ -61,5 +82,59 @@
 @section('script')
     <script type="text/javascript">
         set_active_menu('operations',"{{ route('admin.notice.index') }}");
+    </script>
+	<script src="{{ asset('/static/js/select2/js/select2.min.js')}}"></script>
+    <script type="text/javascript">
+        $(function(){
+			
+            $("#select_article").select2({
+                theme:'bootstrap',
+                placeholder: "文章关键词",
+                ajax: {
+                    url: '/ajax/loadArticles',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            word: params.term
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength:1,
+                //tags:true
+            });
+
+            $("#select_article").change(function(){
+                $("#tags").val($("#select_article").val());
+            });
+
+			if($(".article_type").val()==1)
+			{
+				$('#post_content').hide();
+				$('#post_article').show();
+				$('#post_content input').val('');
+				
+			}else{
+				$('#post_content').show();
+				$('#post_article').hide();
+				$('#select_article').val('');
+			}
+			$(".article_type").change(function(){
+				if($(this).val()==1)
+				{
+					$('#post_content').hide();
+					$('#post_article').show();
+				}else{
+					$('#post_content').show();
+					$('#post_article').hide();
+				}
+			});
+        });
     </script>
 @endsection

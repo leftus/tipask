@@ -11,6 +11,7 @@ use App\Models\QuestionInvitation;
 use App\Models\Tag;
 use App\Models\Taggable;
 use App\Models\User;
+use App\Models\Article;
 use App\Models\UserTag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -90,7 +91,21 @@ class AjaxController extends Controller
         return response()->json($tags->toArray());
     }
 
+	public function loadArticles(Request $request)
+    {
+        $word = $request->input('word');
+        $tags = [];
+        if( strlen($word) > 10 ){
+            return response()->json($tags);
+        }
+        $type = $request->input('type','all');
+        if(!$word){
+            $tags = Article::hottest($type,10);
+        }
 
+        $tags = Article::where('title','like',$word.'%')->select('id',DB::raw('title as text'))->take(10)->get(); 
+        return response()->json($tags->toArray());
+    }
 
     public function loadUsers(Request $request)
     {
