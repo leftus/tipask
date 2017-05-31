@@ -85,7 +85,7 @@
 		
 	 	<div id="news"><?php echo $listData->content;?></div>
 	 </div>
-	 <div class="artbtm clearfix" <?php echo $display2;?>>
+	 <div class="artbtm clearfix" style="display:none;">
 	 	<a onclick="add_favorite()">
 	 	<span class="artimg5 fl"><img src="/share/images/shouji.png" alt=""></span>
 	 	<div class="fl">
