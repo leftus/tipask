@@ -86,11 +86,11 @@
 	 	<div id="news"><?php echo $listData->content;?></div>
 	 </div>
 	 <div class="artbtm clearfix" <?php echo $display2;?>>
-	 	<a href="addAD.php">
+	 	<a onclick="add_favorite()">
 	 	<span class="artimg5 fl"><img src="/share/images/shouji.png" alt=""></span>
 	 	<div class="fl">
 	 		<p class="artbtp1">点击这里，免费植入你自己的广告</p>
-	 		<p class="artbtp2">迅速将您的生意传遍到全国&nbsp<a href="addAD.php" class="artbtp3">立即体验</a></p>
+	 		<p class="artbtp2">迅速将您的生意传遍到全国&nbsp<a onclick="add_favorite()">立即体验</a></p>
 	 	</div>
 	 	<span class="fl artimg6"><img src="/share/images/more.png" alt=""></span>
 	 	</a>
@@ -128,17 +128,9 @@
 			function(){
 				$("#popwiow1").hide();
 			});
-		function add_favorite(id,is_favorite,user_id)
+		function add_favorite()
 		{
-			if(user_id==0){
-				alert('请先登录!');
-			}else{
-				$.get("/share/ajax/ajax_favorite.php?aid="+id+'&isfav='+is_favorite,function(data,status){
-					data = eval('(' + data + ')');
-					alert(data.msg);
-					document.location.reload();
-				});
-			}
+			alert('请先登录!');
 		}
 	 </script>
 </body>
