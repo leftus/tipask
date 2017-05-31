@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Blog;
 
 use App\Models\Article;
+use App\Models\Advert;
+use App\Models\Link;
+use App\Models\Favorite;
 use App\Models\Question;
 use App\Models\Tag;
 use App\Models\UserData;
@@ -161,7 +164,50 @@ class ArticleController extends Controller
                                           ->with('relatedArticles',$relatedArticles);
         ;
     }
-
+	public function share($article_id,$user_id,Request $request)
+    {
+		if(empty($article_id))
+		{
+			print('缺少参数');
+			exit();
+		}
+		$data = Article::where('id',$article_id)->select('id','title','source','created_at','views','content')->first();
+		$data->created_at = date('Y-m-d',strtotime($data->created_at));
+		if($user_id>0)
+		{
+			$advert = Advert::where('user_id',$user_id)->select('title','descri','img','tel','link_id')->first();
+			
+		}
+		$data->comments = $data->views;
+		unset($data->views);
+		if(!empty($advert))
+		{
+			$link   = Link::where('id',$advert->link_id)->value('jump_url');
+			$advert->jump_url = $link;
+			unset($advert->link_id);
+			$data->isadv = 1;
+		}else{
+			$advert = new \stdClass();
+			$data->isadv = 0;
+			$advert->title = $advert->descri = $advert->img = $advert->tel = $advert->jump_url ='';
+		}
+		$data->advert = $advert;
+		if(empty($data->source))
+		{
+			$data->source = '';
+		}
+		//判断是否收藏
+		$data->is_favorite = 0;
+		if(!empty($user_id))
+		{
+			$favorite = Favorite::whereRaw('user_id='.$user_id.' and article_id='.$article_id)->value('id');
+			if($favorite>0)
+			{
+				$data->is_favorite = 1;
+			}
+		}
+		return view("theme::article.share")->with('article',$data);
+    }
     /**
      * 显示文字编辑页面
      * @param  int  $id

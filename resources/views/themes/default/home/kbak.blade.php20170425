@@ -1,6 +1,6 @@
 @extends('theme::layout.public')
 @section('seo_title'){{ parse_seo_template('seo_index_title','default') }}@endsection
-@section('containnew')
+@section('content')
 <link rel="stylesheet" href="/Home/css/site/base.css" />
 <link rel="stylesheet" href="/Home/css/site/index_1116.css" />
 <link rel="stylesheet" href="/Home/css/site/animate.min.css" />

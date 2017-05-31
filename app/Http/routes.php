@@ -238,6 +238,8 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
 	/*文章详情*/
     Route::post('article/detail',['as'=>'api.article.detail','uses'=>'ArticleController@detail']);
 	
+	/*文章分享页面*/
+    Route::post('article/detail_share',['as'=>'api.article.detail_share','uses'=>'ArticleController@detail_share']);
 	
 	/*收藏文章*/
     Route::post('favorite/add',['as'=>'api.favorit.add','uses'=>'FavoriteController@add']);
@@ -290,6 +292,9 @@ Route::Group(['namespace'=>'Blog'],function(){
 
     /*文章查看*/
     Route::get('article/{id}',['as'=>'blog.article.detail','uses'=>'ArticleController@show'])->where(['id'=>'[0-9]+']);
+	
+	/*文章分享页面*/
+    Route::get('article_share/{article_id}/user/{user_id}',['as'=>'blog.article.detail_share','uses'=>'ArticleController@share'])->where(['article_id'=>'[0-9]+']);
 
     /*需要登录的模块*/
     Route::Group(['middleware'=>'auth'],function(){
@@ -471,6 +476,8 @@ Route::get('ajax/loadCities/{province_id}',['as'=>'website.ajax.loadCities','use
 /*加载未读通知数目*/
 Route::get('ajax/unreadNotifications',['as'=>'website.ajax.unreadNotifications','uses'=>'AjaxController@unreadNotifications']);
 Route::get('ajax/loadTags',['as'=>'website.ajax.loadTags','uses'=>'AjaxController@loadTags']);
+
+Route::get('ajax/loadArticles',['as'=>'website.ajax.loadArticles','uses'=>'AjaxController@loadArticles']);
 
 Route::get('ajax/loadUsers',['middleware' =>'auth','as'=>'website.ajax.loadUsers','uses'=>'AjaxController@loadUsers']);
 Route::get('ajax/loadInviteUsers',['middleware' =>'auth','as'=>'website.ajax.loadInviteUsers','uses'=>'AjaxController@loadInviteUsers']);
