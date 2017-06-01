@@ -96,6 +96,14 @@ class UserController extends Controller
 			$user->title = '';
 			$user->token = md5($password.$sort);
 		}
+		if(empty($user->province))
+		{
+			$user->province = '未知';
+		}
+		if(empty($user->city))
+		{
+			$user->city = '未知';
+		}
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$user));
     }
 	public function info(Request $request)
