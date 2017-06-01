@@ -27,7 +27,7 @@ class UserController extends Controller
 		$headimgurl = $request->input('headimgurl');
 		
 		
-		if(empty($nickname){
+		if(empty($nickname)){
 			$nickname = '新用户';
 		}
 		if(in_array($sex,["f","女","w",2])){
