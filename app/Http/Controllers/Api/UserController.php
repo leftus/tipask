@@ -98,11 +98,11 @@ class UserController extends Controller
 		}
 		if(empty($user->province))
 		{
-			$user->province = '未知';
+			$user->province = '某省';
 		}
 		if(empty($user->city))
 		{
-			$user->city = '未知';
+			$user->city = '某市';
 		}
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$user));
     }
