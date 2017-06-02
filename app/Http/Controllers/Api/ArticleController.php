@@ -81,7 +81,7 @@ class ArticleController extends Controller
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
 		}
-		$data = Article::where('id',$article_id)->select('id','title','source','created_at','views')->first();
+		$data = Article::where('id',$article_id)->select('id','title','source','created_at','views','content')->first();
 		$data->created_at = date('Y-m-d',strtotime($data->created_at));
 		if($user_id>0)
 		{
@@ -116,7 +116,20 @@ class ArticleController extends Controller
 				$data->is_favorite = 1;
 			}
 		}
+		$data->desc    = str_limit($this->format_html($data->content), $limit = 40, $end = '');
 		$data->content = url('article_detail_h5',[$data->id]);
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$data));
+	}
+	function format_html($str){
+		$str = strip_tags($str);
+		$str = str_replace(array("\r\n", "\r", "\n","\t"), "", $str); 
+		$str = str_replace('&ldquo;', '“',$str);
+		$str = str_replace('&rdquo;', '”',$str);
+		$str = str_replace('&middot;', '·',$str);
+		$str = str_replace('&lsquo;', '‘',$str);
+		$str = str_replace('&rsquo;', '’',$str);
+		$str = str_replace('&hellip;', '…', $str);
+		$str = str_replace('&mdash;', '—', $str);
+		return $str;
 	}
 }
