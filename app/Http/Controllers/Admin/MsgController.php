@@ -156,6 +156,38 @@ class MsgController extends AdminController
 		$msg = Msg::where('id',$id)->first();
 		$title   = $msg->title;
 		$content = $msg->content;
+		$to_user = $msg->to_user;
+		if(!empty($to_user)){
+			$error = 0;
+			$error_str = '发送成功';
+			$user = User::where('id',$to_user)->select('device_token','device_type')->first();
+			if($user->device_type==1){
+				//Androd给单个设备下发通知
+				$error_msg = XingeApp::PushTokenAndroid(2100259224, "46dc9b997f1f3db3bbab8ed057a8959a", $title, $content,$user->device_token);
+				if($error_msg['ret_code']!=0){
+					$error++;
+					$error_str = $error_msg['err_msg'];
+				}
+			}elseif($user->device_type==2){
+				//IOS开发环境下 给单个设备下发通知
+				$error_msg = XingeApp::PushTokenIos(2200259225, 'e93553fa967e5a698af8e6505372abee', $content, $user->device_token, XingeApp::IOSENV_DEV);
+				if($error_msg['ret_code']!=0){
+					$error++;
+					$error_str = $error_msg['err_msg'];
+				}
+			}
+			if($error==0){
+				Msg::where('id','=',$id)->update(['post_time'=>date('Y-m-d H:i:s',time())]);
+			return $this->success(route('admin.msg.index'),'发布成功');
+				return $this->success(route('admin.msg.index'),'发布成功');
+			}else{
+				return $this->error(route('admin.msg.index'),$error_str);
+			}
+			
+		}
+		
+		
+		//给所有设备发送
 		//IOS
 		$push = new XingeApp(2200259225, 'e93553fa967e5a698af8e6505372abee');
 		$mess = new Message();
@@ -207,4 +239,5 @@ class MsgController extends AdminController
 			return $this->error(route('admin.msg.index'),$message);
 		}
 	}
+
 }
