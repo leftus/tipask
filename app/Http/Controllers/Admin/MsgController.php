@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Msg;
+use App\Models\User;
 use App\Models\Article;
 use App\Models\XingeApp;
 use App\Models\Message;
@@ -55,7 +56,8 @@ class MsgController extends AdminController
     public function create()
     {
 		$article = Article::select('id','title')->orderBy('id','desc')->get();
-        return view('admin.msg.create')->with('article',$article);;
+		$users    = User::select('id','name')->orderBy('id','desc')->get();
+        return view('admin.msg.create')->with('article',$article)->with('user',$users);
 
     }
 

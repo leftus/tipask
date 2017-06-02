@@ -20,6 +20,7 @@
                     <form role="form" name="addForm" method="POST" enctype="multipart/form-data" action="{{ route('admin.msg.store') }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<input type="hidden" id="tags" name="skill" value="0" />
+						<input type="hidden" id="tags_user" name="skill" value="0" />
                         <div class="box-body">
 
                             <div class="form-group @if($errors->has('title')) has-error @endif">
@@ -63,8 +64,18 @@
 							
                             <div class="form-group @if($errors->has('to_user')) has-error @endif">
                                 <label>推送对象</label>
-                                <input type="text" name="to_user" class="form-control " placeholder="推送给所有人填0" value="">
-                                @if($errors->has('to_user')) <p class="help-block">{{ $errors->first('to_user') }}</p> @endif
+                                <div>
+									<select id="select_user" name="select_user" class="form-control" >
+
+										@if($user)
+												@foreach($user as $v)
+													@if($v->id == -100)
+															<option value="{{ $v->id }}" >{{ $v->name }}</option>
+													@endif
+												@endforeach
+											@endif
+									</select>
+								</div>
                             </div>
                         </div>
                         <div class="box-footer">
@@ -110,7 +121,32 @@
             $("#select_article").change(function(){
                 $("#tags").val($("#select_article").val());
             });
-			
+			$("#select_user").select2({
+                theme:'bootstrap',
+                placeholder: "用户关键词",
+                ajax: {
+                    url: '/ajax/loadTouser',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            word: params.term
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength:1
+                //tags:true
+            });
+
+            $("#select_user").change(function(){
+                $("#tags_user").val($("#select_user").val());
+            });
 
         });
 		$(".article_type").change(function(){

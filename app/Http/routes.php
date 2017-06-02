@@ -478,6 +478,7 @@ Route::get('ajax/unreadNotifications',['as'=>'website.ajax.unreadNotifications',
 Route::get('ajax/loadTags',['as'=>'website.ajax.loadTags','uses'=>'AjaxController@loadTags']);
 
 Route::get('ajax/loadArticles',['as'=>'website.ajax.loadArticles','uses'=>'AjaxController@loadArticles']);
+Route::get('ajax/loadTouser',['as'=>'website.ajax.loadTouser','uses'=>'AjaxController@loadTouser']);
 
 Route::get('ajax/loadUsers',['middleware' =>'auth','as'=>'website.ajax.loadUsers','uses'=>'AjaxController@loadUsers']);
 Route::get('ajax/loadInviteUsers',['middleware' =>'auth','as'=>'website.ajax.loadInviteUsers','uses'=>'AjaxController@loadInviteUsers']);

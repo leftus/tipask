@@ -106,7 +106,21 @@ class AjaxController extends Controller
         $tags = Article::where('title','like',$word.'%')->select('id',DB::raw('title as text'))->take(10)->get(); 
         return response()->json($tags->toArray());
     }
+	public function loadTouser(Request $request)
+    {
+        $word = $request->input('word');
+        $tags = [];
+        if( strlen($word) > 10 ){
+            return response()->json($tags);
+        }
+        $type = $request->input('type','all');
+        if(!$word){
+            $tags = User::hottest($type,10);
+        }
 
+        $tags = User::where('name','like',$word.'%')->select('id',DB::raw('name as text'))->take(10)->get(); 
+        return response()->json($tags->toArray());
+    }
     public function loadUsers(Request $request)
     {
         $word = $request->input('word');
