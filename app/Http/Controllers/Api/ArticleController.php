@@ -118,6 +118,10 @@ class ArticleController extends Controller
 		}
 		$data->desc    = str_limit($this->format_html($data->content), $limit = 40, $end = '');
 		$data->content = url('article_detail_h5',[$data->id]);
+		if(empty($data->content))
+		{
+			$data->content = '';
+		}
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$data));
 	}
 	function format_html($str){
