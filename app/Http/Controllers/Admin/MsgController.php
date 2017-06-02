@@ -271,7 +271,7 @@ class MsgController extends AdminController
 		$mess->setExpireTime(86400);
 		//$mess->setSendTime("2014-03-13 16:00:00");
 		//$mess->setAlert(array('key1'=>'value1'));
-		$mess->setBadge(1);
+		$mess->setBadge(0);
 		$mess->setSound("beep.wav");
 		$mess->setAlert($title);
 		if(is_array($custom))
