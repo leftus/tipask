@@ -17,7 +17,8 @@ class UserController extends Controller
     {
 		$openid     = $request->input('openid');
 		$login_type = $request->input('login_type');
-		
+		$device_token  = $request->input('devicetoken');
+		$device_type = $request->input('device_type');
 		//新用户
 		$sex    = $request->input('sex');
 		$nickname = $request->input('nickname');
@@ -38,9 +39,13 @@ class UserController extends Controller
 		  $sex = 1;//未知
 		}
 		
-		if(empty($openid)||empty($login_type))
+		if(empty($openid)||empty($login_type)||empty($device_token)||empty($device_type))
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
+		}
+		if($device_type!=1&&$device_type!=2)
+		{
+			return response()->json(array('code'=>2,'msg'=>'参数错误','data'=>array()));
 		}
 		$wx_openid = $fc_openid = $wx2_openid ='';
 		if($login_type=='wechat')
@@ -96,6 +101,9 @@ class UserController extends Controller
 			$user->title = '';
 			$user->token = md5($password.$sort);
 		}
+		//修改用户的当前登录设备
+		$update_data = ['device_token'=>$device_token,'device_type'=>$device_type];
+		User::where('id','=',$user->id)->update($update_data);
 		if(empty($user->province))
 		{
 			$user->province = '某省';
