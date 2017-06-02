@@ -27,6 +27,7 @@
 	<script type="text/javascript" src="/share/js/common.js"></script>
 	<script type="text/javascript" src="/share/js/jquery-1.11.1.min.js"></script>
 	<style type="text/css">
+		img{max-width:97%;height:auto}
 		.arttab{width: 100%;padding-top: 0.35rem;padding-bottom: 0.2rem;border: 1px solid #e8e8e8;}
 		.arttab1{width: 20%;}
 		.arttab2{width: 60%;text-align: center;font-size: 0.425rem;color: #252525;height: 0.5rem;overflow: hidden;}
@@ -34,9 +35,9 @@
 		.artimg2{width: 0.5rem;}
 		.artimg3{width: 0.475rem;margin-left: 0.65rem;margin-top: 0.05rem;}
 		.artpt1{width: 94%;padding-left: 2%;padding-right: 2%;padding-top: 0.25rem;}
-		.artpt1-p1{font-size: 0.425rem;color:#252525;line-height: 0.55rem;max-height: 1.1rem;overflow: hidden;}
+		.artpt1-p1{font-size: 0.4rem;color:#252525;line-height: 0.55rem;max-height: 1.1rem;overflow: hidden;}
 		.artpt1-p2{font-size: 0.35rem;color:#8c8c8c;line-height: 0.45rem;margin-top: 0.25rem;margin-bottom: 0.25rem;}
-		 #news{font-size: 0.3rem;color:#3e3e3e;line-height: 0.55rem;margin: 0 auto;margin-top: 0.35rem;margin-bottom: 0.35rem;width: 82%;}
+		 #news{font-size: 0.32rem;color:#3e3e3e;line-height: 0.55rem;margin: 0 auto;margin-top: 0.35rem;margin-bottom: 0.35rem;width:95%;font-family:黑体}
 		.artimg4{width: 100%;height: 3.5rem;}
 		.artbtm{width: 97%;padding-left: 3%;border-top: 1px solid #e8e8e8;padding-top: 0.2rem;padding-bottom: 0.2rem;position: fixed;bottom:0;left:0;z-index: 1;background-color: #fff;}
 		.artimg5{width:0.9rem;margin-right: 0.5rem;}
@@ -69,7 +70,7 @@
 	 </div>
 	 <div class="artpt1">
 	 	<p class="artpt1-p1"><?php echo $listData->title;?></p>
-	 	<div class="clearfix artpt1-p2"><p class="fl marr2"><?php echo $listData->created_at;?></p><p class="fl marr2">阅读</p><p class="fl"><?php echo $listData->comments;?></p></div>
+	 	<div class="clearfix artpt1-p2"><p class="fl marr2"><?php echo $listData->created_at;?></p><p class="fl marr2"></p><p class="fl"><?php echo $listData->source;?></p></div>
 	 	<!-- 推广 -->
 		
 	 	<div class="clearfix ad-rate" <?php echo $display;?>>
