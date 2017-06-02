@@ -43,6 +43,8 @@ class MsgController extends AdminController
 		   if($v->to_user==0)
 		   {
 			  $v->to_user='全部';
+		   }else{
+			   $v->to_user = User::where('id',$v->to_user)->value('name');
 		   }
 	   }
 	   return view('admin.msg.index')->with('msgs',$msgs);
@@ -102,7 +104,8 @@ class MsgController extends AdminController
             return $this->error(route('admin.msg.index'),'消息不存在，请核实');
         }
 		$article = Article::select('id','title')->orderBy('id','desc')->get();
-        return view('admin.msg.edit')->with('msgs',$msgs)->with('article',$article);
+		$users    = User::select('id','name')->orderBy('id','desc')->get();
+        return view('admin.msg.edit')->with('msgs',$msgs)->with('article',$article)->with('user',$users);
     }
 
     /**
@@ -129,7 +132,7 @@ class MsgController extends AdminController
 		}else{
 			$msgs->content = $request->input('content');
 		}
-        $msgs->to_user = $request->input('to_user');
+        $msgs->to_user = $request->input('select_user');
         $msgs->update_time = date('Y-m-d H:i:s',time());
         
         $msgs->save();

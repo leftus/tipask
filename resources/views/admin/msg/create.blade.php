@@ -66,7 +66,7 @@
                                 <label>推送对象</label>
                                 <div>
 									<select id="select_user" name="select_user" class="form-control" >
-
+										<option value=0>所有设备</option>
 										@if($user)
 												@foreach($user as $v)
 													@if($v->id == -100)
