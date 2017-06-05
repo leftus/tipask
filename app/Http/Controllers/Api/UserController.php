@@ -27,7 +27,7 @@ class UserController extends Controller
 		$country  = $request->input('country');
 		$headimgurl = $request->input('headimgurl');
 		
-		
+		$error = new \stdClass();
 		if(empty($nickname)){
 			$nickname = '新用户';
 		}
@@ -41,11 +41,11 @@ class UserController extends Controller
 		
 		if(empty($openid)||empty($login_type)||empty($device_token)||empty($device_type))
 		{
-			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
+			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>$error));
 		}
 		if($device_type!=1&&$device_type!=2)
 		{
-			return response()->json(array('code'=>2,'msg'=>'参数错误','data'=>array()));
+			return response()->json(array('code'=>2,'msg'=>'参数错误','data'=>$error));
 		}
 		$wx_openid = $fc_openid = $wx2_openid ='';
 		if($login_type=='wechat')
@@ -60,7 +60,7 @@ class UserController extends Controller
 			$wx2_openid = $openid;
 			
 		}else{
-			return response()->json(array('code'=>2,'msg'=>'参数错误','data'=>array()));
+			return response()->json(array('code'=>2,'msg'=>'参数错误','data'=>$error));
 		}
          $user = User::whereRaw($where)->select('id','name','province','city','title','password')->first();
 		 $sort = rand(1000,9999);
