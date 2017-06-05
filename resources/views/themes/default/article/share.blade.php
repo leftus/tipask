@@ -27,8 +27,8 @@
 	<script type="text/javascript" src="/share/js/common.js"></script>
 	<script type="text/javascript" src="/share/js/jquery-1.11.1.min.js"></script>
 	<style type="text/css">
-		img{max-width:97%;height:auto}
-		.arttab{width: 100%;padding-top: 0.35rem;padding-bottom: 0.2rem;border: 1px solid #e8e8e8;}
+		img{max-width:97%;}
+		.arttab{width: 100%;padding-top: 0rem;padding-bottom: 0rem;border:none}
 		.arttab1{width: 20%;}
 		.arttab2{width: 60%;text-align: center;font-size: 0.425rem;color: #252525;height: 0.5rem;overflow: hidden;}
 		.artimg1{width: 0.5rem;margin-left: 0.25rem;display: block;}
@@ -74,7 +74,7 @@
 	 	<!-- 推广 -->
 		
 	 	<div class="clearfix ad-rate" <?php echo $display;?>>
-	 		<span class="fl ratesimg1"><img src="<?php echo '/'.$advert->img;?>" alt=""></span>
+	 		<span style="display:inline-block;" class="fl ratesimg1"><img style="max-height:99%;" src="<?php echo '/'.$advert->img;?>" alt=""><span style="display:inline-block;height:100%;width:0%;"></span></span>
 	 		<div class="fl rateprt1">
 	 			<p class="ratep1"><?php echo $advert->title;?></p>
 	 			<p class="ratep2"><?php echo $advert->descri;?></p>
