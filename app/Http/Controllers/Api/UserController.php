@@ -62,7 +62,7 @@ class UserController extends Controller
 		}else{
 			return response()->json(array('code'=>2,'msg'=>'参数错误','data'=>$error));
 		}
-         $user = User::whereRaw($where)->select('id','name','province','city','title','password')->first();
+         $user = User::whereRaw($where)->select('id','name','province','city','title','password','headimg')->first();
 		 $sort = rand(1000,9999);
 		 if($user)
 		 {
@@ -85,7 +85,6 @@ class UserController extends Controller
 			 //修改密钥
 			User::where('id','=',$user->id)->update(['sort'=>$sort]);
 			$token = md5($password.$sort);
-			$user->headimg = './image/avatar/'.($user->id).'_middle.jpg';
 			$user->token   = $token;
 		 }else{
 			$user = new \stdClass();
@@ -99,6 +98,7 @@ class UserController extends Controller
 			$user->province = $province;
 			$user->city = $city;
 			$user->title = '';
+			$user->headimg = $headimgurl;
 			$user->token = md5($password.$sort);
 		}
 		//修改用户的当前登录设备
@@ -111,6 +111,10 @@ class UserController extends Controller
 		if(empty($user->city))
 		{
 			$user->city = '某市';
+		}
+		if(empty($user->headimg))
+		{
+			$user->headimg = '';
 		}
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$user));
     }
