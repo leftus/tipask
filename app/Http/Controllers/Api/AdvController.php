@@ -68,7 +68,7 @@ class AdvController extends Controller
 				return response()->json(array('code'=>4,'msg'=>'上传失败','data'=>$upload_dir.$md5_file.'.'.$extension));
 			}
 		}
-		$is_adv = Advert::where('user_id','=',$user_id)->value('id');
+		$is_adv = Advert::where('user_id','=',$user_id)->where('type','=',$type)->count();
 		$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id,'type'=>$type];
 		if($path)
 		{
