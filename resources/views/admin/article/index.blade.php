@@ -77,7 +77,7 @@
                                         <td>@if($article->category) {{ $article->category->name }} @else 无 @endif</td>
                                         <td>{{ $article->user->name }}<span class="text-muted">[UID:{{ $article->user_id }}]</span></td>
                                         <td>{{ $article->collections }} / {{ $article->views }}</td>
-                                        <td>{{ timestamp_format($article->created_at) }}</td>
+                                        <td>{{ $article->created_at }}</td>
                                         <td><span class="label @if($article->status===0) label-danger  @else label-success @endif">{{ trans_common_status($article->status) }}</span> </td>
                                         <td>
                                             <div class="btn-group-xs" >
