@@ -78,7 +78,7 @@ class ArticleController extends Controller
             'summary'  => $request->input('summary'),
             'status'       => 1,
             'created_at'=>date('Y-m-d H:i:s'),
-            'update_at'=>date('Y-m-d H:i:s')
+            'updated_at'=>date('Y-m-d H:i:s')
         ];
 
         if($request->hasFile('logo')){
@@ -273,7 +273,7 @@ class ArticleController extends Controller
         $article->summary = $request->input('summary');
         $article->category_id = $request->input('category_id',0);
         $article->created_at = date('Y-m-d H:i:s');
-        $article->update_at = date('Y-m-d H:i:s');
+        $article->updated_at = date('Y-m-d H:i:s');
         if($request->hasFile('logo')){
             $validateRules = [
                 'logo' => 'required|image|max:'.config('tipask.upload.image.max_size'),
