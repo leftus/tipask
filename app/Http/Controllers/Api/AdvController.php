@@ -68,21 +68,14 @@ class AdvController extends Controller
 				return response()->json(array('code'=>4,'msg'=>'上传失败','data'=>$upload_dir.$md5_file.'.'.$extension));
 			}
 		}
-		$is_adv = Advert::where('user_id','=',$user_id)->where('type','=',$type)->count();
 		$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id,'type'=>$type];
 		if($path)
 		{
 			$advert = $advert+array('img'=>$path);
 		}
-		if($is_adv>0){
-			$advert = $advert+array('update_time'=>date('Y-m-d H:i:s',time()));
-			Advert::where('user_id','=',$user_id)->update($advert);
-			$msg = '修改成功';
-		}else{
-			$advert = $advert+array('create_time'=>date('Y-m-d H:i:s',time()));
-			Advert::insert($advert);
-			$msg = '添加成功';
-		} 
+		$advert = $advert+array('create_time'=>date('Y-m-d H:i:s',time()));
+		Advert::insert($advert);
+		$msg = '添加成功';
 		return response()->json(array('code'=>0,'msg'=>$msg,'data'=>array()));
     }
     public function lists(Request $request)
