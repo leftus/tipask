@@ -102,7 +102,7 @@ class AdvController extends Controller
 		}
 		$advert = Advert::select('id','title','descri','tel','link_id','img','create_time','type')->where('user_id',$user_id)->get();
 		foreach ($advert as $key => $value) {
-			$value->type = self::type[$value->type];
+			$value->type = self::$type[$value->type];
 		}
 		if($advert)
 		{
