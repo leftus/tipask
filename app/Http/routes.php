@@ -273,6 +273,7 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
 	/*广告修改*/
     Route::post('adv/update',['as'=>'api.adv.update','uses'=>'AdvController@update']);
 	Route::post('adv/select',['as'=>'api.adv.select','uses'=>'AdvController@select']);
+    Route::post('adv/delete',['as'=>'api.adv.delete','uses'=>'AdvController@delete']);
 	
 	/*消息推送-全部*/
     Route::post('msg/post_all',['as'=>'api.msg.post','uses'=>'MsgController@post_all']);
