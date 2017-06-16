@@ -29,6 +29,7 @@ class AdvController extends Controller
 		$link_id    = $request->input('link_id');
 		$token      = $request->input('token');
 		$type =  $request->input('type');
+		return response()->json(array('code'=>0,'msg'=>'测试','data'=>$type));
 		if(empty($user_id)||empty($title)||empty($descri)||empty($tel)||empty($link_id)||empty($token)||empty($type))
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
@@ -71,7 +72,7 @@ class AdvController extends Controller
 		$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id,'type'=>$type];
 		if($path)
 		{
-			$advert = $advert+array('img'=>$path);
+			$advert['img']= $path;
 		}
 		$advert = $advert+array('create_time'=>date('Y-m-d H:i:s',time()));
 		Advert::insert($advert);
