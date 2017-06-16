@@ -90,6 +90,7 @@ class AdvController extends Controller
 		$user_id    = $request->input('user_id');
 		$token      = $request->input('token');
 		$tmp = new \stdClass();
+		$advert = new \stdClass();
 		if(empty($user_id)||empty($token))
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>$tmp));
@@ -103,12 +104,7 @@ class AdvController extends Controller
 		$advert = Advert::select('id','title','descri','tel','link_id','img','create_time','type')->where('user_id',$user_id)->get();
 		foreach ($advert as $key => $value) {
 			$value->type = self::$type[$value->type];
-		}
-		if($advert)
-		{
-			$advert->jump_url   = Link::where('id',$advert->link_id)->value('jump_url');
-		}else{
-			$advert = new \stdClass();
+			$value->jump_url   = Link::where('id',$value->link_id)->value('jump_url');
 		}
 		//unset($advert->link_id);
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$advert));
