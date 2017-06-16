@@ -174,7 +174,7 @@ class AdvController extends Controller
     	$id = $request->input('id');
         $user_id    = $request->input('user_id');
     	$token      = $request->input('token');
-		if(empty($user_id)||empty($token)||empty($id))
+		if(empty($user_id)||empty($token)|| $id=='')
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
 		}
