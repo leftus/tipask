@@ -77,6 +77,8 @@ class ArticleController extends Controller
             'content'  => clean($request->input('content')),
             'summary'  => $request->input('summary'),
             'status'       => 1,
+            'created_at'=>date('Y-m-d H:i:s'),
+            'update_at'=>date('Y-m-d H:i:s')
         ];
 
         if($request->hasFile('logo')){
