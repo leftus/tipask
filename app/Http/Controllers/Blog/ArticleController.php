@@ -189,9 +189,11 @@ class ArticleController extends Controller
 			$advert->jump_url = $link;
 			unset($advert->link_id);
 			$data->isadv = 1;
+            $data->type = $advert->type;
 		}else{
 			$advert = new \stdClass();
 			$data->isadv = 0;
+            $data->type = 0;
 			$advert->title = $advert->descri = $advert->img = $advert->tel = $advert->jump_url ='';
 		}
 		$data->advert = $advert;
