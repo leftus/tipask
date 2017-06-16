@@ -161,8 +161,11 @@ class AdvController extends Controller
 				return response()->json(array('code'=>4,'msg'=>'上传失败','data'=>$upload_dir.$md5_file.'.'.$extension));
 			}
 		} 
-		
-		$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id,'img'=>$path,'create_time'=>date('Y-m-d H:i:s',time())];
+		if($path)
+		{
+			$advert['img']= $path;
+		}
+		$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id,'create_time'=>date('Y-m-d H:i:s',time())];
 		Advert::where('id','=',$id)->update($advert);
 		return response()->json(array('code'=>0,'msg'=>'修改成功','data'=>array()));
     }
