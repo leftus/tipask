@@ -100,7 +100,7 @@ class AdvController extends Controller
 		{
 			//return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>$tmp));
 		}
-		$advert = Advert::select('id','title','descri','tel','link_id','img','create_time')->where('user_id',$user_id)->first();
+		$advert = Advert::select('id','title','descri','tel','link_id','img','create_time','type')->where('user_id',$user_id)->first();
 		if($advert)
 		{
 			$advert->jump_url   = Link::where('id',$advert->link_id)->value('jump_url');
