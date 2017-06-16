@@ -74,8 +74,8 @@ class ArticleController extends Controller
             'user_id'      => $loginUser->id,
             'category_id'      => intval($request->input('category_id',0)),
             'title'        => trim($request->input('title')),
-            //'content'  => clean($request->input('content')),
-            'content'  => $request->input('content'),
+            'content'  => clean($request->input('content')),
+            //'content'  => $request->input('content'),
             'summary'  => $request->input('summary'),
             'status'       => 1,
             'created_at'=>date('Y-m-d H:i:s'),
@@ -270,8 +270,8 @@ class ArticleController extends Controller
         $this->validate($request,$this->validateRules);
 
         $article->title = trim($request->input('title'));
-        //$article->content = clean($request->input('content'));
-        $article->content = $request->input('content');
+        $article->content = clean($request->input('content'));
+        //$article->content = $request->input('content');
         $article->summary = $request->input('summary');
         $article->category_id = $request->input('category_id',0);
         $article->created_at = date('Y-m-d H:i:s');
