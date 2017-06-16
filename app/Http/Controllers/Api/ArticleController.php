@@ -10,6 +10,8 @@ use App\Models\Question;
 use App\Models\Tag;
 use App\Models\UserData;
 use App\Models\UserTag;
+use App\Models\Category;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -47,11 +49,11 @@ class ArticleController extends Controller
 	    $take = 10;
 		$skip = ($page-1)*$take;
 		if($cate ==4){
-			$where = 'category_id <>9';
+			$cate_list = Category::where('type','articles')->where('status','<>',0)->lists('id');
+			$list = Article::orderBy('id','desc')->whereIn('category_id',$cate_list)->skip($skip)->take($take)->select('id','title','summary','source','logo','views','created_at')->get();
 		}else{
-			$where = 'category_id='.$cate;
+			$list = Article::orderBy('id','desc')->where('category_id',$cate)->skip($skip)->take($take)->select('id','title','summary','source','logo','views','created_at')->get();
 		}
-		$list = Article::orderBy('id','desc')->whereRaw($where)->skip($skip)->take($take)->select('id','title','summary','source','logo','views','created_at')->get();
 		if($count_show)
 		{
 			$count = Article::orderBy('id','desc')->where('category_id',$cate)->count('id');
