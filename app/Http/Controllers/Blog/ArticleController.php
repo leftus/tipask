@@ -23,8 +23,8 @@ class ArticleController extends Controller
 
     /*问题创建校验*/
     protected $validateRules = [
-        'title' => 'required|min:5|max:255',
-        'content' => 'required|min:50|max:65535',
+        //'title' => 'required|min:5|max:255',
+        //'content' => 'required|min:50|max:65535',
         'summary' => 'sometimes|max:255',
         'tags' => 'sometimes|max:128',
         'category_id' => 'sometimes|numeric'
