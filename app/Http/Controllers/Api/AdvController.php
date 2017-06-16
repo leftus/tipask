@@ -30,7 +30,7 @@ class AdvController extends Controller
 		$token      = $request->input('token');
 		$adv_type =  $request->input('type');
 		//return response()->json(array('code'=>0,'msg'=>'测试','data'=>$type));
-		if(empty($user_id)||empty($title)||empty($descri)||empty($tel)||empty($link_id)||empty($token)||empty($type))
+		if(empty($user_id)||empty($title)||empty($descri)||empty($tel)||empty($link_id)||empty($token)||empty($adv_type))
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
 		}
