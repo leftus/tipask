@@ -17,6 +17,8 @@ class AdvController extends Controller
     *添加/修改广告
     *
     ***/
+    private static $type = [1=>'头部',2=>'弹窗',3=>'底部'];
+
     public function add(Request $request)
     {
         $user_id    = $request->input('user_id');
@@ -25,8 +27,9 @@ class AdvController extends Controller
 		$descri     = $request->input('descri');
 		$tel        = $request->input('tel');
 		$link_id    = $request->input('link_id');
-		$token      = $request->input('token'); 
-		if(empty($user_id)||empty($title)||empty($descri)||empty($tel)||empty($link_id)||empty($token))
+		$token      = $request->input('token');
+		$type =  $request->input('type');
+		if(empty($user_id)||empty($title)||empty($descri)||empty($tel)||empty($link_id)||empty($token)||empty($type))
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
 		}
@@ -66,7 +69,7 @@ class AdvController extends Controller
 			}
 		}
 		$is_adv = Advert::where('user_id','=',$user_id)->value('id');
-		$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id];
+		$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id,'type'=>$type];
 		if($path)
 		{
 			$advert = $advert+array('img'=>$path);
