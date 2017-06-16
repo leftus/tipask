@@ -175,6 +175,7 @@ class ArticleController extends Controller
 			exit();
 		}
 		$data = Article::where('id',$article_id)->select('id','title','source','created_at','views','content')->first();
+        $data->content = clean($data->content);
 		$data->created_at = date('Y-m-d',strtotime($data->created_at));
 		if($user_id>0)
 		{
