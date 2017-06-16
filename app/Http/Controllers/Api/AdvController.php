@@ -28,8 +28,8 @@ class AdvController extends Controller
 		$tel        = $request->input('tel');
 		$link_id    = $request->input('link_id');
 		$token      = $request->input('token');
-		$type =  $request->input('type');
-		return response()->json(array('code'=>0,'msg'=>'测试','data'=>$type));
+		$adv_type =  $request->input('type');
+		//return response()->json(array('code'=>0,'msg'=>'测试','data'=>$type));
 		if(empty($user_id)||empty($title)||empty($descri)||empty($tel)||empty($link_id)||empty($token)||empty($type))
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
@@ -69,12 +69,12 @@ class AdvController extends Controller
 				return response()->json(array('code'=>4,'msg'=>'上传失败','data'=>$upload_dir.$md5_file.'.'.$extension));
 			}
 		}
-		$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id,'type'=>$type];
+		$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id,'type'=>$adv_type];
 		if($path)
 		{
 			$advert['img']= $path;
 		}
-		$advert = $advert+array('create_time'=>date('Y-m-d H:i:s',time()));
+		$advert['create_time'] = date('Y-m-d H:i:s');
 		Advert::insert($advert);
 		$msg = '添加成功';
 		return response()->json(array('code'=>0,'msg'=>$msg,'data'=>array()));
