@@ -101,7 +101,7 @@ class AdvController extends Controller
 			//return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>$tmp));
 		}
 		$advert = Advert::select('id','title','descri','tel','link_id','img','create_time','type')->where('user_id',$user_id)->get();
-		foreach ($$advert as $key => $value) {
+		foreach ($advert as $key => $value) {
 			$value->type = self::type[$value->type];
 		}
 		if($advert)
