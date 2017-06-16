@@ -69,7 +69,13 @@ class AdvController extends Controller
 				return response()->json(array('code'=>4,'msg'=>'上传失败','data'=>$upload_dir.$md5_file.'.'.$extension));
 			}
 		}
-		$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id,'type'=>$adv_type];
+		$count = Advert::where('status','=',1)->where('user_id','=',$user_id)->count();
+		if($count==0){
+			$status = 1;
+		}else{
+			$status = 0;
+		}
+		$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id,'type'=>$adv_type,'status'=>$status];
 		if($path)
 		{
 			$advert['img']= $path;
