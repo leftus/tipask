@@ -28,7 +28,7 @@ class CategorieController extends Controller
             $page = 1;
         } 
         //$list = Category::orderBy('id','desc')->get(['id','title','summary','logo','views','created_at'])->chunk(10);
-		$list = Category::orderBy('sort')->where('type','articles')->select('id','name')->get();
+		$list = Category::orderBy('sort')->where('type','articles')->where('status','<>',0)->select('id','name')->get();
         return response()->json(array('code'=>0,'msg'=>'成功','data'=>$list));
     }
     /**
