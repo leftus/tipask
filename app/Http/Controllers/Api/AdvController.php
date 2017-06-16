@@ -90,7 +90,7 @@ class AdvController extends Controller
 		$user_id    = $request->input('user_id');
 		$token      = $request->input('token');
 		$tmp = new \stdClass();
-		$advert = new \stdClass();
+		$advert = array();
 		if(empty($user_id)||empty($token))
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>$tmp));
@@ -184,7 +184,6 @@ class AdvController extends Controller
 		{
 			return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
 		}
-
 		Advert::where('id','<>',$id)->update(['status'=>0]);
 		Advert::where('id','=',$id)->update(['status'=>1]);
 		return response()->json(array('code'=>0,'msg'=>'修改成功','data'=>array()));
