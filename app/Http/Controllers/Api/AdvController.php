@@ -184,14 +184,9 @@ class AdvController extends Controller
 		{
 			return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
 		}
-		Advert::where('id','<>',$id)->update(['status'=>0]);
+		Advert::where('id','<>',$id)->where('user_id','=',$user_id)->update(['status'=>0]);
 		$res = Advert::where('id','=',$id)->update(['status'=>1]);
-		if($res){
-			return response()->json(array('code'=>0,'msg'=>'修改成功','data'=>array()));
-		}else{
-			return response()->json(array('code'=>1,'msg'=>'网络延迟','data'=>array()));
-		}
-		
+		return response()->json(array('code'=>0,'msg'=>'修改成功','data'=>array()));
     }
 
     public function delete(Request $request){
