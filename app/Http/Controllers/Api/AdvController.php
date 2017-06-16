@@ -167,7 +167,7 @@ class AdvController extends Controller
 		return response()->json(array('code'=>0,'msg'=>'修改成功','data'=>array()));
     }
 
-    public function select(){
+    public function select(Request $request){
     	$id = $request->input('id');
         $user_id    = $request->input('user_id');
     	$token      = $request->input('token');
