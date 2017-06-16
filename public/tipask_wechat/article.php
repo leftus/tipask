@@ -7,7 +7,16 @@
 	}else{
 		$user_id = 0;
 	}
+	if(isset($_GET['user_id']))
+	{
+		$user_id = $_GET['user_id'];
+	}
 	
+	if(empty($_GET['article_id']))
+	{
+		echo "数据错误！";
+		die();
+	}
 	$post = 'article_id='.$_GET['article_id'].'&user_id='.$user_id;
 	$ch = curl_init();
 	curl_setopt($ch,CURLOPT_URL,$root_url.'/api/article/detail');
@@ -17,7 +26,6 @@
 	$listData = curl_exec($ch);//这里会返回token，需要处理一下。
 	$listData = json_decode($listData,true);
 	curl_close($ch);
-	
 	if($listData['code']==0)
 	{ 
 		$listData = $listData['data'];
@@ -56,7 +64,7 @@
 	<script type="text/javascript" src="js/common.js"></script>
 	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 	<style type="text/css">
-		img{max-width:97%;}
+		img{max-width:97% !important;height:auto !important;}
 		.arttab{width: 100%;padding-top: 0.3rem;padding-bottom: 0.2rem;border: 1px solid #e8e8e8;}
 		.arttab1{width: 20%;}
 		.arttab2{width: 60%;text-align: center;font-size: 0.425rem;color: #252525;height: 0.5rem;overflow: hidden;}

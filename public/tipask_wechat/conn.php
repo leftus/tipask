@@ -1,6 +1,7 @@
 <?php
 	$root_url = "http://shop.m9n.com";
-
+	$wechat_url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc082f8480924d81d&redirect_uri=http%3A%2F%2Fshop.m9n.com%2Ftipask_wechat%2Fcall_back.php&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
+	$login_url = "login.php";
 
 	function alert_msg($msg)
 	{

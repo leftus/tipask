@@ -32,15 +32,15 @@ class IndexController extends Controller
      * @return Response
      */
     public function index()
-    {
+    { 
         /*热门话题*/
         $hotTags =  Taggable::globalHotTags();
 
         /*推荐内容*/
-        $recommendItems= Cache::remember('recommend_items',Setting()->get('website_cache_time',1),function() {
+        /* $recommendItems= Cache::remember('recommend_items',Setting()->get('website_cache_time',1),function() {
             return Recommendation::where('status','>',0)->orderBy('sort','asc')->orderBy('updated_at','desc')->take(11)->get();
-        });
-
+        }); */
+		$recommendItems= Recommendation::where('status','>',0)->orderBy('sort','asc')->orderBy('updated_at','desc')->take(11)->get();
         /*热门专家*/
         $hotExperts = Cache::remember('hot_experts',Setting()->get('website_cache_time',1),function(){
             return  UserData::hotExperts(8);
@@ -122,9 +122,9 @@ class IndexController extends Controller
         return view('theme::home.ask')->with(compact('questions','hotUsers','hotTags','filter','categories','currentCategoryId','categorySlug'));
     }
 
-
     public function blog($categorySlug='all', $filter='newest')
     {
+		
         $article = new Article();
         if(!method_exists($article,$filter)){
             abort(404);
@@ -139,8 +139,7 @@ class IndexController extends Controller
             $currentCategoryId = $category->id;
         }
 
-        $articles = call_user_func([$article,$filter],$currentCategoryId);
-
+         $articles = call_user_func([$article,$filter],$currentCategoryId);
         /*热门文章*/
         $hotArticles = Cache::remember('hot_articles',Setting()->get('website_cache_time',1),function() {
             return  Article::recommended(0,8);
@@ -149,8 +148,8 @@ class IndexController extends Controller
         $hotUsers = UserData::activeInArticles();
         /*热门话题*/
         $hotTags =  Taggable::globalHotTags('articles');
-        $categories = load_categories('articles');
-
+        //$categories = load_categories('articles');
+		$categories = Category::whereRaw('type=\'articles\' and id<>4')->get();
         return view('theme::home.blog')->with(compact('articles','hotUsers','hotTags','filter','categories','currentCategoryId','categorySlug','hotArticles'));
     }
 

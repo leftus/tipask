@@ -60,8 +60,8 @@
 	.rateprt1{width: 56%;}
 	.ratep1{font-size: 0.35rem;color:#252525;line-height: 0.8rem;}
 	.ratep2{font-size: 0.3rem;color:#666;line-height:0.5rem;}
-	.ratep3{font-size: 0.3rem;color:#1792e8;line-height:0.55rem;width:1.125rem;height: 0.55rem;border: 1px solid #87CEFA;border-left:1px solid #1792e8;text-align: center;margin-left: 0.25rem;margin-top: 0.7rem;}
-	.ratesimg2{width:0.8625rem;height:0.3875rem; position: absolute;right:0.65rem;top:0;}
+	.ratep3{font-size: 0.3rem;color:#1792e8;line-height:0.55rem;width:1.125rem;height: 0.55rem;border: 1px solid #87CEFA;border-left:1px solid #1792e8;text-align: center;margin-left: 0.4rem;margin-top: 0.7rem;}
+	.ratesimg2{width:0.8625rem;height:0.3875rem; position: absolute;right:0.3rem;top:0;}
 	</style>
 </head>
 <body>

@@ -3,7 +3,7 @@
 	session_start();
 	if(empty($_SESSION['user_id']))
 	{
-		go_url('login.php','请先登录');
+		go_url($login_url,'请先登录');
 	}
 	//删除链接
 	if(isset($_GET['optr'])&&$_GET['optr']=='del')
@@ -78,8 +78,7 @@
 	</style>
 </head>
 <body>
-	<div class="ad-title clearfix">
-		<a onclick="history.back();"><span class="fl"><img src="images/fanhui.png" alt=""></span></a>
+	<div class="ad-title clearfix"> 
 		<p class="fl">自定义链接</p>
 	</div>
 	<?php 

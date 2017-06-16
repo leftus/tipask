@@ -1,6 +1,10 @@
 <?php 
 	require('conn.php');
 	session_start();
+	if(empty($_SESSION['user_id']))
+	{
+		go_url($login_url,'请先登录');
+	}
 	if(isset($_POST['title']))
 	{
 		$title = $_POST['title'];
@@ -44,8 +48,7 @@
 	</style>
 </head>
 <body >
-	<div class="ad-title clearfix">
-		<a onclick="history.back();"><span class="fl"><img src="images/fanhui.png" alt=""></span></a>
+	<div class="ad-title clearfix"> 
 		<p class="fl">添加链接</p>
 	</div>
 	<form method="post" name="link">

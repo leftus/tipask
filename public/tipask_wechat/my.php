@@ -1,6 +1,10 @@
 <?php 
 	require('conn.php');
 	session_start();
+	if(empty($_SESSION['user_id']))
+	{
+		go_url($login_url,'请先登录');
+	}
 //获取当前用户信息
 	$ch = curl_init();
 	curl_setopt($ch,CURLOPT_URL,$root_url.'/api/user/info');

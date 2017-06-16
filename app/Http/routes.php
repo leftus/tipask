@@ -278,7 +278,7 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
     Route::post('msg/post_all',['as'=>'api.msg.post','uses'=>'MsgController@post_all']);
 	/*我的消息*/
     Route::post('msg/list',['as'=>'api.msg.post','uses'=>'MsgController@lists']);
-	
+	Route::get('msg/postmsg_auto',['as'=>'api.msg.postmsg_auto','uses'=>'MsgController@postmsg_auto']);
 	
 	 /*用户登录*/
     Route::post('user/login',['as'=>'api.login.list','uses'=>'UserController@login']);
@@ -466,6 +466,7 @@ Route::Group(['prefix'=>'admin','namespace'=>'Admin','middleware' =>['auth','aut
 	/*推送消息*/
     Route::resource('msg', 'MsgController',['except' => ['show']]);
 	Route::get('msg/postmsg',['as'=>'admin.msg.postmsg','uses'=>'MsgController@postmsg']);
+	
 });
 
 
@@ -488,7 +489,11 @@ Route::get('ajax/unreadMessages',['as'=>'website.ajax.unreadMessages','uses'=>'A
 
 
 Route::get('image/avatar/{avatar_name}',['as'=>'website.image.avatar','uses'=>'ImageController@avatar'])->where(['avatar_name'=>'[0-9]+_(small|middle|big|origin).jpg']);
-Route::get('image/show/{image_name}',['as'=>'website.image.show','uses'=>'ImageController@show']);
+Route::get('image/show/{image_name}',['as'=>'website.image.show','uses'=>'ImageController@show'],array('https', function()
+{
+    return 'Must be over HTTPS';
+}));
+
 
 Route::Group(['middleware'=>'auth'],function(){
     Route::post('image/upload',['as'=>'website.image.upload','uses'=>'ImageController@upload']);

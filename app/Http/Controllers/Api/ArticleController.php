@@ -43,10 +43,15 @@ class ArticleController extends Controller
 		if(empty($cate)){
             return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
         }
-       $data = new \stdClass(); 
-	   $take = 10;
+        $data = new \stdClass(); 
+	    $take = 10;
 		$skip = ($page-1)*$take;
-        $list = Article::orderBy('id','desc')->where('category_id',$cate)->skip($skip)->take($take)->select('id','title','summary','source','logo','views','created_at')->get();
+		if($cate ==4){
+			$where = 'category_id <>9';
+		}else{
+			$where = 'category_id='.$cate;
+		}
+		$list = Article::orderBy('id','desc')->whereRaw($where)->skip($skip)->take($take)->select('id','title','summary','source','logo','views','created_at')->get();
 		if($count_show)
 		{
 			$count = Article::orderBy('id','desc')->where('category_id',$cate)->count('id');
@@ -57,9 +62,9 @@ class ArticleController extends Controller
 		foreach($list as $v){
 				if(substr($v->logo,0,1)=='/')
 				{
-					$v->logo = "http://shop.m9n.com/image/show".$v->logo;
+					$v->logo = "https://www.stpaulsfriends.club/image/show".$v->logo;
 				}else{
-					$v->logo = "http://shop.m9n.com/image/show/".$v->logo;
+					$v->logo = "https://www.stpaulsfriends.club/image/show/".$v->logo;
 				}
 				
 				$image = array();

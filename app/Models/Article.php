@@ -110,7 +110,9 @@ class Article extends Model
         $query = self::query();
         if( $categoryId > 0 ){
             $query->where('category_id','=',$categoryId);
-        }
+        }else{
+			$query->whereRaw('category_id <>9');
+		}
         $list = $query->where('status','>',0)->orderBy('created_at','DESC')->paginate($pageSize);
         return $list;
     }

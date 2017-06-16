@@ -2,10 +2,8 @@
 	require('conn.php');
 	session_start();
 	if(@$_GET['optr'] == 'toto')
-	{
-		$_SESSION['user_id'] = 40;
-		$_SESSION['token']   = '7e8edc2423c220ee3553d0b7191aea9e';
-		header("Location: index.php"); 
+	{ 
+		header("Location: ".$wechat_url); 
 	}
 ?>
 <!DOCTYPE html>
@@ -40,7 +38,7 @@
 		</div>
 		<div>
 			<div class="sqaniu" style="" onclick="window.location.href='?optr=toto'"><span class="sqimg1 fl" style="margin-left:1.9rem;"><img src="images/lwx.png" alt=""></span><p class="login-p5">Wechat授权安全登录</p></div>
-			<div class="sqaniu" onclick="window.location.href='?optr=toto'"><span class="sqimg1 fl"><img src="images/sqfb1.png" alt=""></span><p class="login-p5">Facebook授权安全登录</p></div>
+			<div style="display:none;" class="sqaniu" onclick="window.location.href='?optr=toto'"><span class="sqimg1 fl"><img src="images/sqfb1.png" alt=""></span><p class="login-p5">Facebook授权安全登录</p></div>
 		</div>
 	</div>
 	<!-- 下面分页 -->

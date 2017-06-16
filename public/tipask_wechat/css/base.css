@@ -87,7 +87,7 @@ a{text-decoration: none;color:#000;}
     .binhp{text-align: center;color:#000;font-size: 0.3rem;line-height: 0.4rem;}
 /*添加链接、广告*/
 .ad-title{width: 100%;padding-top: 0.3rem;padding-bottom: 0.2rem;background-color: #fff;border-bottom: 1px solid #e8e8e8;}
-    .ad-title p{color:#252525;font-size:0.425rem;text-align: center; width: 87%;}
+    .ad-title p{color:#252525;font-size:0.425rem;text-align: center; width: 100%;}
     .ad-title span{display: inline-block;width:0.5rem;margin-left: 3%;}
 
 

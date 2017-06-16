@@ -7,7 +7,7 @@
                 <div class="widget-category clearfix mb-10">
                     <div class="col-sm-12">
                         <ul class="list">
-                            <li><a href="{{ route('website.blog') }}">全部</a></li>
+                            <li><a href="{{ route('website.blog') }}">热点</a></li>
                             @foreach( $categories as $category )
                                 <li @if( $category->id == $currentCategoryId ) class="active" @endif ><a href="{{ route('website.blog',['category_slug'=>$category->slug]) }}">{{ $category->name }}</a></li>
                             @endforeach

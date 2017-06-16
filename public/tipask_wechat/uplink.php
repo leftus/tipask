@@ -3,7 +3,7 @@
 	session_start();
 	if(empty($_SESSION['user_id']))
 	{
-		go_url('login.php','请先登录');
+		go_url($login_url,'请先登录');
 	}
 	if(isset($_POST['title']))
 	{
@@ -58,8 +58,7 @@
 	}
 ?>
 <body >
-	<div class="ad-title clearfix">
-		<a onclick="history.back();"><span class="fl"><img src="images/fanhui.png" alt=""></span></a>
+	<div class="ad-title clearfix"> 
 		<p class="fl">修改链接</p>
 	</div>
 	<form method="post" name="link">

@@ -1,41 +1,11 @@
 <?php
 	require('conn.php');
 	
-	$call_back = 'http://'.$_SERVER["SERVER_NAME"] .$_SERVER["REQUEST_URI"];
 	session_start();
-	/*
-	if($_FILES['file'])
+	if(empty($_SESSION['user_id']))
 	{
-		$image = $_FILES['file']['tmp_name'];
- 		$fp = fopen($image, "r");
-		$file = fread($fp, $_FILES["file"]["size"]); 
+		go_url($login_url,'请先登录');
 	}
-	if(!isset($_SESSION['user_id']))
-	{
-		header("Location: index.php"); 
-	}
-	if(isset($_POST['title']))
-	{
-		$title    = $_POST['title'];
-		$tel      = $_POST['tel'];
-		$descri   = $_POST['descri'];
-		$link_id  = $_POST['link_id'];
-		//修改广告
-		$ch = curl_init();
-		curl_setopt($ch,CURLOPT_URL,$root_url.'/api/adv/add');
-		$post = 'user_id='.$_SESSION['user_id'].'&token='.$_SESSION['token'].'&title='.$title.'&descri='.$descri.'&tel='.$tel.'&link_id='.$link_id;
-		if($file){
-			$post = $post.'&file='.$file;
-		}
-		//$post = 'user_id=55&token='.$_SESSION['token'];
-		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);//关闭直接输出
-		curl_setopt($ch,CURLOPT_POST,1);//使用post提交数据
-		curl_setopt($ch,CURLOPT_POSTFIELDS,$post);//设置 
-		$ListDate = curl_exec($ch);//这里会返回token，需要处理一下。
-		$ListDate = json_decode($ListDate,true);
-		print_r($ListDate);
-	}
-	*/
 	//获取当前用户广告
 	$ch = curl_init();
 	curl_setopt($ch,CURLOPT_URL,$root_url.'/api/adv/list');
@@ -93,15 +63,10 @@
 	.pop-p3{font-size: 0.325rem;line-height: 1rem;text-align: center;width: 49.5%;height: 1rem;}
 	</style>
 </head>
-<body class="adbg">
-	<div class="ad-title clearfix">
-		<a onclick="history.back();"><span class="fl"><img src="images/fanhui.png" alt=""></span></a>
-		<p class="fl">广告添加</p>
-	</div>
+<body class="adbg"> 
 	<form name="advert" method="post" enctype="multipart/form-data" action="http://www.askme.com//api/adv/add">
 	<input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'];?>"/>
 	<input type="hidden" name="token" value="<?php echo $_SESSION['token'];?>"/>
-	<input type="hidden" name="call_back" value="<?php echo $call_back;?>"/>
 	<div class="ad-banner"><img src="images/banner-ad.png" alt=""></div>
 	<div>
 		<div class="ad-dipt">
@@ -163,7 +128,7 @@
 			formData.append("link_id",e.link_id.value);
 			formData.append("user_id",e.user_id.value);
 			formData.append("token",e.token.value);
-			Url = 'http://www.askme.com/api/adv/add';
+			Url = 'http://shop.m9n.com/api/adv/add';
 			$("#popwiow").hide();
 			  $.ajax({  
 			  		type:"POST", 
