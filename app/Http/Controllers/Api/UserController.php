@@ -100,6 +100,7 @@ class UserController extends Controller
 			$user->title = '';
 			$user->headimg = $headimgurl;
 			$user->indate = 3;
+			$user->start_time = date('Y-m-d H:i:s');
 			$user->token = md5($password.$sort);
 		}
 		//修改用户的当前登录设备
