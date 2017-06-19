@@ -145,7 +145,7 @@ class UserController extends Controller
 		}else{
 			$user->warnning = '';
 		}
-
+		unset($user->start_time);
 		if(empty($user->province))
 		{
 			$user->province = '未知';
