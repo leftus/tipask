@@ -17,7 +17,7 @@ class AdvController extends Controller
     *添加/修改广告
     *
     ***/
-    private static $type = [1=>'头部',2=>'弹窗',3=>'底部'];
+    private static $type = [1=>'头部广告',2=>'弹窗广告',3=>'底部广告'];
 
     public function add(Request $request)
     {
