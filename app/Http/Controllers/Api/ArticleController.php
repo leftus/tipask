@@ -93,7 +93,7 @@ class ArticleController extends Controller
 		if($user_id>0)
 		{
 			$advert = Advert::where('user_id',$user_id)->where('status','=',1)->select('title','descri','img','tel','link_id','type')->first();
-			$advert->img = ltrim($value->img,'.');
+			
 		}
 		$data->comments = $data->views;
 		unset($data->views);
@@ -109,6 +109,7 @@ class ArticleController extends Controller
 			$data->isadv = 0;
 			$data->type = 0;
 			$advert->title = $advert->descri = $advert->img = $advert->tel = $advert->jump_url ='';
+			$advert->img = ltrim($advert->img,'.');
 		}
 		$data->advert = $advert;
 		if(empty($data->source))
