@@ -103,6 +103,7 @@ class AdvController extends Controller
 		}
 		$advert = Advert::select('id','title','descri','tel','link_id','img','create_time','type','status')->where('user_id',$user_id)->get();
 		foreach ($advert as $key => $value) {
+			$value->img = ltrim($value->img,'.');
 			$value->type = self::$type[$value->type];
 			$value->jump_url   = Link::where('id',$value->link_id)->value('jump_url');
 		}
