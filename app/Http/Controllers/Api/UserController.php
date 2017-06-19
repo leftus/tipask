@@ -99,6 +99,7 @@ class UserController extends Controller
 			$user->city = $city;
 			$user->title = '';
 			$user->headimg = $headimgurl;
+			$user->indate = 3;
 			$user->token = md5($password.$sort);
 		}
 		//修改用户的当前登录设备
@@ -133,6 +134,17 @@ class UserController extends Controller
 			return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
 		}
 		$user = User::where('id',$user_id)->select('id','name','province','city','title','headimg')->first();
+		$now = date('Y-m-d H:i:s');
+		
+		$date1 = date_create($user->start_time);
+		$date2 = date_create($now);
+		$diff = date_diff($date1,$date2);
+		$days = $diff->format('%a');
+		if($user->indate > $days){
+			$user->left_days = $user->indate-$days;
+		}else{
+			$user->left_days = 0;
+		}
 		if(empty($user->province))
 		{
 			$user->province = '未知';
