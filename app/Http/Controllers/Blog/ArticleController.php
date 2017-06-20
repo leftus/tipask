@@ -188,7 +188,7 @@ class ArticleController extends Controller
 			$link   = Link::where('id',$advert->link_id)->value('jump_url');
 			$advert->jump_url = $link;
             $advert->title = str_limit($advert->title,50);
-            $advert->descri = str_limit($advert->descri,60);
+            $advert->descri = str_limit($advert->descri,50);
 			unset($advert->link_id);
 			$data->isadv = 1;
             $data->type = $advert->type;
