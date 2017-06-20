@@ -105,7 +105,13 @@ class AdvController extends Controller
 		foreach ($advert as $key => $value) {
 			$value->img = ltrim($value->img,'.');
 			$value->type = self::$type[$value->type];
-			$value->jump_url   = Link::where('id',$value->link_id)->value('jump_url');
+			if($value->link_id){
+				$value->jump_url   = Link::where('id',$value->link_id)->value('jump_url');
+			}else{
+				$value->jump_url = '';
+				$value->link_id = '';
+			}
+			
 		}
 		//unset($advert->link_id);
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$advert));

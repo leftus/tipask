@@ -78,7 +78,7 @@
 	 		<span style="display:inline-block;" class="fl ratesimg1"><img style="max-height:99%;" src="<?php echo '/'.$advert->img;?>" alt=""><span style="display:inline-block;height:100%;width:0%;"></span></span>
 	 		<div class="fl rateprt1">
 	 			<p class="ratep1"><?php echo $advert->title;?></p>
-	 			<p class="ratep2"><?php echo $advert->descri;?></p>
+	 			<a href="<?php echo $advert->jump_url?>"><p class="ratep2"><?php echo $advert->descri;?></p></a>
 	 		</div>
 	 		<p class="fl ratep3"><a href="tel:<?php echo $advert->tel;?>">电话</a></p>
 	 		<div class="ratesimg2"><img src="/share/images/tuiguang.png" alt=""></div>
