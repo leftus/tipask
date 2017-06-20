@@ -101,7 +101,11 @@ class ArticleController extends Controller
 		{
 			$link   = Link::where('id',$advert->link_id)->value('jump_url');
 			$advert->img = ltrim($advert->img,'.');
-			$advert->jump_url = $link;
+			if($advert->link_id){
+				$advert->jump_url = $link;
+			}else{
+				$advert->jump_url = '';
+			}
 			unset($advert->link_id);
 			$data->isadv = 1;
 			$data->type = $advert->type;
