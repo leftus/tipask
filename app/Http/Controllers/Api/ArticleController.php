@@ -77,6 +77,12 @@ class ArticleController extends Controller
 					$v->source = '';
 				}
 			}
+		$old_date = $request->input('old_date');
+		if(!empty($old_date)){
+			$data->number = Article::where('created_at','>',$old_date)->count();
+		}else{
+			$data->number = 0;
+		}
 		$data->data = $list;
 		return response()->json($data);
     }
