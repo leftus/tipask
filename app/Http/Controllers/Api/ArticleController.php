@@ -150,4 +150,14 @@ class ArticleController extends Controller
 		$str = str_replace('&mdash;', '—', $str);
 		return $str;
 	}
+
+	public function refresh_total(Request $request){
+		$old_date = $request->input('old_date');
+		if(!empty($old_date)){
+			$number = Article::where('created_at','>',$old_date)->count();
+		}else{
+			$number = 0;
+		}
+		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$number));
+	}
 }
