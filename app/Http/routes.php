@@ -237,7 +237,8 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
     Route::post('article/list',['as'=>'api.article.list','uses'=>'ArticleController@lists']);
 	/*文章详情*/
     Route::post('article/detail',['as'=>'api.article.detail','uses'=>'ArticleController@detail']);
-	
+	/*刷新数目*/
+    Route::post('article/refresh_total',['as'=>'api.article.refresh_total','uses'=>'ArticleController@refresh_total']);
 	/*文章分享页面*/
     Route::post('article/detail_share',['as'=>'api.article.detail_share','uses'=>'ArticleController@detail_share']);
 	
@@ -272,7 +273,9 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
     Route::post('adv/list',['as'=>'api.adv.list','uses'=>'AdvController@lists']);
 	/*广告修改*/
     Route::post('adv/update',['as'=>'api.adv.update','uses'=>'AdvController@update']);
+    /*选择广告*/
 	Route::post('adv/select',['as'=>'api.adv.select','uses'=>'AdvController@select']);
+    /*删除广告*/
     Route::post('adv/delete',['as'=>'api.adv.delete','uses'=>'AdvController@delete']);
 	
 	/*消息推送-全部*/
