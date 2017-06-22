@@ -121,9 +121,8 @@ class AdvController extends Controller
 		{
 			//return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>$tmp));
 		}
-		$advert = Advert::select('id','title','descri','tel','link_id','img','create_time','type','status')->where('user_id',$user_id)->get();
+		$advert = Advert::select('id','title','descri','tel','link_id','img','create_time','type','status','qrcode')->where('user_id',$user_id)->get();
 		foreach ($advert as $key => $value) {
-			$value->img = ltrim($value->img,'.');
 			$value->type = self::$type[$value->type];
 			if($value->link_id){
 				$value->jump_url   = Link::where('id',$value->link_id)->value('jump_url');
@@ -131,7 +130,14 @@ class AdvController extends Controller
 				$value->jump_url = '';
 				$value->link_id = '';
 			}
-
+      if(empty($value->qrcode)){
+        $value->qrcode = '';
+      }
+      if(empty($value->img)){
+        $value->img = '';
+      }else{
+        $value->img = ltrim($value->img,'.');
+      }
 		}
 		//unset($advert->link_id);
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$advert));
