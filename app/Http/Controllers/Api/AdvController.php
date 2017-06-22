@@ -155,7 +155,7 @@ class AdvController extends Controller
 		$tel        = $request->input('tel');
 		$link_id    = $request->input('link_id');
 		$token      = $request->input('token');
-		if(empty($user_id)||empty($title)||empty($descri)||empty($tel)||empty($link_id)||empty($token)||empty($id))
+		if(empty($user_id)||empty($title)||empty($descri)||empty($tel)||empty($token)||empty($id))
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
 		}
