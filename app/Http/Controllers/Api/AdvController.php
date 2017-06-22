@@ -69,6 +69,18 @@ class AdvController extends Controller
 				return response()->json(array('code'=>4,'msg'=>'上传失败','data'=>$upload_dir.$md5_file.'.'.$extension));
 			}
 		}
+
+    if ($request->hasFile('qrcode')) {
+      $file = $request->file('qrcode');
+      if ($request->file('qrcode')->isValid()){
+        return response()->json(array('code'=>4,'msg'=>'上传失败','data'=>''));
+      }
+      $qr_path = $file->store('upload/'.$user_id.'/'.$date);
+    }
+    if($qr_path){
+      $advert['qrcode']= $qr_path;
+    }
+    
 		$count = Advert::where('status','=',1)->where('user_id','=',$user_id)->count();
 		if($count==0){
 			$status = 1;
