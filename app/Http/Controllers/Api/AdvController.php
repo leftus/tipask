@@ -111,7 +111,7 @@ class AdvController extends Controller
 				$value->jump_url = '';
 				$value->link_id = '';
 			}
-			
+
 		}
 		//unset($advert->link_id);
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$advert));
@@ -167,7 +167,17 @@ class AdvController extends Controller
 			}else{
 				return response()->json(array('code'=>4,'msg'=>'上传失败','data'=>$upload_dir.$md5_file.'.'.$extension));
 			}
-		} 
+		}
+    if ($request->hasFile('qrcode')) {
+      $file = $request->file('qrcode');
+      if ($request->file('qrcode')->isValid()){
+        return response()->json(array('code'=>4,'msg'=>'上传失败','data'=>''));
+      }
+      $qr_path = $file->store('upload/'.$user_id.'/'.$date);
+    }
+    if($qr_path){
+      $advert['qrcode']= $qr_path;
+    }
 		if($path)
 		{
 			$advert['img']= $path;
