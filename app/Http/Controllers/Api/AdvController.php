@@ -76,7 +76,6 @@ class AdvController extends Controller
         return response()->json(array('code'=>4,'msg'=>'上传失败','data'=>$file->getError()));
       }
       $destPath = public_path('upload/'.$user_id.'/'.$date);
-      return response()->json(array('code'=>5,'msg'=>'保存失败','data'=>$destPath));
       if(!file_exists($destPath)){
         mkdir($destPath,0755,true);
       }
@@ -195,7 +194,7 @@ class AdvController extends Controller
       if (!$file->isValid()){
         return response()->json(array('code'=>4,'msg'=>'上传失败','data'=>$file->getError()));
       }
-      $destPath = realpath(public_path('upload/'.$user_id.'/'.$date));
+      $destPath = public_path('upload/'.$user_id.'/'.$date);
       if(!file_exists($destPath)){
         mkdir($destPath,0755,true);
       }
