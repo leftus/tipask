@@ -83,7 +83,7 @@ class AdvController extends Controller
       if(!$file->move($destPath,$filename)){
           return response()->json(array('code'=>5,'msg'=>'保存失败','data'=>''));
       }
-      $qr_path = 'upload/'.$user_id.'/'.$date.'/'.$filename;
+      $qr_path = '/upload/'.$user_id.'/'.$date.'/'.$filename;
     }
 
 		$count = Advert::where('status','=',1)->where('user_id','=',$user_id)->count();
@@ -201,7 +201,7 @@ class AdvController extends Controller
       if(!$file->move($destPath,$filename)){
           return response()->json(array('code'=>5,'msg'=>'保存失败','data'=>''));
       }
-      $qr_path = 'upload/'.$user_id.'/'.$date.'/'.$filename;
+      $qr_path = '/upload/'.$user_id.'/'.$date.'/'.$filename;
     }
 		$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id];
     if($qr_path){
