@@ -86,10 +86,6 @@ class AdvController extends Controller
       $qr_path = 'upload/'.$user_id.'/'.$date.'/'.$filename;
     }
 
-    if($qr_path){
-      $advert['qrcode']= $qr_path;
-    }
-
 		$count = Advert::where('status','=',1)->where('user_id','=',$user_id)->count();
 		if($count==0){
 			$status = 1;
@@ -101,6 +97,9 @@ class AdvController extends Controller
 		{
 			$advert['img']= $path;
 		}
+    if($qr_path){
+      $advert['qrcode']= $qr_path;
+    }
 		$advert['create_time'] = date('Y-m-d H:i:s');
 		Advert::insert($advert);
 		$msg = '添加成功';
@@ -204,6 +203,7 @@ class AdvController extends Controller
       }
       $qr_path = 'upload/'.$user_id.'/'.$date.'/'.$filename;
     }
+		$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id];
     if($qr_path){
       $advert['qrcode']= $qr_path;
     }
@@ -211,7 +211,6 @@ class AdvController extends Controller
 		{
 			$advert['img']= $path;
 		}
-		$advert = ['user_id'=>$user_id,'title'=>$title,'descri'=>$descri,'tel'=>$tel,'link_id'=>$link_id,'create_time'=>date('Y-m-d H:i:s',time())];
 		Advert::where('id','=',$id)->update($advert);
 		return response()->json(array('code'=>0,'msg'=>'修改成功','data'=>array()));
     }
