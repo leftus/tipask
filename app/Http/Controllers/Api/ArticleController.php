@@ -98,8 +98,7 @@ class ArticleController extends Controller
 		$data->created_at = date('Y-m-d',strtotime($data->created_at));
 		if($user_id>0)
 		{
-			$advert = Advert::where('user_id',$user_id)->where('status','=',1)->select('title','descri','img','tel','link_id','type')->first();
-
+			$advert = Advert::where('user_id',$user_id)->where('status','=',1)->select('title','descri','img','tel','link_id','type','qrcode')->first();
 		}
 		$data->comments = $data->views;
 		unset($data->views);
@@ -112,6 +111,9 @@ class ArticleController extends Controller
 			}else{
 				$advert->jump_url = '';
 			}
+      if(empty($advert->qrcode)){
+        $advert->qrcode = '';
+      }
 			unset($advert->link_id);
 			$data->isadv = 1;
 			$data->type = $advert->type;
