@@ -72,12 +72,20 @@ class AdvController extends Controller
 
     if ($request->hasFile('qrcode')) {
       $file = $request->file('qrcode');
-      if ($file->isValid()){
-        $qr_path = $file->store('upload/'.$user_id.'/'.$date);
-      }else{
+      if (!$file->isValid()){
         return response()->json(array('code'=>4,'msg'=>'上传失败','data'=>$file->getError()));
       }
+      $destPath = realpath(public_path('upload/'.$user_id.'/'.$date));
+      if(!file_exists($destPath)){
+        mkdir($destPath,0755,true);
+      }
+      $filename = $file->getClientOriginalName();
+      if(!$file->move($destPath,$filename)){
+          return response()->json(array('code'=>5,'msg'=>'保存失败','data'=>''));
+      }
+      $qr_path = 'upload/'.$user_id.'/'.$date.'/'.$filename;
     }
+
     if($qr_path){
       $advert['qrcode']= $qr_path;
     }
@@ -183,11 +191,18 @@ class AdvController extends Controller
 		}
     if ($request->hasFile('qrcode')) {
       $file = $request->file('qrcode');
-      if ($file->isValid()){
-        $qr_path = $file->store('upload/'.$user_id.'/'.$date);
-      }else{
+      if (!$file->isValid()){
         return response()->json(array('code'=>4,'msg'=>'上传失败','data'=>$file->getError()));
       }
+      $destPath = realpath(public_path('upload/'.$user_id.'/'.$date));
+      if(!file_exists($destPath)){
+        mkdir($destPath,0755,true);
+      }
+      $filename = $file->getClientOriginalName();
+      if(!$file->move($destPath,$filename)){
+          return response()->json(array('code'=>5,'msg'=>'保存失败','data'=>''));
+      }
+      $qr_path = 'upload/'.$user_id.'/'.$date.'/'.$filename;
     }
     if($qr_path){
       $advert['qrcode']= $qr_path;
