@@ -42,6 +42,7 @@ class AdvController extends Controller
 		}
 		$date = date('Y-m-d');
 		$path = '';
+		$qr_path='';
 		//如果有图片则上传
 		if(isset($_FILES['file'])&&$_FILES['file']['size']>0){
 			$upload_dir = ('./upload/'.$user_id.'/'.$date.'/');
@@ -167,6 +168,7 @@ class AdvController extends Controller
 		}
 		$date = date('Y-m-d');
 		$path = '';
+		$qr_path='';
 		//如果有图片则上传
 		if(isset($_FILES['file'])){
 			$upload_dir = ('./upload/'.$user_id.'/'.$date.'/');
