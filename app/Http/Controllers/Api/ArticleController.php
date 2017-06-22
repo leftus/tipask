@@ -29,7 +29,7 @@ class ArticleController extends Controller
     ***/
     public function lists(Request $request)
     {
-        
+
 		$page = $request->input('page');
 		$cate  = $request->input('cate');
 		$count_show = $request->input('count_show');
@@ -45,7 +45,7 @@ class ArticleController extends Controller
 		if(empty($cate)){
             return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
         }
-        $data = new \stdClass(); 
+        $data = new \stdClass();
 	    $take = 10;
 		$skip = ($page-1)*$take;
 		if($cate ==4){
@@ -68,7 +68,7 @@ class ArticleController extends Controller
 				}else{
 					$v->logo = "https://www.stpaulsfriends.club/image/show/".$v->logo;
 				}
-				
+
 				$image = array();
 				$image[] = $v->logo;
 				$v->logo = $image;
@@ -79,7 +79,7 @@ class ArticleController extends Controller
 			}
 		$old_date = $request->input('old_date');
 		if(!empty($old_date)){
-			$data->number = Article::where('created_at','>',$old_date)->count();
+			$data->number = Article::where('created_at','>',$old_date)->where('category_id',$cate)->count();
 		}else{
 			$data->number = 0;
 		}
@@ -99,7 +99,7 @@ class ArticleController extends Controller
 		if($user_id>0)
 		{
 			$advert = Advert::where('user_id',$user_id)->where('status','=',1)->select('title','descri','img','tel','link_id','type')->first();
-			
+
 		}
 		$data->comments = $data->views;
 		unset($data->views);
@@ -146,7 +146,7 @@ class ArticleController extends Controller
 	}
 	function format_html($str){
 		$str = strip_tags($str);
-		$str = str_replace(array("\r\n", "\r", "\n","\t"), "", $str); 
+		$str = str_replace(array("\r\n", "\r", "\n","\t"), "", $str);
 		$str = str_replace('&ldquo;', '“',$str);
 		$str = str_replace('&rdquo;', '”',$str);
 		$str = str_replace('&middot;', '·',$str);
