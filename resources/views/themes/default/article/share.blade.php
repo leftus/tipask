@@ -61,7 +61,7 @@
 	.rateprt1{width: 56%;}
 	.ratep1{font-size: 0.36rem;color:#252525;}
 	.ratep2{font-size: 0.3rem;color:#666;line-height:0.5rem;}
-	.ratep3{font-size: 0.3rem;color:#1792e8;line-height:0.55rem;width:1.125rem;height: 0.55rem;border: 1px solid #87CEFA;border-left:1px solid #1792e8;text-align: center;margin-left: 0.4rem;margin-top: 0.7rem;}
+	.ratep3{font-size: 0.3rem;color:#1792e8;line-height:0.55rem;width:1.125rem;height: 0.55rem;border: 1px solid #87CEFA;border-left:1px solid #1792e8;text-align: center;margin-left: 0.4rem;margin-top: 0.1rem;}
 	.ratesimg2{width:0.8625rem;height:0.3875rem; position: absolute;right:0.3rem;top:0;}
 	/*广告弹窗*/
 		.adshow{width: 100%;height: 100%;background-color: rgba(0,0,0,0.5);position: fixed;top:0;left:0;z-index: 99;}
@@ -76,6 +76,7 @@
 		.adtel{margin-top: 0.75rem;}
 		.adtel p{margin-right: 0.5rem;}
 		.guanbi{position: absolute;bottom:15%;width: 0.8rem;left:50%;margin-left: -0.4rem;height:0.8rem;}
+		.top_tel{margin-top: 0.5rem}
 	</style>
 </head>
 <body>
@@ -93,7 +94,14 @@
 	 			<p class="ratep1"><?php echo $advert->title;?></p>
 	 			<a href="<?php echo $advert->jump_url?>"><p class="ratep2"><?php echo $advert->descri;?><?php if($advert->jump_url):?><span style="color: #1792e8;">查看详情>></span><?php endif;?></p></a>
 	 		</div>
-	 		<p class="fl ratep3"><a href="tel:<?php echo $advert->tel;?>">电话</a></p>
+	 		<p class="fl ratep3 top_tel"><a href="tel:<?php echo $advert->tel;?>"><img src="/share/images/diandian.png"></a></p>
+	 		<p class="fl ratep3">
+			<?php if($advert->qrcode):?>
+			<a href="<?php echo url('qrcode',['qrcode'=>urlencode($advert->qrcode)]);?>"><img src="/share/images/zizi.png" alt=""></a>
+			<?php else:?>
+				<img src="/share/images/zixun.png" alt="">
+			<?php endif;?>
+			</p>
 	 		<div class="ratesimg2"><img src="/share/images/tuiguang.png" alt=""></div>
 	 	</div>
 		<?php endif;?>
@@ -108,7 +116,14 @@
 	 			<p class="ratep1"><?php echo $advert->title;?></p>
 	 			<a href="<?php echo $advert->jump_url?>"><p class="ratep2"><?php echo $advert->descri;?><?php if($advert->jump_url):?><span style="color: #1792e8;">查看详情>></span><?php endif;?></p></a>
 	 		</div>
-	 		<p class="fl ratep3"><a href="tel:<?php echo $advert->tel;?>">电话</a></p>
+	 		<p class="fl ratep3 top_tel"><a href="tel:<?php echo $advert->tel;?>"><img src="/share/images/diandian.png"></a></p>
+	 		<p class="fl ratep3">
+			<?php if($advert->qrcode):?>
+			<a href="<?php echo url('qrcode',['qrcode'=>urlencode($advert->qrcode)]);?>"><img src="/share/images/zizi.png" alt=""></a>
+			<?php else:?>
+				<img src="/share/images/zixun.png" alt="">
+			<?php endif;?>
+			</p>
 	 		<div class="ratesimg2"><img src="/share/images/tuiguang.png" alt=""></div>
 	 	</div>
 		<?php endif;?>
