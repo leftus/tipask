@@ -109,7 +109,7 @@
 	 			<a href="<?php echo $advert->jump_url?>"><p class="ratep2"><?php echo $advert->descri;?><?php if($advert->jump_url):?><span style="color: #1792e8;">查看详情>></span><?php endif;?></p></a>
 	 		</div>
 	 		<p class="fl ratep3"><a href="tel:<?php echo $advert->tel;?>">电话</a></p>
-	 		<div class="ratesimg2"><a href="<?php echo url('qrcode',[urlencode($advert->qrcode)]);?>"><img src="/share/images/tuiguang.png" alt=""></a></div>
+	 		<div class="ratesimg2"><img src="/share/images/tuiguang.png" alt=""></div>
 	 	</div>
 		<?php endif;?>
 	 </div>
@@ -160,7 +160,7 @@
 	 				<p class="fl adminp3"><?php echo $advert->tel;?></p>
 	 				<div class="fl clearfix ">
 	 					<span class="fl adbtmimg"><a href="tel:<?php echo $advert->tel;?>"><img src="/share/images/diandian.png" alt=""></a></span>
-	 					<span class="fl adbtmimg"><img src="/share/images/zizi.png" alt=""></span>
+	 					<span class="fl adbtmimg"><a href="<?php echo url('qrcode',[urlencode($advert->qrcode)]);?>"><img src="/share/images/zizi.png" alt=""></a></span>
 	 				</div>
 	 			</div>
 	 		</div>
