@@ -167,6 +167,9 @@ class ArticleController extends Controller
                                           ->with('relatedArticles',$relatedArticles);
         ;
     }
+  public function qrcode($qrcode){
+    return view("theme::article.qrcode")->with('qrcode',urldecode($qrcode));
+  }
 	public function share($article_id,$user_id,Request $request)
     {
 		if(empty($article_id))

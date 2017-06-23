@@ -232,7 +232,7 @@ Route::Group(['namespace'=>'Ask'],function(){
 
 /*营销工具Api*/
 Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
-	
+
     /*文章列表*/
     Route::post('article/list',['as'=>'api.article.list','uses'=>'ArticleController@lists']);
 	/*文章详情*/
@@ -241,22 +241,22 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
     Route::post('article/refresh_total',['as'=>'api.article.refresh_total','uses'=>'ArticleController@refresh_total']);
 	/*文章分享页面*/
     Route::post('article/detail_share',['as'=>'api.article.detail_share','uses'=>'ArticleController@detail_share']);
-	
+
 	/*收藏文章*/
     Route::post('favorite/add',['as'=>'api.favorit.add','uses'=>'FavoriteController@add']);
 	/*收藏文章*/
     Route::post('favorite/delete',['as'=>'api.favorit.delete','uses'=>'FavoriteController@del']);
 	/*我的收藏*/
     Route::post('favorite/list',['as'=>'api.favorit.delete','uses'=>'FavoriteController@lists']);
-	
-	
-	
+
+
+
 	 /*分类列表*/
     Route::get('categorie/list',['as'=>'api.categorie.list','uses'=>'CategorieController@lists']);
-	
-	
-	
-	
+
+
+
+
 	/*自定义链接添加*/
     Route::post('link/add',['as'=>'api.link.add','uses'=>'LinkController@add']);
 	/*自定义链接修改*/
@@ -265,8 +265,8 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
     Route::post('link/delete',['as'=>'api.link.delete','uses'=>'LinkController@delete']);
 	/*自定义链接列表*/
     Route::post('link/list',['as'=>'api.link.list','uses'=>'LinkController@lists']);
-	
-	
+
+
 	/*添加广告*/
     Route::post('adv/add',['as'=>'api.adv.add','uses'=>'AdvController@add']);
 	/*广告列表*/
@@ -277,13 +277,13 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
 	Route::post('adv/select',['as'=>'api.adv.select','uses'=>'AdvController@select']);
     /*删除广告*/
     Route::post('adv/delete',['as'=>'api.adv.delete','uses'=>'AdvController@delete']);
-	
+
 	/*消息推送-全部*/
     Route::post('msg/post_all',['as'=>'api.msg.post','uses'=>'MsgController@post_all']);
 	/*我的消息*/
     Route::post('msg/list',['as'=>'api.msg.post','uses'=>'MsgController@lists']);
 	Route::get('msg/postmsg_auto',['as'=>'api.msg.postmsg_auto','uses'=>'MsgController@postmsg_auto']);
-	
+
 	 /*用户登录*/
     Route::post('user/login',['as'=>'api.login.list','uses'=>'UserController@login']);
 	 /*个人中心*/
@@ -296,7 +296,8 @@ Route::Group(['namespace'=>'Blog'],function(){
 
     /*文章查看*/
     Route::get('article/{id}',['as'=>'blog.article.detail','uses'=>'ArticleController@show'])->where(['id'=>'[0-9]+']);
-	
+    //二维码
+	  Route::get('qrcode/{qrcode}',['as'=>'blog.article.qrcode','uses'=>'ArticleController@qrcode']);
 	/*文章分享页面*/
     Route::get('article_share/{article_id}/user/{user_id}',['as'=>'blog.article.detail_share','uses'=>'ArticleController@share'])->where(['article_id'=>'[0-9]+']);
 
@@ -470,7 +471,7 @@ Route::Group(['prefix'=>'admin','namespace'=>'Admin','middleware' =>['auth','aut
 	/*推送消息*/
     Route::resource('msg', 'MsgController',['except' => ['show']]);
 	Route::get('msg/postmsg',['as'=>'admin.msg.postmsg','uses'=>'MsgController@postmsg']);
-	
+
 });
 
 
