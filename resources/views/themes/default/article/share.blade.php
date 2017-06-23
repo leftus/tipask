@@ -97,7 +97,7 @@
 	 		<p class="fl ratep3 top_tel"><a href="tel:<?php echo $advert->tel;?>"><img src="/share/images/diandian.png"></a></p>
 	 		<p class="fl ratep3">
 			<?php if($advert->qrcode):?>
-			<a href="<?php echo url('qrcode',['qrcode'=>urlencode($advert->qrcode)]);?>"><img src="/share/images/zizi.png" alt=""></a>
+			<a href="<?php echo url('qrcode?qrcode='.urlencode($advert->qrcode));?>"><img src="/share/images/zizi.png" alt=""></a>
 			<?php else:?>
 				<img src="/share/images/zixun.png" alt="">
 			<?php endif;?>
@@ -119,7 +119,7 @@
 	 		<p class="fl ratep3 top_tel"><a href="tel:<?php echo $advert->tel;?>"><img src="/share/images/diandian.png"></a></p>
 	 		<p class="fl ratep3">
 			<?php if($advert->qrcode):?>
-			<a href="<?php echo url('qrcode',['qrcode'=>urlencode($advert->qrcode)]);?>"><img src="/share/images/zizi.png" alt=""></a>
+			<a href="<?php echo url('qrcode?qrcode='.urlencode($advert->qrcode));?>"><img src="/share/images/zizi.png" alt=""></a>
 			<?php else:?>
 				<img src="/share/images/zixun.png" alt="">
 			<?php endif;?>
@@ -177,7 +177,7 @@
 	 					<span class="fl adbtmimg"><a href="tel:<?php echo $advert->tel;?>"><img src="/share/images/diandian.png" alt=""></a></span>
 	 					<span class="fl adbtmimg">
 	 					<?php if($advert->qrcode):?>
-	 					<a href="<?php echo url('qrcode',['qrcode'=>urlencode($advert->qrcode)]);?>"><img src="/share/images/zizi.png" alt=""></a>
+	 					<a href="<?php echo url('qrcode?qrcode='.urlencode($advert->qrcode));?>"><img src="/share/images/zizi.png" alt=""></a>
 	 					<?php else:?>
 	 						<img src="/share/images/zixun.png" alt="">
 	 					<?php endif;?>
