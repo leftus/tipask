@@ -75,7 +75,7 @@
 		.adbtmimg{width:1.2rem;margin-left: 0.4rem;}
 		.adtel{margin-top: 0.75rem;}
 		.adtel p{margin-right: 0.5rem;}
-		.guanbi{position: absolute;bottom:3.5rem;width: 0.8rem;left:50%;margin-left: -0.4rem;height:0.8rem;}
+		.guanbi{position: absolute;bottom:15%;width: 0.8rem;left:50%;margin-left: -0.4rem;height:0.8rem;}
 	</style>
 </head>
 <body>
