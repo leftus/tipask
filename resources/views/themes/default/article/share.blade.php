@@ -1,4 +1,4 @@
-<?php 
+<?php
 	$listData = $article;
 	if($listData->is_favorite){
 		$is_favorite = '/share/images/favorited.png';
@@ -16,7 +16,7 @@
 	}
 	$advert  = $listData->advert;
 	$str = $listData->content;
-	
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,7 +54,7 @@
 	.sharept1{width: 25%;}
 	.shareimg{width:1.2rem;height: 1.2rem;margin:0 auto;display: block;}
 	.sharep{color:#fff;font-size: 0.3rem;line-height: 1rem;text-align: center;}
-	
+
 	/*推广*/
 	.ad-rate{width: 92%;margin: 0 auto;border: 1px solid #ccc;padding: 0.15rem;margin-top: 0.35rem;position: relative;}
 	.ratesimg1{width: 1.8rem;height: 2rem;margin-right: 0.25rem;}
@@ -67,14 +67,14 @@
 </head>
 <body>
 	 <div class="clearfix arttab">
-	 	
+
 	 </div>
 	 <div class="artpt1">
 	 	<p class="artpt1-p1"><?php echo $listData->title;?></p>
 	 	<div class="clearfix artpt1-p2"><p class="fl marr2"><?php echo $listData->created_at;?></p><p class="fl marr2"></p><p class="fl"><?php echo $listData->source;?></p></div>
-	 	<!-- 推广 -->
-		
-	 	<div class="clearfix ad-rate" <?php echo $display;?>>
+	 	<!-- 推广 头部-->
+		<?php if($advdert && $advert->type==1):?>
+	 	<div class="clearfix ad-rate">
 	 		<span style="display:inline-block;" class="fl ratesimg1"><img style="max-height:99%;" src="<?php echo '/'.$advert->img;?>" alt=""><span style="display:inline-block;height:100%;width:0%;"></span></span>
 	 		<div class="fl rateprt1">
 	 			<p class="ratep1"><?php echo $advert->title;?></p>
@@ -83,9 +83,22 @@
 	 		<p class="fl ratep3"><a href="tel:<?php echo $advert->tel;?>">电话</a></p>
 	 		<div class="ratesimg2"><img src="/share/images/tuiguang.png" alt=""></div>
 	 	</div>
-		
-		
+		<?php endif;?>
+
+
 	 	<div id="news"><?php echo $listData->content;?></div>
+		<!-- 推广尾部-->
+		<?php if($advdert && $advert->type==3):?>
+	 	<div class="clearfix ad-rate">
+	 		<span style="display:inline-block;" class="fl ratesimg1"><img style="max-height:99%;" src="<?php echo '/'.$advert->img;?>" alt=""><span style="display:inline-block;height:100%;width:0%;"></span></span>
+	 		<div class="fl rateprt1">
+	 			<p class="ratep1"><?php echo $advert->title;?></p>
+	 			<a href="<?php echo $advert->jump_url?>"><p class="ratep2"><?php echo $advert->descri;?><?php if($advert->jump_url):?><span style="color: #1792e8;">查看详情>></span><?php endif;?></p></a>
+	 		</div>
+	 		<p class="fl ratep3"><a href="tel:<?php echo $advert->tel;?>">电话</a></p>
+	 		<div class="ratesimg2"><img src="/share/images/tuiguang.png" alt=""></div>
+	 	</div>
+		<?php endif;?>
 	 </div>
 	 <div class="artbtm clearfix" style="display:none;">
 	 	<a onclick="add_favorite()">
@@ -100,7 +113,7 @@
 	 <!-- 分享弹窗 -->
 	 <div class="popup1" id="popwiow1">
 	 	<div class="popup2" id="popwiow2">
-	 		
+
 	 	</div>
 	 	<div class="clearfix share">
 	 		<div class="fl sharept1">
@@ -121,19 +134,44 @@
 	 		</div>
 	 	</div>
 	 </div>
-	 <script type="text/javascript">
-	 	$("#sharetxt").click(
-			function(){
-				$("#popwiow1").show();
-			});
-		$("#popwiow2").click(
-			function(){
-				$("#popwiow1").hide();
-			});
-		function add_favorite()
-		{
-			alert('请先登录!');
-		}
-	 </script>
+
+	 <!-- 广告弹窗 -->
+	 <?php if($advdert && $advert->type==2):?>
+	 <div class="adshow">
+	 	<div class="admid">
+	 		<div class="admid-img"><img src="<?php echo '/'.$advert->img;?>" alt=""></div>
+	 		<div class="admidtxt">
+	 			<p class="adminp1"><?php echo $advert->title;?></p>
+	 			<a href="<?php echo $advert->jump_url?>"><p class="adminp2"><?php echo $advert->descri;?><span><?php if($advert->jump_url):?>查看》<?php endif;?></span></p></a>
+	 			<div class="clearfix adtel">
+	 				<p class="fl adminp3"><?php echo $advert->tel;?></p>
+	 				<div class="fl clearfix ">
+	 					<span class="fl adbtmimg"><a href="tel:<?php echo $advert->tel;?>"><img src="/share/images/diandian.png" alt=""></a></span>
+	 					<span class="fl adbtmimg"><img src="/share/images/zizi.png" alt=""></span>
+	 				</div>
+	 			</div>
+	 		</div>
+
+	 	</div>
+	 	<div class="guanbi"><img src="/share/images/guanbi.png" alt=""></div>
+	 </div>
+ 	 <?php endif;?>
 </body>
 </html>
+<script type="text/javascript">
+ $("#sharetxt").click(
+	 function(){
+		 $("#popwiow1").show();
+	 });
+ $("#popwiow2").click(
+	 function(){
+		 $("#popwiow1").hide();
+	 });
+ function add_favorite()
+ {
+	 alert('请先登录!');
+ }
+ $('.guanbi').click(function(){
+	 $('.adshow').hide();
+ })
+</script>
