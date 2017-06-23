@@ -73,7 +73,7 @@
 	 	<p class="artpt1-p1"><?php echo $listData->title;?></p>
 	 	<div class="clearfix artpt1-p2"><p class="fl marr2"><?php echo $listData->created_at;?></p><p class="fl marr2"></p><p class="fl"><?php echo $listData->source;?></p></div>
 	 	<!-- 推广 头部-->
-		<?php if($advdert && $advert->type==1):?>
+		<?php if($advert && $advert->type==1):?>
 	 	<div class="clearfix ad-rate">
 	 		<span style="display:inline-block;" class="fl ratesimg1"><img style="max-height:99%;" src="<?php echo '/'.$advert->img;?>" alt=""><span style="display:inline-block;height:100%;width:0%;"></span></span>
 	 		<div class="fl rateprt1">
@@ -88,7 +88,7 @@
 
 	 	<div id="news"><?php echo $listData->content;?></div>
 		<!-- 推广尾部-->
-		<?php if($advdert && $advert->type==3):?>
+		<?php if($advert && $advert->type==3):?>
 	 	<div class="clearfix ad-rate">
 	 		<span style="display:inline-block;" class="fl ratesimg1"><img style="max-height:99%;" src="<?php echo '/'.$advert->img;?>" alt=""><span style="display:inline-block;height:100%;width:0%;"></span></span>
 	 		<div class="fl rateprt1">
@@ -136,7 +136,7 @@
 	 </div>
 
 	 <!-- 广告弹窗 -->
-	 <?php if($advdert && $advert->type==2):?>
+	 <?php if($advert && $advert->type==2):?>
 	 <div class="adshow">
 	 	<div class="admid">
 	 		<div class="admid-img"><img src="<?php echo '/'.$advert->img;?>" alt=""></div>
