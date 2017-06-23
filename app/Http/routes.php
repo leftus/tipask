@@ -297,7 +297,7 @@ Route::Group(['namespace'=>'Blog'],function(){
     /*文章查看*/
     Route::get('article/{id}',['as'=>'blog.article.detail','uses'=>'ArticleController@show'])->where(['id'=>'[0-9]+']);
     //二维码
-	  Route::get('qrcode/{qrcode}',['as'=>'blog.article.qrcode','uses'=>'ArticleController@qrcode']);
+	  Route::get('qrcode',['as'=>'blog.article.qrcode','uses'=>'ArticleController@qrcode']);
 	/*文章分享页面*/
     Route::get('article_share/{article_id}/user/{user_id}',['as'=>'blog.article.detail_share','uses'=>'ArticleController@share'])->where(['article_id'=>'[0-9]+']);
 

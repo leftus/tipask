@@ -160,7 +160,7 @@
 	 				<p class="fl adminp3"><?php echo $advert->tel;?></p>
 	 				<div class="fl clearfix ">
 	 					<span class="fl adbtmimg"><a href="tel:<?php echo $advert->tel;?>"><img src="/share/images/diandian.png" alt=""></a></span>
-	 					<span class="fl adbtmimg"><a href="<?php echo url('qrcode',[urlencode($advert->qrcode)]);?>"><img src="/share/images/zizi.png" alt=""></a></span>
+	 					<span class="fl adbtmimg"><a href="<?php echo url('qrcode',['qrcode'=>urlencode($advert->qrcode)]);?>"><img src="/share/images/zizi.png" alt=""></a></span>
 	 				</div>
 	 			</div>
 	 		</div>

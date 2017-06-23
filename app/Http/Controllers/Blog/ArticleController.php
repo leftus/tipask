@@ -167,7 +167,8 @@ class ArticleController extends Controller
                                           ->with('relatedArticles',$relatedArticles);
         ;
     }
-  public function qrcode($qrcode){
+  public function qrcode(Request $request){
+    $qrcode = $request->input('qrcode');
     return view("theme::article.qrcode")->with('qrcode',urldecode($qrcode));
   }
 	public function share($article_id,$user_id,Request $request)
@@ -182,7 +183,6 @@ class ArticleController extends Controller
 		if($user_id>0)
 		{
 			$advert = Advert::where('user_id',$user_id)->where('status','=',1)->select('title','descri','img','tel','link_id','type','qrcode')->first();
-
 		}
 		$data->comments = $data->views;
 		unset($data->views);
