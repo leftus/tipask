@@ -109,9 +109,9 @@ class FavoriteController extends Controller
 			$favorite[$k] = Article::where('id',$v->article_id)->select('id','title','summary','logo','views','created_at')->first();
 			if(substr($favorite[$k]->logo,0,1)=='/')
 			{
-				$logo = "https://www.stpaulsfriends.club/image/show".($favorite[$k]->logo);
+				$logo = "https://us.m9n.com/image/show".($favorite[$k]->logo);
 			}else{
-				$logo = "https://www.stpaulsfriends.club/image/show/".($favorite[$k]->logo);
+				$logo = "https://us.m9n.com/image/show/".($favorite[$k]->logo);
 			}
 			$favorite[$k]->logo = [$logo];
 		}

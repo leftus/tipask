@@ -164,7 +164,7 @@ class MsgController extends AdminController
 		{
 			$article = Article::where('id',$content)->select('id','title','logo','content')->first();
 			$article->desc    = str_limit($this->format_html($article->content), $limit = 40, $end = '');
-			$article->logo    = 'http://shop.m9n.com/image/show'.$article->logo;
+			$article->logo    = 'http://us.m9n.com/image/show'.$article->logo;
 			$custom = array('id'=>$article->id,'title'=>$article->title,'logo'=>$article->logo,'desc'=>$article->desc);
 		}
 		$to_user = $msg->to_user;

@@ -89,7 +89,7 @@ class UserController extends Controller
 		 }else{
 			$user = new \stdClass();
 			//新用户插入
-			$password = md5('HTTP://shop.m9n.com');
+			$password = md5('HTTP://us.m9n.com');
 			$email = time().'@none.com';
 			
 			$new_user = ['name'=>$nickname,'wx_openid'=>$wx_openid,'fc_openid'=>$fc_openid,'wx2_openid'=>$wx2_openid,'email'=>$email,'password'=>$password,'city'=>$city,'province'=>$province,'headimg'=>$headimgurl,'gender'=>$sex,'created_at'=>date('Y-m-d H:i:s',time()),'sort'=>$sort];

@@ -64,9 +64,9 @@ class ArticleController extends Controller
 		foreach($list as $v){
 				if(substr($v->logo,0,1)=='/')
 				{
-					$v->logo = "https://www.stpaulsfriends.club/image/show".$v->logo;
+					$v->logo = "https://us.m9n.com/image/show".$v->logo;
 				}else{
-					$v->logo = "https://www.stpaulsfriends.club/image/show/".$v->logo;
+					$v->logo = "https://us.m9n.com/image/show/".$v->logo;
 				}
 
 				$image = array();

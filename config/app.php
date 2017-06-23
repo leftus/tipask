@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'url' => env('WEBSITE_URL','https://localhost'),
+    'url' => env('WEBSITE_URL','https://us.m9n.com'),
 
     /*
     |--------------------------------------------------------------------------

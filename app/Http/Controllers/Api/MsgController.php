@@ -61,9 +61,9 @@ class MsgController extends Controller
 				$v->summary = $article->summary;
 				if(substr($article->logo,0,1)=='/')
 				{
-					$logo = "https://www.stpaulsfriends.club/image/show".($article->logo);
+					$logo = "https://us.m9n.com/image/show".($article->logo);
 				}else{
-					$logo = "https://www.stpaulsfriends.club/image/show/".($article->logo);
+					$logo = "https://us.m9n.com/image/show/".($article->logo);
 				}
 				$v->logo = [$logo];
 				$v->views = $article->views;
@@ -100,7 +100,7 @@ class MsgController extends Controller
 		$article = Article::whereRaw('category_id<>9')->select('id','title','logo','content')->orderBy('id','desc')->skip($skip)->first();
 		//$article = Article::whereRaw('id',$content)->select('id','title','logo','content')->first();
 		$article->desc    = str_limit($this->format_html($article->content), $limit = 40, $end = '');
-		$article->logo    = 'https://www.stpaulsfriends.club/image/show'.$article->logo;
+		$article->logo    = 'https://us.m9n.com/image/show'.$article->logo;
 		$title = $article->title;
 		$content = $article->title;
 		$custom = array('id'=>$article->id,'title'=>$article->title,'logo'=>$article->logo,'desc'=>$article->desc);
