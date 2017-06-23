@@ -63,6 +63,19 @@
 	.ratep2{font-size: 0.3rem;color:#666;line-height:0.5rem;}
 	.ratep3{font-size: 0.3rem;color:#1792e8;line-height:0.55rem;width:1.125rem;height: 0.55rem;border: 1px solid #87CEFA;border-left:1px solid #1792e8;text-align: center;margin-left: 0.4rem;margin-top: 0.7rem;}
 	.ratesimg2{width:0.8625rem;height:0.3875rem; position: absolute;right:0.3rem;top:0;}
+	/*广告弹窗*/
+		.adshow{width: 100%;height: 100%;background-color: rgba(0,0,0,0.5);position: fixed;top:0;left:0;z-index: 99;}
+		.admid{width: 8rem;height: 8rem;background-color: #fff;border-radius: 15px;overflow: hidden;position: absolute;top:25%;left: 50%;margin-left: -4rem;}
+		.admid-img{width: 100%;height: 3rem;overflow: hidden;}
+		.admidtxt{padding:0.5rem 0.8rem;width: 6.4rem;}
+		.adminp1{font-size: 0.5rem;line-height: 0.8rem;color:#3e3e3e;}
+		.adminp2{font-size: 0.32rem;line-height: 0.5rem;color:#8c8c8c;}
+		.adminp2 span{color:#1792e8;}
+		.adminp3{font-size: 0.4rem;line-height: 0.5rem;}
+		.adbtmimg{width:1.2rem;margin-left: 0.4rem;}
+		.adtel{margin-top: 0.75rem;}
+		.adtel p{margin-right: 0.5rem;}
+		.guanbi{position: absolute;bottom:3.5rem;width: 0.8rem;left:50%;margin-left: -0.4rem;height:0.8rem;}
 	</style>
 </head>
 <body>
