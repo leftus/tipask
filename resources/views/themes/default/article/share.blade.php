@@ -66,7 +66,7 @@
 	/*广告弹窗*/
 		.adshow{width: 100%;height: 100%;background-color: rgba(0,0,0,0.5);position: fixed;top:0;left:0;z-index: 99;}
 		.admid{width: 8rem;height: 8rem;background-color: #fff;border-radius: 15px;overflow: hidden;position: absolute;top:25%;left: 50%;margin-left: -4rem;}
-		.admid-img{width: 100%;height: 3rem;overflow: hidden;text-align: center;padding-top: 5px;}
+		.admid-img{width: 100%;height: 3rem;overflow: hidden;text-align: center;}
 		.admidtxt{padding:0.5rem 0.8rem;width: 6.4rem;}
 		.adminp1{font-size: 0.5rem;line-height: 0.8rem;color:#3e3e3e;}
 		.adminp2{font-size: 0.32rem;line-height: 0.5rem;color:#8c8c8c;}
