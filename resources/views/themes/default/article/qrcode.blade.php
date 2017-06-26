@@ -10,7 +10,11 @@
   }
   .qrcode{
     text-align: center;
-    margin:50px auto;
+    margin:50% auto;
+    width:200px;
+  }
+  .qrcode img{
+    width:100%;
   }
 	</style>
 </head>
