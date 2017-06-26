@@ -50,9 +50,9 @@ class ArticleController extends Controller
 		$skip = ($page-1)*$take;
 		if($cate ==4){
 			$cate_list = Category::where('type','articles')->where('status','<>',0)->lists('id');
-			$list = Article::orderBy('id','desc')->whereIn('category_id',$cate_list)->skip($skip)->take($take)->select('id','title','summary','source','logo','views','created_at')->get();
+			$list = Article::orderBy('created_at','desc')->whereIn('category_id',$cate_list)->skip($skip)->take($take)->select('id','title','summary','source','logo','views','created_at')->get();
 		}else{
-			$list = Article::orderBy('id','desc')->where('category_id',$cate)->skip($skip)->take($take)->select('id','title','summary','source','logo','views','created_at')->get();
+			$list = Article::orderBy('created_at','desc')->where('category_id',$cate)->skip($skip)->take($take)->select('id','title','summary','source','logo','views','created_at')->get();
 		}
 		if($count_show)
 		{
