@@ -79,7 +79,12 @@ class ArticleController extends Controller
 			}
 		$old_date = $request->input('old_date');
 		if(!empty($old_date)){
-			$data->number = Article::where('created_at','>',$old_date)->where('category_id',$cate)->count();
+			if($cate ==4){
+				$cate_list = Category::where('type','articles')->where('status','<>',0)->lists('id');
+				$data->number = Article::where('created_at','>',$old_date)->whereIn('category_id',$cate_list)->count();
+			}else{
+				$data->number = Article::where('created_at','>',$old_date)->where('category_id',$cate)->count();
+			}
 		}else{
 			$data->number = 0;
 		}
