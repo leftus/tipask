@@ -37,7 +37,7 @@ class ImageController extends Controller
 
     public function show($image_name)
     {
-        if(strpos($images,'http')!==false){
+        if(strpos($image_name,'http')!==false){
             return $image_name;
         }
         $imageFile = storage_path('app/'.str_replace("-","/",$image_name));
