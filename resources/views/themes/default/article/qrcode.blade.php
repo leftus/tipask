@@ -11,7 +11,7 @@
   .qrcode{
     text-align: center;
     margin:50% auto;
-    width:200px;
+    width:300px;
   }
   .qrcode img{
     width:100%;
@@ -20,7 +20,7 @@
 </head>
 <body>
   <div class="qrcode">
-    <p><img src="<?php echo $qrcode;?>"></p>
+    <p><img src="<?php echo $qrcode;?>" ></p>
     <p>长按识别图中二维码加好友咨询！</p>
   </div>
 </body>
