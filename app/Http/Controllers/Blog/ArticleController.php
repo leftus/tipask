@@ -280,6 +280,8 @@ class ArticleController extends Controller
         $article->content = clean($request->input('content'));
         //$article->content = $request->input('content');
         $article->summary = $request->input('summary');
+        $article->share_count = $request->input('share_count');
+        $article->views = $request->input('views');
         $article->category_id = $request->input('category_id',0);
         $article->created_at = date('Y-m-d H:i:s');
         $article->updated_at = date('Y-m-d H:i:s');

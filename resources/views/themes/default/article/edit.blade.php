@@ -57,7 +57,7 @@
                         @include('admin.category.option',['type'=>'articles','select_id'=>$article->category_id])
                     </select>
                 </div>
-                <div class="col-xs-6">
+                <div class="col-xs-4">
                     <select id="select_tags" name="select_tags" class="form-control" multiple="multiple" >
                         @foreach($article->tags as $tag)
                             <option selected="selected">{{ $tag->name }}</option>
@@ -67,6 +67,10 @@
                 <div class="col-xs-2">
                 <label for="share_count">传播指数：</label>
                 <input type="text" name="share_count" class="form-control" value="{{$article->share_count}}">
+                </div>
+                <div class="col-xs-2">
+                <label for="share_count">阅读量：</label>
+                <input type="text" name="views" class="form-control" value="{{$article->views}}">
                 </div>
             </div>
 
