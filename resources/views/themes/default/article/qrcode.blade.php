@@ -20,7 +20,8 @@
 </head>
 <body>
   <div class="qrcode">
-    <img src="<?php echo $qrcode;?>">
+    <p><img src="<?php echo $qrcode;?>"></p>
+    <p>长按识别图中二维码加好友咨询！</p>
   </div>
 </body>
 </html>
