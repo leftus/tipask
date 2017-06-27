@@ -62,6 +62,9 @@ class ArticleController extends Controller
         $data->code = 0;
         $data->msg = "获取成功";
 		foreach($list as $v){
+				$image = array();
+				$image[] = $v->logo;
+				$v->logo = $image;
 				if(empty($v->source))
 				{
 					$v->source = '';
