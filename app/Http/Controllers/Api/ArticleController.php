@@ -62,7 +62,7 @@ class ArticleController extends Controller
         $data->code = 0;
         $data->msg = "获取成功";
 		foreach($list as $v){
-				if(!stripos($v->logo,'http')){
+				if(strpos($v->logo,'http')===FALSE){
 					$v->logo = '/'.$v->logo;
 				}
 				$image = array();
