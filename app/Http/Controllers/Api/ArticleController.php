@@ -62,13 +62,6 @@ class ArticleController extends Controller
         $data->code = 0;
         $data->msg = "获取成功";
 		foreach($list as $v){
-				if(substr($v->logo,0,1)=='/')
-				{
-					$v->logo = "https://us.m9n.com/image/show".$v->logo;
-				}else{
-					$v->logo = "https://us.m9n.com/image/show/".$v->logo;
-				}
-
 				$image = array();
 				$image[] = $v->logo;
 				$v->logo = $image;
