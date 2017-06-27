@@ -64,6 +64,8 @@ class ArticleController extends Controller
 		foreach($list as $v){
 				if(strpos($v->logo,'http')===FALSE){
 					$v->logo = '/'.$v->logo;
+				}else{
+					$v->logo = 'https://us.m9n.com/'.$v->logo;
 				}
 				$image = array();
 				$image[] = $v->logo;
