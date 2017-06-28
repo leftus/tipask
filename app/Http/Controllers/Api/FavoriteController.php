@@ -106,12 +106,15 @@ class FavoriteController extends Controller
 		$favorite = Favorite::select('article_id')->where('user_id',$user_id)->skip($skip)->take($take)->orderBy('id','desc')->get();
 		foreach($favorite as $k=>$v)
 		{
-			$favorite[$k] = Article::where('id',$v->article_id)->select('id','title','summary','logo','views','created_at')->first();
-			if(substr($favorite[$k]->logo,0,1)=='/')
-			{
-				$logo = "https://us.m9n.com/image/show".($favorite[$k]->logo);
+			$favorite[$k] = Article::where('id',$v->article_id)->select('id','title','summary','logo','views','created_at','share_count')->first();
+			if($favorite[$k]->views>0){
+				$favorite[$k]->rate = '转发率：'.(number_format($favorite[$k]->share_count/$favorite[$k]->views,2)*100).'%';
 			}else{
-				$logo = "https://us.m9n.com/image/show/".($favorite[$k]->logo);
+				$favorite[$k]->rate = '转发率：100%';
+			}
+			unset($favorite[$k]->share_count);
+			if(strpos($favorite[$k]->logo,'http')===FALSE){
+				$logo = 'https://us.m9n.com/image/show/'.$favorite[$k]->logo;
 			}
 			$favorite[$k]->logo = [$logo];
 		}
