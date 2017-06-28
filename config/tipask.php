@@ -39,7 +39,7 @@ return [
     ],
     'summernote'=>[
         'ask' => "['common', ['style','bold','ol','link','picture','clear','fullscreen']]",
-        'blog' => "['common', ['style','bold','color','ol', 'paragraph','table','link','picture','clear','fullscreen','video','codeview']]",
+        'blog' => "['common', ['style','bold','color','ol', 'paragraph','table','link','picture','clear','fullscreen','codeview']]",
     ],
 
     'upload' =>[
