@@ -78,7 +78,7 @@ class ArticleController extends Controller
 					$v->rate = '转发率：100%';
 				}
 				unset($v->share_count);
-				$v->views = '阅读量：'.$views;
+				$v->views = '阅读量：'.$v->views;
 			}
 		$old_date = $request->input('old_date');
 		if(!empty($old_date)){
