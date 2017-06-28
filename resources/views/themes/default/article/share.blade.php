@@ -56,7 +56,7 @@
 	.sharep{color:#fff;font-size: 0.3rem;line-height: 1rem;text-align: center;}
 
 	/*推广*/
-	.ad-rate{width: 92%;margin: 0 auto;border: 1px solid #ccc;padding: 0.15rem;margin-top: 0.35rem;position: relative;}
+	.ad-rate{width: 95%;margin: 0 auto;border: 1px solid #ccc;padding: 0.15rem;margin-top: 0.35rem;position: relative;}
 	.ratesimg1{width: 1.8rem;height: 2rem;margin-right: 0.25rem;}
 	.rateprt1{width: 56%;}
 	.ratep1{font-size: 0.36rem;color:#252525;}
