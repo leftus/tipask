@@ -18,9 +18,13 @@
             <div class="stream-list blog-stream">
                 @foreach($articles as $article)
                 <section class="stream-list-item clearfix">
-                    @if( $article->logo )
+                    @if( stripos($article->logo,'http')===FALSE )
                     <div class="blog-rank hidden-xs">
                         <a href="{{ route('blog.article.detail',['id'=>$article->id]) }}" target="_blank"><img style="width: 200px;height:120px;" src="{{ route('website.image.show',['image_name'=>$article->logo]) }}"></a>
+                    </div>
+                    @else
+                    <div class="blog-rank hidden-xs">
+                        <a href="{{ route('blog.article.detail',['id'=>$article->id]) }}" target="_blank"><img style="width: 200px;height:120px;" src="{{$article->logo}}"></a>
                     </div>
                     @endif
                     <div class="summary">
