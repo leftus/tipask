@@ -50,9 +50,9 @@ class ArticleController extends Controller
 		$skip = ($page-1)*$take;
 		if($cate ==4){
 			$cate_list = Category::where('type','articles')->where('status','<>',0)->lists('id');
-			$list = Article::orderBy('created_at','desc')->whereIn('category_id',$cate_list)->skip($skip)->take($take)->select('id','title','summary','source','logo','views','created_at')->get();
+			$list = Article::orderBy('created_at','desc')->whereIn('category_id',$cate_list)->skip($skip)->take($take)->select('id','title','summary','source','logo','views','created_at','share_count')->get();
 		}else{
-			$list = Article::orderBy('created_at','desc')->where('category_id',$cate)->skip($skip)->take($take)->select('id','title','summary','source','logo','views','created_at')->get();
+			$list = Article::orderBy('created_at','desc')->where('category_id',$cate)->skip($skip)->take($take)->select('id','title','summary','source','logo','views','created_at','share_count')->get();
 		}
 		if($count_show)
 		{
@@ -72,6 +72,13 @@ class ArticleController extends Controller
 				{
 					$v->source = '';
 				}
+				if($v->views>0){
+					$v->rate = '转发率：'.number_format($v->share_count/$v->views,2)*100.'%';
+				}else{
+					$v->rate = '转发率：100%';
+				}
+				unset($v->share_count);
+				$v->views = '阅读量：'.$views
 			}
 		$old_date = $request->input('old_date');
 		if(!empty($old_date)){
