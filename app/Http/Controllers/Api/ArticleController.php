@@ -73,7 +73,7 @@ class ArticleController extends Controller
 					$v->source = '';
 				}
 				if($v->views>0){
-					$v->rate = '转发率：'.number_format($v->share_count/$v->views,2)*100.'%';
+					$v->rate = '转发率：'.(number_format($v->share_count/$v->views,2)*100).'%';
 				}else{
 					$v->rate = '转发率：100%';
 				}
