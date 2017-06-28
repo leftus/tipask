@@ -28,7 +28,6 @@
 	<script type="text/javascript" src="/share/js/common.js"></script>
 	<script type="text/javascript" src="/share/js/jquery-1.11.1.min.js"></script>
 	<style type="text/css">
-		img{max-width:97%;}
 		.arttab{width: 100%;padding-top: 0rem;padding-bottom: 0rem;border:none}
 		.arttab1{width: 20%;}
 		.arttab2{width: 60%;text-align: center;font-size: 0.425rem;color: #252525;height: 0.5rem;overflow: hidden;}
