@@ -112,6 +112,7 @@ class FavoriteController extends Controller
 			}else{
 				$favorite[$k]->rate = '转发率：100%';
 			}
+			$favorite[$k]->views = '阅读量：'.$favorite[$k]->views;
 			unset($favorite[$k]->share_count);
 			if(strpos($favorite[$k]->logo,'http')===FALSE){
 				$logo = 'https://us.m9n.com/image/show/'.$favorite[$k]->logo;
