@@ -77,6 +77,7 @@
 		.adtel p{margin-right: 0.5rem;}
 		.guanbi{position: absolute;bottom:15%;width: 0.8rem;left:50%;margin-left: -0.4rem;height:0.8rem;}
 		.top_tel{margin-top: 0.6rem}
+		.ad-bottom{margin-bottom:0.5rem;}
 	</style>
 </head>
 <body>
@@ -110,7 +111,7 @@
 	 	<div id="news"><?php echo $listData->content;?></div>
 		<!-- 推广尾部-->
 		<?php if($advert && $advert->type==3):?>
-	 	<div class="clearfix ad-rate">
+	 	<div class="clearfix ad-rate ad-bottom">
 	 		<span style="display:inline-block;" class="fl ratesimg1"><img style="max-height:99%;" src="<?php echo '/'.$advert->img;?>" alt=""><span style="display:inline-block;height:100%;width:0%;"></span></span>
 	 		<div class="fl rateprt1">
 	 			<p class="ratep1"><?php echo $advert->title;?></p>
