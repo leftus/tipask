@@ -168,12 +168,12 @@ class MsgController extends AdminController
 			$custom = array('id'=>$article->id,'title'=>$article->title,'logo'=>$article->logo,'desc'=>$article->desc);
 		}
 		$to_user = $msg->to_user;
-		var_dump($to_user);
+		//var_dump($to_user);
 		if(!empty($to_user)){
 			$error = 0;
 			$error_str = '发送成功';
 			$user = User::where('id',$to_user)->select('device_token','device_type')->first();
-			if($user->device_type==1){
+			if($user && $user->device_type==1){
 				//Androd给单个设备下发通知
 				//$error_msg = XingeApp::PushTokenAndroid(2100259224, "46dc9b997f1f3db3bbab8ed057a8959a", $title, $content,$user->device_token);
 				$error_msg = $this->DemoPushSingleDeviceNotification($title,$user->device_token,$content,$custom);
@@ -181,7 +181,7 @@ class MsgController extends AdminController
 					$error++;
 					$error_str = $error_msg['err_msg'];
 				} 
-			}elseif($user->device_type==2){
+			}elseif($user && $user->device_type==2){
 				//IOS开发环境下 给单个设备下发通知
 				/* $error_msg = XingeApp::PushTokenIos(2200259225, 'e93553fa967e5a698af8e6505372abee', $content, $user->device_token, XingeApp::IOSENV_DEV); */
 				$error_msg = $this->DemoPushSingleDeviceIOS($title,$user->device_token,$custom);
