@@ -108,11 +108,11 @@ class FavoriteController extends Controller
 		{
 			$favorite[$k] = Article::where('id',$v->article_id)->select('id','title','summary','logo','views','created_at','share_count')->first();
 			if($favorite[$k]->views>0){
-				$favorite[$k]->rate = '转发率：'.(number_format($favorite[$k]->share_count/$favorite[$k]->views,2)*100).'%';
+				$favorite[$k]->rate = '转发率:'.(number_format($favorite[$k]->share_count/$favorite[$k]->views,2)*100).'%';
 			}else{
-				$favorite[$k]->rate = '转发率：100%';
+				$favorite[$k]->rate = '转发率:100%';
 			}
-			$favorite[$k]->views = '阅读量：'.$favorite[$k]->views;
+			$favorite[$k]->views = '阅读量:'.$favorite[$k]->views;
 			unset($favorite[$k]->share_count);
 			if(strpos($favorite[$k]->logo,'http')===FALSE){
 				$logo = 'https://us.m9n.com/image/show/'.$favorite[$k]->logo;
