@@ -37,7 +37,6 @@
 		.artpt1{width: 94%;padding-left: 2%;padding-right: 2%;padding-top: 0.25rem;}
 		.artpt1-p1{font-size: 0.5rem;color:#252525;line-height: 0.5rem;overflow: hidden;font-weight: 600;}
 		.artpt1-p2{font-size: 0.35rem;color:#8c8c8c;line-height: 0.45rem;margin-top: 0.25rem;margin-bottom: 0.25rem;}
-		 #news{font-size: 0.32rem !important;color:#3e3e3e;line-height: 0.55rem;margin: 0 auto;margin-top: 0.35rem;margin-bottom: 0.35rem;width:100%;font-family:黑体}
 		.artimg4{width: 100%;height: 3.5rem;}
 		.artbtm{width: 97%;padding-left: 3%;border-top: 1px solid #e8e8e8;padding-top: 0.2rem;padding-bottom: 0.2rem;position: fixed;bottom:0;left:0;z-index: 1;background-color: #fff;}
 		.artimg5{width:0.9rem;margin-right: 0.5rem;}
