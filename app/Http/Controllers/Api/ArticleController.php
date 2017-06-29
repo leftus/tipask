@@ -50,9 +50,9 @@ class ArticleController extends Controller
 		$skip = ($page-1)*$take;
 		if($cate ==4){
 			$cate_list = Category::where('type','articles')->where('status','<>',0)->lists('id');
-			$list = Article::orderBy('created_at','desc')->whereIn('category_id',$cate_list)->skip($skip)->take($take)->select('id','title','summary','source','logo','views','created_at','share_count')->get();
+			$list = Article::orderBy('created_at','desc')->whereIn('category_id',$cate_list)->skip($skip)->take($take)->select('id','title','summary','source','logo','views','created_at','share_count','category_id')->get();
 		}else{
-			$list = Article::orderBy('created_at','desc')->where('category_id',$cate)->skip($skip)->take($take)->select('id','title','summary','source','logo','views','created_at','share_count')->get();
+			$list = Article::orderBy('created_at','desc')->where('category_id',$cate)->skip($skip)->take($take)->select('id','title','summary','source','logo','views','created_at','share_count','category_id')->get();
 		}
 		if($count_show)
 		{
@@ -79,6 +79,10 @@ class ArticleController extends Controller
 				}
 				unset($v->share_count);
 				$v->views = '阅读量:'.$v->views;
+				if($v->category_id==9){
+					$v->title = $v->summary;
+				}
+				unset($v->category_id);
 			}
 		$old_date = $request->input('old_date');
 		if(!empty($old_date)){
@@ -102,7 +106,12 @@ class ArticleController extends Controller
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
 		}
-		$data = Article::where('id',$article_id)->select('id','title','source','created_at','views','content')->first();
+		$data = Article::where('id',$article_id)->select('id','title','source','created_at','views','content','summary','category_id')->first();
+		if($data->category_id==9){
+			$data->title = $data->summary;
+		}
+		unset($data->summary);
+		unset($data->category_id);
 		$data->created_at = date('Y-m-d',strtotime($data->created_at));
 		if($user_id>0)
 		{
@@ -119,9 +128,9 @@ class ArticleController extends Controller
 			}else{
 				$advert->jump_url = '';
 			}
-      if(empty($advert->qrcode)){
-        $advert->qrcode = '';
-      }
+	      if(empty($advert->qrcode)){
+	        $advert->qrcode = '';
+	      }
 			unset($advert->link_id);
 			$data->isadv = 1;
 			$data->type = $advert->type;
