@@ -12,7 +12,7 @@
 		video{
 			height: 100% !important;
 		}
-		#content{font-size: 0.32rem !important;}
+		#content{}
 	</style>
 </head>
 <body id="content">
