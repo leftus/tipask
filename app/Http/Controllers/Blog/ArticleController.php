@@ -178,7 +178,12 @@ class ArticleController extends Controller
 			print('缺少参数');
 			exit();
 		}
-		$data = Article::where('id',$article_id)->select('id','title','source','created_at','views','content')->first();
+		$data = Article::where('id',$article_id)->select('id','title','source','created_at','views','content','category_id','summary')->first();
+        if($data->category_id==9){
+            $data->title = trim($data->summary);
+        }
+        unset($data->category_id);
+        unset($data->summary);
 		$data->created_at = date('Y-m-d',strtotime($data->created_at));
 		if($user_id>0)
 		{
