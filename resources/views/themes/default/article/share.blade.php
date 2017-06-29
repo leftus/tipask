@@ -88,7 +88,7 @@
 
 	 </div>
 	 <div class="artpt1">
-	 	<p class="artpt1-p1"><?php echo $listData->title;?></p>
+	 	<h3 class="artpt1-p1"><?php echo $listData->title;?></h3>
 	 	<div class="clearfix artpt1-p2"><p class="fl marr2"><?php echo $listData->created_at;?></p><p class="fl marr2"></p><p class="fl"><?php echo $listData->source;?></p></div>
 	 	<!-- 推广 头部-->
 		<?php if($advert && $advert->type==1):?>
