@@ -80,7 +80,7 @@ class ArticleController extends Controller
 				unset($v->share_count);
 				$v->views = '阅读量:'.$v->views;
 				if($v->category_id==9){
-					$v->title = $v->summary;
+					$v->title = trim($v->summary);
 				}
 				unset($v->category_id);
 			}
@@ -108,7 +108,7 @@ class ArticleController extends Controller
 		}
 		$data = Article::where('id',$article_id)->select('id','title','source','created_at','views','content','summary','category_id')->first();
 		if($data->category_id==9){
-			$data->title = $data->summary;
+			$data->title = trim($data->summary);
 		}
 		unset($data->summary);
 		unset($data->category_id);
