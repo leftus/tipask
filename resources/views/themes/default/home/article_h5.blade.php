@@ -12,7 +12,6 @@
 		video{
 			height: 100% !important;
 		}
-		#content{}
 	</style>
 </head>
 <body id="content">
