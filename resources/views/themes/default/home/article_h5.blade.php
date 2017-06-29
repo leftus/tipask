@@ -12,7 +12,7 @@
 		video{
 			height: 100% !important;
 		}
-		#content{font-size: 0.32rem !important;color:#3e3e3e;line-height: 0.55rem;margin: 0 auto;font-family:黑体}
+		#content{font-size: 0.32rem !important;}
 	</style>
 </head>
 <body id="content">
