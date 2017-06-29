@@ -63,6 +63,8 @@
                                 <tr>
                                     <th><input type="checkbox" class="checkbox-toggle" /></th>
                                     <th>标题</th>
+                                    <th>分享数量</th>
+                                    <th>阅读数量</th>
                                     <th>分类</th>
                                     <th>作者</th>
                                     <th>收藏/查看</th>
@@ -74,6 +76,8 @@
                                     <tr>
                                         <td><input type="checkbox" name="id[]" value="{{ $article->id }}"/></td>
                                         <td><a href="{{ route('blog.article.detail',['id'=>$article->id]) }}" target="_blank">{{ $article->title }}</a></td>
+                                        <td>{{ $article->share_count }}</td>
+                                        <td>{{ $article->views }}</td>
                                         <td>@if($article->category) {{ $article->category->name }} @else 无 @endif</td>
                                         <td>{{ $article->user->name }}<span class="text-muted">[UID:{{ $article->user_id }}]</span></td>
                                         <td>{{ $article->collections }} / {{ $article->views }}</td>
