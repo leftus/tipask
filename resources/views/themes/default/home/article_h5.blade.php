@@ -25,6 +25,6 @@
 	var video_height = video_ojb.offsetHeight;
 	var video_width  = video_ojb.offsetWidth;
 	var window_width = window.screen.width;
-	video_ojb.style.height = window_width;
+	//video_ojb.style.width = window_width;
 	console.log(window_width);
 </script>
