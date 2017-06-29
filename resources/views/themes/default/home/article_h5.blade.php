@@ -9,6 +9,9 @@
 			max-width: 100%;
 			height:auto !important;
 		}
+		video{
+			height: 100% !important;
+		}
 	</style>
 </head>
 <body id="content">
