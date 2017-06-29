@@ -22,7 +22,7 @@
 </html>
 <script type="text/javascript">
 	var video_ojb = document.getElementsByTagName('video');
-	var video_height = video_ojb.offsetHeight;
-	video_ojb[0].style.height = video_height+'px';
+	//var video_height = video_ojb.offsetHeight;
+	video_ojb[0].style.height = '100%';
 	console.log(video_height);
 </script>
