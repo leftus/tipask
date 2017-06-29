@@ -24,5 +24,5 @@
 	var video_ojb = document.getElementsByTagName('video');
 	var video_height = video_ojb.offsetHeight;
 	video_ojb[0].style.height = video_height+'px';
-	console.log(window_width);
+	console.log(video_height);
 </script>
