@@ -77,6 +77,9 @@
 		.guanbi{position: absolute;bottom:15%;width: 0.8rem;left:50%;margin-left: -0.4rem;height:0.8rem;}
 		.top_tel{margin-top: 0.6rem}
 		.ad-bottom{margin-bottom:0.5rem;}
+		.contact{
+
+		}
 	</style>
 </head>
 <body>
@@ -94,6 +97,7 @@
 	 			<p class="ratep1"><?php echo $advert->title;?></p>
 	 			<a href="<?php echo $advert->jump_url?>"><p class="ratep2"><?php echo $advert->descri;?><?php if($advert->jump_url):?><span style="color: #1792e8;">查看详情>></span><?php endif;?></p></a>
 	 		</div>
+	 		<div class="fl contact">
 	 		<p class="fl ratep3 top_tel"><a href="tel:<?php echo $advert->tel;?>"><img src="/share/images/diandian.png"></a></p>
 	 		<p class="fl ratep3">
 			<?php if($advert->qrcode):?>
@@ -102,6 +106,7 @@
 				<img src="/share/images/zixun.png" alt="">
 			<?php endif;?>
 			</p>
+	 		</div>
 	 		<div class="ratesimg2"><img src="/share/images/tuiguang.png" alt=""></div>
 	 	</div>
 		<?php endif;?>
@@ -116,6 +121,7 @@
 	 			<p class="ratep1"><?php echo $advert->title;?></p>
 	 			<a href="<?php echo $advert->jump_url?>"><p class="ratep2"><?php echo $advert->descri;?><?php if($advert->jump_url):?><span style="color: #1792e8;">查看详情>></span><?php endif;?></p></a>
 	 		</div>
+	 		<div class="fl contact">
 	 		<p class="fl ratep3 top_tel"><a href="tel:<?php echo $advert->tel;?>"><img src="/share/images/diandian.png"></a></p>
 	 		<p class="fl ratep3">
 			<?php if($advert->qrcode):?>
@@ -124,6 +130,7 @@
 				<img src="/share/images/zixun.png" alt="">
 			<?php endif;?>
 			</p>
+			</div>
 	 		<div class="ratesimg2"><img src="/share/images/tuiguang.png" alt=""></div>
 	 	</div>
 		<?php endif;?>
