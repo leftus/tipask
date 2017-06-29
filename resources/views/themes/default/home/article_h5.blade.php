@@ -20,3 +20,9 @@
 ?>
 </body>
 </html>
+<script type="text/javascript">
+	var video_ojb = document.getElementsByTagName('video');
+	var video_height = video_ojb.offsetHeight;
+	var video_width  = element.offsetWidth;
+	console.log(video_ojb);
+</script>
