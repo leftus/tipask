@@ -91,6 +91,8 @@
 	    padding: 0.2rem;
 	    height: 1rem;
 	    border-top: 1px #ccc solid;
+			background: #f5f5f5;
+			opacity: 1;
 		}
 		.app .logo{
 			float:left;
