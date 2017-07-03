@@ -87,9 +87,10 @@
 		}
 		.app{
 			position: fixed;
-			bottom: 0;
-			padding: 0.2rem;
-			height: 2rem;
+	    bottom: 0;
+	    padding: 0.2rem;
+	    height: 1rem;
+	    border-top: 1px #ccc solid;
 		}
 		.app .logo{
 			float:left;
@@ -97,6 +98,7 @@
 		}
 		.app .title{
 			float:left;
+			padding: 0.1rem;
 		}
 		.app .title .start{
 			font-size: 0.36rem;
@@ -107,8 +109,9 @@
 			color:#333;
 		}
 		.app .download{
-			float:left;
-			width: 1.5rem;
+			float: left;
+	    width: 1.4rem;
+	    padding-top: 0.2rem;
 		}
 	</style>
 </head>
