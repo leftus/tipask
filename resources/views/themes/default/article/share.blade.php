@@ -59,7 +59,7 @@
 	.ad-rate{width: 95%;margin: 0 auto;border: 1px solid #e9e9e9;padding: 0.15rem;margin-top: 0.35rem;position: relative;}
 	.ratesimg1{width: 1.8rem;height: 2rem;margin-right: 0.25rem;}
 	.rateprt1{width: 56%;}
-	.ratep1{font-size: 0.36rem;color:#252525;height: 1rem;}
+	.ratep1{font-size: 0.36rem;color:#252525;height: 1.2rem;}
 	.ratep2{font-size: 0.3rem;color:#666;line-height:0.5rem;}
 	.ratep3{width:1.125rem;height: 0.55rem;text-align: center;margin-top: 0.1rem;}
 	.ratesimg2{width:0.8625rem;height:0.3875rem; position: absolute;right:0.3rem;top:0;}
@@ -194,7 +194,6 @@
 	 				</div>
 	 			</div>
 	 		</div>
-
 	 	</div>
 	 	<div class="guanbi"><img src="/share/images/guanbi.png" alt=""></div>
 	 </div>
