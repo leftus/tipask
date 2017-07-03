@@ -90,9 +90,10 @@
 	    bottom: 0;
 	    padding: 0.2rem;
 	    height: 1rem;
-	    box-shadow: 0 -2px 0 #ccc;
+	    border-top: 1px #ccc solid;
 			background: #f5f5f5;
 			opacity: 1;
+			width: 100%;
 		}
 		.app .logo{
 			float:left;
