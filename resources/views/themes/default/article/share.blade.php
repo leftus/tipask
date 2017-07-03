@@ -83,7 +83,7 @@
 		    margin-left: 0.6rem;
 		}
 		body{
-			margin-bottom: 1rem;
+			margin-bottom: 2rem;
 		}
 		.app{
 			position: fixed;
