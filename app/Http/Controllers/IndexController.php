@@ -223,6 +223,7 @@ class IndexController extends Controller
 	public function article_detail_h5($id)
 	{
 		$content = Article::where('id',$id)->value('content');
+        $content = str_replace('https://www.stpaulsfriends.club', '', $content);
 		return view('theme::home.article_h5',['content'=>$content]);
 	}
 }

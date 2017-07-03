@@ -179,6 +179,7 @@ class ArticleController extends Controller
 			exit();
 		}
 		$data = Article::where('id',$article_id)->select('id','title','source','created_at','views','content','category_id','summary')->first();
+        $data->content = str_replace('https://www.stpaulsfriends.club', '', $data->content);
         if($data->category_id==9){
             $data->title = trim($data->summary);
         }
