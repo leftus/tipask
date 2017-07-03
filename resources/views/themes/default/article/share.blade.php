@@ -88,17 +88,27 @@
 		.app{
 			position: fixed;
 			bottom: 0;
-			width: 8rem;
-			height: 3rem;
+			padding: 0.2rem;
+			height: 2rem;
 		}
 		.app .logo{
 			float:left;
+			width: 1rem;
 		}
 		.app .title{
 			float:left;
 		}
+		.app .title .start{
+			font-size: 0.36rem;
+			color:#252525;
+		}
+		.app .title .end{
+			font-size: 0.32rem;
+			color:#333;
+		}
 		.app .download{
 			float:left;
+			width: 1.5rem;
 		}
 	</style>
 </head>
