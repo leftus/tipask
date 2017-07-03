@@ -107,8 +107,10 @@ class ArticleController extends Controller
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
 		}
 		$data = Article::where('id',$article_id)->select('id','title','source','created_at','views','content','summary','category_id')->first();
+		$data->desc    = str_limit($this->format_html($data->content), $limit = 40, $end = '');
 		if($data->category_id==9){
 			$data->title = trim($data->summary);
+			$data->desc='';
 		}
 		unset($data->summary);
 		unset($data->category_id);
@@ -155,7 +157,6 @@ class ArticleController extends Controller
 				$data->is_favorite = 1;
 			}
 		}
-		$data->desc    = str_limit($this->format_html($data->content), $limit = 40, $end = '');
 		$data->content = url('article_detail_h5',[$data->id]);
 		if(empty($data->content))
 		{
