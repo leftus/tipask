@@ -82,6 +82,24 @@
 		    margin-top: 0.5rem;
 		    margin-left: 0.6rem;
 		}
+		body{
+			margin-bottom: 3rem;
+		}
+		.app{
+			position: fixed;
+			bottom: 0;
+			width: 8rem;
+			height: 3rem;
+		}
+		.app .logo{
+			float:left;
+		}
+		.app .title{
+			float:left;
+		}
+		.app .download{
+			float:left;
+		}
 	</style>
 </head>
 <body>
@@ -198,6 +216,15 @@
 	 	<div class="guanbi"><img src="/share/images/guanbi.png" alt=""></div>
 	 </div>
  	 <?php endif;?>
+	 <!--下载App-->
+	 <div class="app">
+		 <div class="logo"><img src="/share/images/kkyx_logo.png"></div>
+		 <div class="title">
+			 <p class="start">想在这样的文章中添加自己的产品广告吗？</p>
+			 <p class="end">下载app只需要一分钟就能将你的产品推广出去！</p>
+		 </div>
+		 <div class="download"><img src="/share/images/kkyx_down.png"></div>
+	 </div>
 </body>
 </html>
 <script type="text/javascript">
