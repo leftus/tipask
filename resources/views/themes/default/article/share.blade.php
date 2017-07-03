@@ -38,7 +38,7 @@
 		.artpt1-p1{font-size: 0.5rem;color:#252525;line-height: 0.7rem;overflow: hidden;font-weight: 600;}
 		.artpt1-p2{font-size: 0.35rem;color:#8c8c8c;line-height: 0.45rem;margin-top: 0.25rem;margin-bottom: 0.25rem;}
 		 #news{font-size: 0.4rem;margin-top:0.2rem;margin-bottom: 0.2rem;}
-		 #news p{margin:auto;padding:auto;}
+		 #news p,#news span{font-size: 0.4rem !important;}
 		.artimg4{width: 100%;height: 3.5rem;}
 		.artbtm{width: 97%;padding-left: 3%;border-top: 1px solid #e8e8e8;padding-top: 0.2rem;padding-bottom: 0.2rem;position: fixed;bottom:0;left:0;z-index: 1;background-color: #fff;}
 		.artimg5{width:0.9rem;margin-right: 0.5rem;}
