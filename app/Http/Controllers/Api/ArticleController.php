@@ -186,4 +186,8 @@ class ArticleController extends Controller
 		}
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$number));
 	}
+
+	public function update_rate(){
+		$articles = Article::select('id')->get();
+	}
 }
