@@ -90,7 +90,7 @@
 	    bottom: 0;
 	    padding: 0.2rem;
 	    height: 1rem;
-	    border-top: 1px #ccc solid;
+	    border-top: 1px #f5f5f5 solid;
 			background: #f5f5f5;
 			opacity: 1;
 		}
