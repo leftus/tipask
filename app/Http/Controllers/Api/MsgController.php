@@ -161,7 +161,6 @@ class MsgController extends Controller
       $mess = new MessageIOS();
       $mess->setAlert($content);
       $mess->setCustom($custom);
-      $action->setActivity('123');
       $ret = $push->PushAllDevices(0, $mess, $environment);
       return $ret;
   }
