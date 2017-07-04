@@ -96,45 +96,66 @@ class MsgController extends Controller
 			$skip = 2;
 		}
 		$article = Article::whereRaw('category_id<>9')->select('id','title','logo','content')->orderBy('id','desc')->skip($skip)->first();
-    //var_dump($article);
-    //$article->title = '测试';
-		//$article = Article::whereRaw('id',$content)->select('id','title','logo','content')->first();
+
 		$article->desc    = str_limit($this->format_html($article->content), $limit = 40, $end = '');
 		$article->logo    = 'https://us.m9n.com/image/show'.$article->logo;
 		$title = $article->title;
 		$content = $article->title;
 		$custom = array('id'=>$article->id,'title'=>$article->title,'logo'=>$article->logo,'desc'=>$article->desc);
 
-    $callback1 = XingeApp::PushAllAndroid(2100259224, '46dc9b997f1f3db3bbab8ed057a8959a', $title, $content);
-    $callback2 = XingeApp::PushAllIos(2200259225, 'e93553fa967e5a698af8e6505372abee', $content,2);
-    return response()->json(array($callback1,$callback2));
 		//给所有设备发送
 		 //IOS
-		// $ios_callback = $this->DemoPushAllDevicesIOS($title,$content,$custom);
-		// $ios_pushid = 'error';
-		// $error = 0;
-		// if($ios_callback['ret_code']!=0)
-		// {
-		// 	$error++;
-		// 	$message = '错误码:'.$ios_callback['ret_code'].',错误信息：'.$ios_callback['err_msg'];
-		// 	return $this->error(route('admin.msg.index'),$message);
-		// }else{
-		// 	$ios_pushid = $ios_callback['result']['push_id'];
-		// }
-    //
-		// //给所有安卓设备发消息
-		// $and_pushid = 'error';
-		// $androd_callback = $this->DemoPushAllDevicesAndroid($title,$content,$custom);
-		// if($androd_callback['ret_code']!=0)
-		// {
-		// 	$message = '错误码:'.$androd_callback['ret_code'].',错误信息：'.$androd_callback['err_msg'];
-		// 	return $this->error(route('admin.msg.index'),$message);
-		// }else{
-		// 	$and_pushid = $androd_callback['result']['push_id'];
-		// }
-		// $post_data = ['title'=>$article->title,'article_id'=>$article->id,'post_time'=>date('Y-m-d H:i:s'),'ios_pushid'=>$ios_pushid,'and_pushid'=>$and_pushid];
-		// DB::table('postlog')->insert($post_data);
+		$ios_callback = $this->DemoPushAllIos($content,$custom,2);
+		$ios_pushid = 'error';
+		$error = 0;
+		if($ios_callback['ret_code']!=0)
+		{
+			$error++;
+			$message = '错误码:'.$ios_callback['ret_code'].',错误信息：'.$ios_callback['err_msg'];
+			return $this->error(route('admin.msg.index'),$message);
+		}else{
+			$ios_pushid = $ios_callback['result']['push_id'];
+		}
+
+		//给所有安卓设备发消息
+		$and_pushid = 'error';
+		$androd_callback = $this->DemoPushAllAndroid($title,$content,$custom);
+		if($androd_callback['ret_code']!=0)
+		{
+			$message = '错误码:'.$androd_callback['ret_code'].',错误信息：'.$androd_callback['err_msg'];
+			return $this->error(route('admin.msg.index'),$message);
+		}else{
+			$and_pushid = $androd_callback['result']['push_id'];
+		}
+		$post_data = ['title'=>$article->title,'article_id'=>$article->id,'post_time'=>date('Y-m-d H:i:s'),'ios_pushid'=>$ios_pushid,'and_pushid'=>$and_pushid];
+		DB::table('postlog')->insert($post_data);
 	}
+
+  public function DemoPushAllAndroid($title, $content,$custom)
+  {
+      $push = new XingeApp(2100259224, '46dc9b997f1f3db3bbab8ed057a8959a');
+      $mess = new Message();
+      $mess->setTitle($title);
+      $mess->setContent($content);
+      $mess->setType(Message::TYPE_NOTIFICATION);
+      $mess->setStyle(new Style(0, 1, 1, 1, 0));
+      $action = new ClickAction();
+      $action->setActionType(ClickAction::TYPE_ACTIVITY);
+      $mess->setAction($action);
+      $mess->setCustom($custom);
+      $ret = $push->PushAllDevices(0, $mess);
+      return $ret;
+  }
+
+  public function DemoPushAllIos($content,$custom,$environment)
+  {
+      $push = new XingeApp(2200259225, 'e93553fa967e5a698af8e6505372abee');
+      $mess = new MessageIOS();
+      $mess->setAlert($content);
+      $mess->setCustom($custom);
+      $ret = $push->PushAllDevices(0, $mess, $environment);
+      return $ret;
+  }
 
 	function format_html($str){
 		$str = strip_tags($str);
