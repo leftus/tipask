@@ -18,13 +18,13 @@ use App\Http\Controllers\Controller;
 
 class MsgController extends Controller
 {
-    
+
 	/***
     *我的消息
     *
     ***/
     public function lists(Request $request)
-    {	
+    {
 		$user_id = $request->input('user_id');
 		$page    = $request->input('page');
 		$token      = $request->input('token');
@@ -69,7 +69,7 @@ class MsgController extends Controller
 				$v->id = $v->title = $v->summary = $v->views = $v->created_at = '';
 				$v->logo = array();
 			}
-			
+
 			unset($v->content);
 		}
 		if($count_show)
@@ -101,7 +101,7 @@ class MsgController extends Controller
 		$title = $article->title;
 		$content = $article->title;
 		$custom = array('id'=>$article->id,'title'=>$article->title,'logo'=>$article->logo,'desc'=>$article->desc);
-		
+
 		//给所有设备发送
 		 //IOS
 		$ios_callback = $this->DemoPushAllDevicesIOS($title,$content,$custom);
@@ -115,7 +115,7 @@ class MsgController extends Controller
 		}else{
 			$ios_pushid = $ios_callback['result']['push_id'];
 		}
-		
+
 		//给所有安卓设备发消息
 		$and_pushid = 'error';
 		$androd_callback = $this->DemoPushAllDevicesAndroid($title,$content,$custom);
@@ -147,8 +147,9 @@ class MsgController extends Controller
 		$action->setActivity('123');
 		$mess->setStyle($style);
 		$mess->setAction($action);
-		
-		$ret = $push->PushAllDevices(0, $mess,XingeApp::IOSENV_PROD);
+
+		//$ret = $push->PushAllDevices(0, $mess,XingeApp::IOSENV_PROD);
+    $ret = $push->PushAllDevices(0, $mess,XingeApp::IOSENV_DEV);
 		return ($ret);
 	}
 	//下发给所有Android设备
@@ -172,7 +173,7 @@ class MsgController extends Controller
 	}
 	function format_html($str){
 		$str = strip_tags($str);
-		$str = str_replace(array("\r\n", "\r", "\n","\t"), "", $str); 
+		$str = str_replace(array("\r\n", "\r", "\n","\t"), "", $str);
 		$str = str_replace('&ldquo;', '“',$str);
 		$str = str_replace('&rdquo;', '”',$str);
 		$str = str_replace('&middot;', '·',$str);

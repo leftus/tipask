@@ -256,8 +256,8 @@ class MsgController extends AdminController
 		$mess->addAcceptTime($acceptTime);
 		//$raw = '{"xg_max_payload":1,"accept_time":[{"start":{"hour":"20","min":"0"},"end":{"hour":"23","min":"59"}}],"aps":{"alert":"="}}';
 		//$mess->setRaw($raw);
-		$ret = $push->PushSingleDevice($token, $mess, XingeApp::IOSENV_PROD);
-    //$ret = $push->PushSingleDevice($token, $mess, XingeApp::IOSENV_DEV);
+		//$ret = $push->PushSingleDevice($token, $mess, XingeApp::IOSENV_PROD);
+    $ret = $push->PushSingleDevice($token, $mess, XingeApp::IOSENV_DEV);
 		return $ret;
 	}
 	//单个设备安卓下发通知消息
@@ -312,8 +312,8 @@ class MsgController extends AdminController
 		$mess->setStyle($style);
 		$mess->setAction($action);
 
-		//$ret = $push->PushAllDevices(0, $mess,XingeApp::IOSENV_DEV);
-    $ret = $push->PushAllDevices(0, $mess,XingeApp::IOSENV_PROD);
+		$ret = $push->PushAllDevices(0, $mess,XingeApp::IOSENV_DEV);
+    //$ret = $push->PushAllDevices(0, $mess,XingeApp::IOSENV_PROD);
 		return ($ret);
 	}
 	//下发给所有Android设备
