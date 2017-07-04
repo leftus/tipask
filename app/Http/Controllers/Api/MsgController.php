@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Msg;
 use App\Models\Article;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\Xinge\XingeApp;
@@ -79,6 +80,9 @@ class MsgController extends Controller
 		}
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=> $msg));
     }
+  // public function lists(){
+  //
+  // }
 	//定时发送信息
 	public function postmsg_auto(Request $request)
 	{
@@ -95,7 +99,8 @@ class MsgController extends Controller
 		}elseif($hour<19){
 			$skip = 2;
 		}
-		$article = Article::whereRaw('category_id<>9')->select('id','title','logo','content')->orderBy('id','desc')->skip($skip)->first();
+    $cate_list = Category::where('type','articles')->where('status','<>',0)->lists('id');
+		$article = Article::select('id','title','logo','content')->whereIn('category_id',$cate_list)->orderBy('id','desc')->skip($skip)->first();
 
 		$article->desc    = str_limit($this->format_html($article->content), $limit = 40, $end = '');
     if(strpos($article->logo,'http')===FALSE){
