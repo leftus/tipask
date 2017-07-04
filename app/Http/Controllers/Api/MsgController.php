@@ -142,6 +142,7 @@ class MsgController extends Controller
       $mess->setStyle(new Style(0, 1, 1, 1, 0));
       $action = new ClickAction();
       $action->setActionType(ClickAction::TYPE_ACTIVITY);
+      $action->setActivity('123');
       $mess->setAction($action);
       $mess->setCustom($custom);
       $ret = $push->PushAllDevices(0, $mess);
