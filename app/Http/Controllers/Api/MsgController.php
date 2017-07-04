@@ -105,8 +105,9 @@ class MsgController extends Controller
 		$content = $article->title;
 		$custom = array('id'=>$article->id,'title'=>$article->title,'logo'=>$article->logo,'desc'=>$article->desc);
 
-    $callback = $this->DemoPushAllDevices();
-    return response()->json($callback);
+    $callback1 = XingeApp::PushAllAndroid(2100259224, '46dc9b997f1f3db3bbab8ed057a8959a', $title, $content);
+    $callback2 = XingeApp::PushAllIos(2200259225, 'e93553fa967e5a698af8e6505372abee', $content, $environment)
+    return response()->json(array($callback1,$callback2));
 		//给所有设备发送
 		 //IOS
 		// $ios_callback = $this->DemoPushAllDevicesIOS($title,$content,$custom);
@@ -134,48 +135,7 @@ class MsgController extends Controller
 		// $post_data = ['title'=>$article->title,'article_id'=>$article->id,'post_time'=>date('Y-m-d H:i:s'),'ios_pushid'=>$ios_pushid,'and_pushid'=>$and_pushid];
 		// DB::table('postlog')->insert($post_data);
 	}
-	////下发所有IOS设备消息
-	function DemoPushAllDevicesIOS($title,$content,$custom)
-	{
-		$push = new XingeApp(2200259225, 'e93553fa967e5a698af8e6505372abee');
-		$mess = new Message();
-		$mess->setType(Message::TYPE_NOTIFICATION);
-		$mess->setTitle($title);
-		$mess->setContent($content);
-		$mess->setExpireTime(86400);
-		$mess->setCustom($custom);
-		$style = new Style(0);
-		#含义：样式编号0，响铃，震动，不可从通知栏清除，不影响先前通知
-		$style = new Style(0,1,1,0,0);
-		$action = new ClickAction();
-		$action->setActionType(ClickAction::TYPE_ACTIVITY);
-		$action->setActivity('123');
-		$mess->setStyle($style);
-		$mess->setAction($action);
 
-		//$ret = $push->PushAllDevices(0, $mess,XingeApp::IOSENV_PROD);
-    $ret = $push->PushAllDevices(0, $mess,XingeApp::IOSENV_DEV);
-		return ($ret);
-	}
-	//下发给所有Android设备
-	function DemoPushAllDevicesAndroid($title,$content,$custom)
-	{
-		//androd
-		$push = new XingeApp(2100259224, '46dc9b997f1f3db3bbab8ed057a8959a');
-		$mess = new Message();
-		$mess->setType(Message::TYPE_NOTIFICATION);
-		$mess->setTitle($title);
-		$mess->setContent($content);
-		$mess->setExpireTime(86400);
-		$style = new Style(0);
-		$action = new ClickAction();
-		$action->setActionType(ClickAction::TYPE_ACTIVITY);
-		$action->setActivity('123');
-		$mess->setStyle($style);
-		$mess->setAction($action);
-		$ret = $push->PushAllDevices(0, $mess);
-		return $ret;
-	}
 	function format_html($str){
 		$str = strip_tags($str);
 		$str = str_replace(array("\r\n", "\r", "\n","\t"), "", $str);
@@ -188,28 +148,4 @@ class MsgController extends Controller
 		$str = str_replace('&mdash;', '—', $str);
 		return $str;
 	}
-
-  //下发所有设备
-  function DemoPushAllDevices()
-  {
-  	$push = new XingeApp(2200259225, 'e93553fa967e5a698af8e6505372abee');
-  	$mess = new Message();
-  	$mess->setType(Message::TYPE_NOTIFICATION);
-  	$mess->setTitle("title");
-  	$mess->setContent("中午");
-  	$mess->setExpireTime(86400);
-  	$style = new Style(0);
-  	#含义：样式编号0，响铃，震动，不可从通知栏清除，不影响先前通知
-  	$style = new Style(0,1,1,0,0);
-  	$action = new ClickAction();
-  	$action->setActionType(ClickAction::TYPE_URL);
-  	$action->setUrl("http://xg.qq.com");
-  	#打开url需要用户确认
-  	$action->setComfirmOnUrl(1);
-  	$mess->setStyle($style);
-  	$mess->setAction($action);
-
-  	$ret = $push->PushAllDevices(0, $mess);
-  	return ($ret);
-  }
 }
