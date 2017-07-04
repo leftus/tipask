@@ -80,9 +80,6 @@ class MsgController extends Controller
 		}
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=> $msg));
     }
-  // public function lists(){
-  //
-  // }
 	//定时发送信息
 	public function postmsg_auto(Request $request)
 	{
@@ -136,6 +133,8 @@ class MsgController extends Controller
 		}
 		$post_data = ['title'=>$article->title,'article_id'=>$article->id,'post_time'=>date('Y-m-d H:i:s'),'ios_pushid'=>$ios_pushid,'and_pushid'=>$and_pushid];
 		DB::table('postlog')->insert($post_data);
+    $msg_data = ['title'=>$article->title,'content'=>$article->id,'type'=>1,'post_time'=>date('Y-m-d H:i:s')];
+    DB::table('msg')->insert($msg_data);
     return response()->json(array($ios_callback,$androd_callback));
 	}
 
