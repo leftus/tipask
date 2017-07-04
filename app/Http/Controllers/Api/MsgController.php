@@ -107,7 +107,7 @@ class MsgController extends Controller
 
 		//给所有设备发送
 		 //IOS
-		$ios_callback = $this->DemoPushAllIos($content,$custom,2);
+		$ios_callback = $this->DemoPushAllIos($content,$custom,1);
 		$ios_pushid = 'error';
 		$error = 0;
 		if($ios_callback['ret_code']!=0)
