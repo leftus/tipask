@@ -6,7 +6,6 @@ use App\Models\Msg;
 use App\Models\User;
 use App\Models\Article;
 use App\Models\XingeApp;
-use App\Models\MessageIOS;
 use App\Models\TimeInterval;
 use App\Models\Message;
 use App\Models\Style;
@@ -40,7 +39,7 @@ class MsgController extends AdminController
 		   if($v->type==1)
 		   {
 			   $v->content = Article::where('id',$v->content)->value('title');
-			   
+
 		   }
 		   if($v->to_user==0)
 		   {
@@ -73,7 +72,7 @@ class MsgController extends AdminController
      */
     public function store(Request $request)
     {
-		
+
         $request->flash();
         $this->validate($request,$this->validateRules);
         $msgs = msg::create($request->all());
@@ -136,7 +135,7 @@ class MsgController extends AdminController
 		}
         $msgs->to_user = $request->input('select_user');
         $msgs->update_time = date('Y-m-d H:i:s',time());
-        
+
         $msgs->save();
         return $this->success(route('admin.msg.index'),'消息修改成功');
 
@@ -180,7 +179,7 @@ class MsgController extends AdminController
 				if($error_msg['ret_code']!=0){
 					$error++;
 					$error_str = $error_msg['err_msg'];
-				} 
+				}
 			}elseif($user && $user->device_type==2){
 				//IOS开发环境下 给单个设备下发通知
 				/* $error_msg = XingeApp::PushTokenIos(2200259225, 'e93553fa967e5a698af8e6505372abee', $content, $user->device_token, XingeApp::IOSENV_DEV); */
@@ -192,12 +191,11 @@ class MsgController extends AdminController
 			}
 			if($error==0){
 				Msg::where('id','=',$id)->update(['post_time'=>date('Y-m-d H:i:s',time())]);
-			return $this->success(route('admin.msg.index'),'发布成功');
 				return $this->success(route('admin.msg.index'),'发布成功');
 			}else{
 				return $this->error(route('admin.msg.index'),$error_str);
 			}
-			
+
 		}
 		//给所有设备发送
 		 //IOS
@@ -210,11 +208,11 @@ class MsgController extends AdminController
 			return $this->error(route('admin.msg.index'),$message);
 		}else{
 			$push_id = $ios_callback['result']['push_id'];
-		} 
-		
+		}
+
 		//给所有安卓设备发消息
 		$androd_callback = $this->DemoPushAllDevicesAndroid($title,$content,$custom);
-		
+
 		if($androd_callback['ret_code']==0)
 		{
 			Msg::where('id','=',$id)->update(['post_time'=>date('Y-m-d H:i:s',time())]);
@@ -228,7 +226,7 @@ class MsgController extends AdminController
 	}
 	function format_html($str){
 		$str = strip_tags($str);
-		$str = str_replace(array("\r\n", "\r", "\n","\t"), "", $str); 
+		$str = str_replace(array("\r\n", "\r", "\n","\t"), "", $str);
 		$str = str_replace('&ldquo;', '“',$str);
 		$str = str_replace('&rdquo;', '”',$str);
 		$str = str_replace('&middot;', '·',$str);
@@ -258,6 +256,7 @@ class MsgController extends AdminController
 		//$raw = '{"xg_max_payload":1,"accept_time":[{"start":{"hour":"20","min":"0"},"end":{"hour":"23","min":"59"}}],"aps":{"alert":"="}}';
 		//$mess->setRaw($raw);
 		$ret = $push->PushSingleDevice($token, $mess, XingeApp::IOSENV_PROD);
+    //$ret = $push->PushSingleDevice($token, $mess, XingeApp::IOSENV_DEV);
 		return $ret;
 	}
 	//单个设备安卓下发通知消息
@@ -278,7 +277,7 @@ class MsgController extends AdminController
 		$action->setActivity('123');
 		#打开url需要用户确认
 		//$action->setComfirmOnUrl(1);
-		
+
 		//$custom = array('key1'=>'value1', 'key2'=>'value2');
 		$mess->setStyle($style);
 		$mess->setAction($action);
@@ -291,8 +290,8 @@ class MsgController extends AdminController
 		$ret = $push->PushSingleDevice($token, $mess);
 		return($ret);
 	}
-	
-	
+
+
 	////下发所有IOS设备消息
 	function DemoPushAllDevicesIOS($title,$content,$custom)
 	{
@@ -311,8 +310,9 @@ class MsgController extends AdminController
 		$action->setActivity('123');
 		$mess->setStyle($style);
 		$mess->setAction($action);
-		
-		$ret = $push->PushAllDevices(0, $mess,XingeApp::IOSENV_DEV);
+
+		//$ret = $push->PushAllDevices(0, $mess,XingeApp::IOSENV_DEV);
+    $ret = $push->PushAllDevices(0, $mess,XingeApp::IOSENV_PROD);
 		return ($ret);
 	}
 	//下发给所有Android设备
