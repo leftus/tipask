@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Models;
 /*
  * Copyright ? 1998 - 2014 Tencent. All Rights Reserved. 腾讯公司 版权所有
  */
@@ -729,7 +729,7 @@ class XingeApp
         else if (intval($this->accessId) < XingeApp::IOS_MIN_ID and $message instanceof Message)
             return true;
         else
-            return false;
+            return true;
     }
 
     public $accessId = ''; //应用的接入Id

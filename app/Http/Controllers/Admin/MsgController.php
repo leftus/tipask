@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Msg;
 use App\Models\User;
 use App\Models\Article;
-use App\Models\XingeApp;
-use App\Models\MessageIOS;
-use App\Models\TimeInterval;
-use App\Models\Message;
-use App\Models\Style;
-use App\Models\ClickAction;
+use App\Models\Xinge\XingeApp;
+use App\Models\Xinge\MessageIOS;
+use App\Models\Xinge\TimeInterval;
+use App\Models\Xinge\Message;
+use App\Models\Xinge\Style;
+use App\Models\Xinge\ClickAction;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
