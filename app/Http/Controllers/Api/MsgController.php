@@ -105,32 +105,34 @@ class MsgController extends Controller
 		$content = $article->title;
 		$custom = array('id'=>$article->id,'title'=>$article->title,'logo'=>$article->logo,'desc'=>$article->desc);
 
+    $callback = $this->DemoPushAllDevices($title,$content,$custom);
+    return response()->json($callback);
 		//给所有设备发送
 		 //IOS
-		$ios_callback = $this->DemoPushAllDevicesIOS($title,$content,$custom);
-		$ios_pushid = 'error';
-		$error = 0;
-		if($ios_callback['ret_code']!=0)
-		{
-			$error++;
-			$message = '错误码:'.$ios_callback['ret_code'].',错误信息：'.$ios_callback['err_msg'];
-			return $this->error(route('admin.msg.index'),$message);
-		}else{
-			$ios_pushid = $ios_callback['result']['push_id'];
-		}
-
-		//给所有安卓设备发消息
-		$and_pushid = 'error';
-		$androd_callback = $this->DemoPushAllDevicesAndroid($title,$content,$custom);
-		if($androd_callback['ret_code']!=0)
-		{
-			$message = '错误码:'.$androd_callback['ret_code'].',错误信息：'.$androd_callback['err_msg'];
-			return $this->error(route('admin.msg.index'),$message);
-		}else{
-			$and_pushid = $androd_callback['result']['push_id'];
-		}
-		$post_data = ['title'=>$article->title,'article_id'=>$article->id,'post_time'=>date('Y-m-d H:i:s'),'ios_pushid'=>$ios_pushid,'and_pushid'=>$and_pushid];
-		DB::table('postlog')->insert($post_data);
+		// $ios_callback = $this->DemoPushAllDevicesIOS($title,$content,$custom);
+		// $ios_pushid = 'error';
+		// $error = 0;
+		// if($ios_callback['ret_code']!=0)
+		// {
+		// 	$error++;
+		// 	$message = '错误码:'.$ios_callback['ret_code'].',错误信息：'.$ios_callback['err_msg'];
+		// 	return $this->error(route('admin.msg.index'),$message);
+		// }else{
+		// 	$ios_pushid = $ios_callback['result']['push_id'];
+		// }
+    //
+		// //给所有安卓设备发消息
+		// $and_pushid = 'error';
+		// $androd_callback = $this->DemoPushAllDevicesAndroid($title,$content,$custom);
+		// if($androd_callback['ret_code']!=0)
+		// {
+		// 	$message = '错误码:'.$androd_callback['ret_code'].',错误信息：'.$androd_callback['err_msg'];
+		// 	return $this->error(route('admin.msg.index'),$message);
+		// }else{
+		// 	$and_pushid = $androd_callback['result']['push_id'];
+		// }
+		// $post_data = ['title'=>$article->title,'article_id'=>$article->id,'post_time'=>date('Y-m-d H:i:s'),'ios_pushid'=>$ios_pushid,'and_pushid'=>$and_pushid];
+		// DB::table('postlog')->insert($post_data);
 	}
 	////下发所有IOS设备消息
 	function DemoPushAllDevicesIOS($title,$content,$custom)
@@ -186,4 +188,24 @@ class MsgController extends Controller
 		$str = str_replace('&mdash;', '—', $str);
 		return $str;
 	}
+  //下发所有设备
+  function DemoPushAllDevices($title,$content,$custom)
+  {
+  	$push = new XingeApp(2200259225, 'e93553fa967e5a698af8e6505372abee');
+  	$mess = new Message();
+  	$mess->setType(Message::TYPE_NOTIFICATION);
+  	$mess->setTitle($title);
+  	$mess->setContent($title);
+  	$mess->setExpireTime(86400);
+    $mess->setCustom($custom);
+  	$style = new Style(0);
+  	#含义：样式编号0，响铃，震动，不可从通知栏清除，不影响先前通知
+  	$action = new ClickAction();
+  	$action->setActionType(ClickAction::TYPE_ACTIVITY);
+  	$action->setActivity('123');
+  	$mess->setStyle($style);
+  	$mess->setAction($action);
+  	$ret = $push->PushAllDevices(0, $mess);
+  	return ($ret);
+  }
 }
