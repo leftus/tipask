@@ -138,7 +138,7 @@ class MsgController extends Controller
       $mess->setTitle($title);
       $mess->setContent($content);
       $mess->setType(Message::TYPE_NOTIFICATION);
-      $mess->setStyle(new Style(0, 1, 1, 1, 0));
+      $mess->setStyle(new Style(0,1,1));
       $action = new ClickAction();
       $action->setActionType(ClickAction::TYPE_ACTIVITY);
       $action->setActivity('123');
@@ -154,7 +154,7 @@ class MsgController extends Controller
       $mess = new MessageIOS();
       $mess->setAlert($content);
       $mess->setCustom($custom);
-      $mess->setStyle(new Style(1, 0, 1, 1, 0));
+      $mess->setSound("beep.wav");
       $ret = $push->PushAllDevices(0, $mess, $environment);
       return $ret;
   }
