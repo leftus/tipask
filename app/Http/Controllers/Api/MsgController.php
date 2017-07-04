@@ -88,16 +88,9 @@ class MsgController extends Controller
 		if($check_validate!='1333888999'){
 			return 'error';
 		}
-		$hour = date('H');
-		if($hour<10){
-			$skip = 0;
-		}elseif($hour<13){
-			$skip = 1;
-		}elseif($hour<19){
-			$skip = 2;
-		}
+
     $cate_list = Category::where('type','articles')->where('status','<>',0)->lists('id');
-		$article = Article::select('id','title','logo','content')->whereIn('category_id',$cate_list)->orderBy('id','desc')->skip($skip)->first();
+		$article = Article::select('id','title','logo','content')->whereIn('category_id',$cate_list)->orderBy('id','desc')->first();
     $count = Msg::where('content','=',$article->id)->count();
     if($count>0){
       return response()->json('已发送此新闻');
@@ -117,7 +110,7 @@ class MsgController extends Controller
 		$error = 0;
 		if($ios_callback['ret_code']!=0)
 		{
-			return response()->json($ios_callback);
+			return response()->json(array('ios_callback'=>$ios_callback));
 		}else{
 			$ios_pushid = $ios_callback['result']['push_id'];
 		}
@@ -127,7 +120,7 @@ class MsgController extends Controller
 		$androd_callback = $this->DemoPushAllAndroid($title,$content,$custom);
 		if($androd_callback['ret_code']!=0)
 		{
-      return response()->json($androd_callback);
+      return response()->json(array('androd_callback'=>$androd_callback));
 		}else{
 			$and_pushid = $androd_callback['result']['push_id'];
 		}
@@ -135,7 +128,7 @@ class MsgController extends Controller
 		DB::table('postlog')->insert($post_data);
     $msg_data = ['title'=>$article->title,'content'=>$article->id,'type'=>1,'post_time'=>date('Y-m-d H:i:s')];
     DB::table('msg')->insert($msg_data);
-    return response()->json(array($ios_callback,$androd_callback));
+    return response()->json(array('ios_callback'=>$ios_callback,'androd_callback'=>$androd_callback));
 	}
 
   public function DemoPushAllAndroid($title, $content,$custom)
