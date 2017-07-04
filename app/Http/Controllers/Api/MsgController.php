@@ -193,9 +193,9 @@ class MsgController extends Controller
   {
   	$push = new XingeApp(2200259225, 'e93553fa967e5a698af8e6505372abee');
   	$mess = new Message();
-  	$mess->setType(Message::TYPE_NOTIFICATION);
+  	$mess->setType(1);
   	$mess->setTitle($title);
-  	$mess->setContent($title);
+  	$mess->setContent($content);
   	$mess->setExpireTime(86400);
     $mess->setCustom($custom);
   	$style = new Style(0);
