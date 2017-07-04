@@ -6,6 +6,7 @@ use App\Models\Msg;
 use App\Models\User;
 use App\Models\Article;
 use App\Models\XingeApp;
+use App\Models\MessageIOS;
 use App\Models\TimeInterval;
 use App\Models\Message;
 use App\Models\Style;
