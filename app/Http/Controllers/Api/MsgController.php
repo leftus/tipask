@@ -82,6 +82,7 @@ class MsgController extends Controller
 	//定时发送信息
 	public function postmsg_auto(Request $request)
 	{
+    var_dump(XingeApp::PushAllIos(2200259225, "e93553fa967e5a698af8e6505372abee", "content", XingeApp::IOSENV_DEV));die();
 		$check_validate = $request->input('kbak_validate');
 		if($check_validate!='1333888999'){
 			return 'error';
