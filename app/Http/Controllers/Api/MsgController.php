@@ -106,7 +106,7 @@ class MsgController extends Controller
 		$custom = array('id'=>$article->id,'title'=>$article->title,'logo'=>$article->logo,'desc'=>$article->desc);
 
     $callback1 = XingeApp::PushAllAndroid(2100259224, '46dc9b997f1f3db3bbab8ed057a8959a', $title, $content);
-    $callback2 = XingeApp::PushAllIos(2200259225, 'e93553fa967e5a698af8e6505372abee', $content, $environment)
+    $callback2 = XingeApp::PushAllIos(2200259225, 'e93553fa967e5a698af8e6505372abee', $content, $environment);
     return response()->json(array($callback1,$callback2));
 		//给所有设备发送
 		 //IOS
