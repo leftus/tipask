@@ -129,7 +129,7 @@ class MsgController extends Controller
 		}
 		$post_data = ['title'=>$article->title,'article_id'=>$article->id,'post_time'=>date('Y-m-d H:i:s'),'ios_pushid'=>$ios_pushid,'and_pushid'=>$and_pushid];
 		DB::table('postlog')->insert($post_data);
-    return response->json(array($ios_callback,$androd_callback));
+    return response()->json(array($ios_callback,$androd_callback));
 	}
 
   public function DemoPushAllAndroid($title, $content,$custom)
