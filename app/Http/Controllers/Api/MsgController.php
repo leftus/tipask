@@ -98,10 +98,12 @@ class MsgController extends Controller
 		$article = Article::whereRaw('category_id<>9')->select('id','title','logo','content')->orderBy('id','desc')->skip($skip)->first();
 
 		$article->desc    = str_limit($this->format_html($article->content), $limit = 40, $end = '');
-		$article->logo    = 'https://us.m9n.com/image/show'.$article->logo;
+    if(strpos($article->logo,'http')===FALSE){
+		    $article->logo    = 'https://us.m9n.com/image/show'.$article->logo;
+    }
 		$title = $article->title;
 		$content = $article->title;
-		$custom = array('id'=>$article->id,'title'=>$article->title,'logo'=>$article->logo,'desc'=>$article->desc);
+		$custom = array('id'=>$article->id,'title'=>$article->title,'logo'=>$article->logo,'desc'=>trim($article->desc));
 
 		//给所有设备发送
 		 //IOS
