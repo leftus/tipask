@@ -51,7 +51,7 @@ class MsgController extends Controller
 		}
 		$take = 10;
 		$skip = ($page-1)*$take;
-		$msg  = Msg::whereRaw('to_user in ('.$user_id.',0) and type=1')->skip($skip)->take($take)->select('id','content')->get();
+		$msg  = Msg::whereRaw('to_user in ('.$user_id.',0) and type=1')->orderBy('post_time','desc')->skip($skip)->take($take)->select('id','content')->get();
 		foreach($msg as $k=>$v)
 		{
 			$article = Article::where('id',$v->content)->select('id','title','summary','logo','views','created_at')->first();
@@ -98,7 +98,10 @@ class MsgController extends Controller
 		}
     $cate_list = Category::where('type','articles')->where('status','<>',0)->lists('id');
 		$article = Article::select('id','title','logo','content')->whereIn('category_id',$cate_list)->orderBy('id','desc')->skip($skip)->first();
-
+    $count = Msg::where('content','=',$article->id)->count();
+    if($count>0){
+      return response()->json('已发送此新闻');
+    }
 		$article->desc    = str_limit($this->format_html($article->content), $limit = 40, $end = '');
     if(strpos($article->logo,'http')===FALSE){
 		    $article->logo    = 'https://us.m9n.com/image/show'.$article->logo;
@@ -114,9 +117,7 @@ class MsgController extends Controller
 		$error = 0;
 		if($ios_callback['ret_code']!=0)
 		{
-			$error++;
-			$message = '错误码:'.$ios_callback['ret_code'].',错误信息：'.$ios_callback['err_msg'];
-			return $this->error(route('admin.msg.index'),$message);
+			return response()->json($ios_callback);
 		}else{
 			$ios_pushid = $ios_callback['result']['push_id'];
 		}
@@ -126,8 +127,7 @@ class MsgController extends Controller
 		$androd_callback = $this->DemoPushAllAndroid($title,$content,$custom);
 		if($androd_callback['ret_code']!=0)
 		{
-			$message = '错误码:'.$androd_callback['ret_code'].',错误信息：'.$androd_callback['err_msg'];
-			return $this->error(route('admin.msg.index'),$message);
+      return response()->json($androd_callback);
 		}else{
 			$and_pushid = $androd_callback['result']['push_id'];
 		}
