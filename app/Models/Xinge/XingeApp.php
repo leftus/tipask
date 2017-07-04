@@ -729,7 +729,7 @@ class XingeApp
         else if (intval($this->accessId) < XingeApp::IOS_MIN_ID and $message instanceof Message)
             return true;
         else
-            return true;
+            return false;
     }
 
     public $accessId = ''; //应用的接入Id
