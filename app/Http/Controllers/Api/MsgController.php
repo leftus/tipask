@@ -105,7 +105,7 @@ class MsgController extends Controller
 		$content = $article->title;
 		$custom = array('id'=>$article->id,'title'=>$article->title,'logo'=>$article->logo,'desc'=>$article->desc);
 
-    $callback = $this->DemoPushAllDevices($title,$content,$custom);
+    $callback = $this->DemoPushAllDevices();
     return response()->json($callback);
 		//给所有设备发送
 		 //IOS
@@ -188,23 +188,27 @@ class MsgController extends Controller
 		$str = str_replace('&mdash;', '—', $str);
 		return $str;
 	}
+
   //下发所有设备
-  function DemoPushAllDevices($title,$content,$custom)
+  function DemoPushAllDevices()
   {
   	$push = new XingeApp(2200259225, 'e93553fa967e5a698af8e6505372abee');
   	$mess = new Message();
-  	$mess->setType(1);
-  	$mess->setTitle($title);
-  	$mess->setContent($content);
+  	$mess->setType(Message::TYPE_NOTIFICATION);
+  	$mess->setTitle("title");
+  	$mess->setContent("中午");
   	$mess->setExpireTime(86400);
-    $mess->setCustom($custom);
   	$style = new Style(0);
   	#含义：样式编号0，响铃，震动，不可从通知栏清除，不影响先前通知
+  	$style = new Style(0,1,1,0,0);
   	$action = new ClickAction();
-  	$action->setActionType(ClickAction::TYPE_ACTIVITY);
-  	$action->setActivity('123');
+  	$action->setActionType(ClickAction::TYPE_URL);
+  	$action->setUrl("http://xg.qq.com");
+  	#打开url需要用户确认
+  	$action->setComfirmOnUrl(1);
   	$mess->setStyle($style);
   	$mess->setAction($action);
+
   	$ret = $push->PushAllDevices(0, $mess);
   	return ($ret);
   }
