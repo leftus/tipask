@@ -82,7 +82,7 @@ class MsgController extends Controller
 	//定时发送信息
 	public function postmsg_auto(Request $request)
 	{
-    var_dump(XingeApp::PushAllIos(2200259225, "e93553fa967e5a698af8e6505372abee", "content", XingeApp::IOSENV_DEV));die();
+    //var_dump(XingeApp::PushAllIos(2200259225, "e93553fa967e5a698af8e6505372abee", "content", XingeApp::IOSENV_DEV));die();
 		$check_validate = $request->input('kbak_validate');
 		if($check_validate!='1333888999'){
 			return 'error';
@@ -97,7 +97,7 @@ class MsgController extends Controller
 		}
 		$article = Article::whereRaw('category_id<>9')->select('id','title','logo','content')->orderBy('id','desc')->skip($skip)->first();
     //var_dump($article);
-    $article->title = '测试';
+    //$article->title = '测试';
 		//$article = Article::whereRaw('id',$content)->select('id','title','logo','content')->first();
 		$article->desc    = str_limit($this->format_html($article->content), $limit = 40, $end = '');
 		$article->logo    = 'https://us.m9n.com/image/show'.$article->logo;
