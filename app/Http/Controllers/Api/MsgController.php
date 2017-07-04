@@ -60,6 +60,7 @@ class MsgController extends Controller
 				$v->id = $article->id;
 				$v->title = $article->title;
 				$v->summary = $article->summary;
+        $logo = '';
 				if(strpos($article->logo,'http')===FALSE){
 					$logo = 'https://us.m9n.com/image/show/'.$article->logo;
 				}
