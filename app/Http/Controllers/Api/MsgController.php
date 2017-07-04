@@ -96,7 +96,7 @@ class MsgController extends Controller
 		}
 		$article = Article::whereRaw('category_id<>9')->select('id','title','logo','content')->orderBy('id','desc')->skip($skip)->first();
     //var_dump($article);
-    $artile->title = '测试';
+    $article->title = '测试';
 		//$article = Article::whereRaw('id',$content)->select('id','title','logo','content')->first();
 		$article->desc    = str_limit($this->format_html($article->content), $limit = 40, $end = '');
 		$article->logo    = 'https://us.m9n.com/image/show'.$article->logo;
