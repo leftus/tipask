@@ -38,7 +38,7 @@ class CategorieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function my_category(){
+     public function my_category(Request $request){
        $user_id = $request->input('user_id');
        $token      = $request->input('token');
       //验证token
