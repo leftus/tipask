@@ -63,7 +63,7 @@ class CategorieController extends Controller
       $user_categorys = UserCategory::select('category_id')->where('uid','=',$user_id)->get();
       $user_category_ids=array();
       if($user_categorys){
-        foreach ($user_category as $user_cate) {
+        foreach ($user_categorys as $user_cate) {
           $user_category_ids[]=$user_cate->category_id;
         }
       }
