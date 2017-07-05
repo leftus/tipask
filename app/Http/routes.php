@@ -254,6 +254,7 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
 	 /*分类列表*/
     Route::get('categorie/list',['as'=>'api.categorie.list','uses'=>'CategorieController@lists']);
     Route::post('categorie/my_category',['as'=>'api.categorie.my_category','uses'=>'CategorieController@my_category']);
+    Route::post('categorie/toggle_my_category',['as'=>'api.categorie.toggle_my_category','uses'=>'CategorieController@toggle_my_category']);
 
 
 

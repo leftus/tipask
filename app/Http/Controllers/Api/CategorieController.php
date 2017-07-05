@@ -48,11 +48,53 @@ class CategorieController extends Controller
       {
       	return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
       }
-      $all_category = Category::orderBy('sort')->where('type','articles')->lists('id','name');
-      var_dump($all_category);
+
+      $all_category = array();
       $all_category_ids = array();
-      $left_category_ids = array();
-      $user_categor_ids = UserCategory::where('uid','=',$user_id)->lists('category_id');
-      var_dump($user_categor_ids);
+      $lists = Category::select('id','name')->where('type','articles')->orderBy('sort')->get();
+      foreach($lists as $list){
+        $all_category[$list->id] = ['category_id'=>$list->id,'category_name'=>$list->name];
+        $all_category_ids[] = $list->id;
+      }
+      $user_category_ids = UserCategory::where('uid','=',$user_id)->lists('category_id');
+      $left_category_ids = array_diff($all_category_ids,$user_category_ids);
+      $left_category = array();
+      foreach($left_category_ids as $left_ids){
+        $left_category[]=$all_category[$left_ids];
+      }
+      foreach($user_category_ids as $user_ids){
+        $user_category[]=$all_category[$user_ids];
+      }
+      $data = new \stdClass;
+      $data->user_category = $user_category;
+      $data->left_category = $left_category;
+      return response()->json(array('code'=>0,'msg'=>'操作成功','data'=>$data));
+     }
+
+     public function toggle_my_category(Request $request){
+       $user_id = $request->input('user_id');
+       $token      = $request->input('token');
+       $action = $request->input('action');
+       $category_id = $request->input('category_id');
+      //验证token
+      $user = User::where('id',$user_id)->select('password','sort')->first();
+      if(md5(($user->password).($user->sort)) != $token)
+      {
+      	return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
+      }
+      if(!in_array($action,['add','delete'])){
+          return response()->json(array('code'=>1,'msg'=>'参数错误','data'=>array()));
+      }
+      $UserCategory = new UserCategory;
+      $UserCategory->uid = $user_id;
+      $UserCategory->category_id = $category_id;
+      if($action=='add'){
+        $UserCategory->save();
+        return response()->json(array('code'=>0,'msg'=>'操作成功','data'=>array()));
+      }
+      if($action=='delete'){
+        UserCategory::where('category_id','=',$category_id)->where('uid','=',$user_id)->delete();
+        return response()->json(array('code'=>0,'msg'=>'操作成功','data'=>array()));
+      }
      }
 }
