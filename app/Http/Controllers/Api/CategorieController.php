@@ -7,6 +7,7 @@ use App\Models\Question;
 use App\Models\Tag;
 use App\Models\UserData;
 use App\Models\UserTag;
+use App\Models\User;
 use App\Models\UserCategory;
 
 use Illuminate\Http\Request;
