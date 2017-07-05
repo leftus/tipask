@@ -7,8 +7,9 @@ use App\Models\Question;
 use App\Models\Tag;
 use App\Models\UserData;
 use App\Models\UserTag;
-use Illuminate\Http\Request;
+use App\Models\UserCategory;
 
+use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
@@ -29,7 +30,7 @@ class CategorieController extends Controller
             $page = 1;
         }
         //$list = Category::orderBy('id','desc')->get(['id','title','summary','logo','views','created_at'])->chunk(10);
-		$list = Category::orderBy('sort')->where('type','articles')->where('status','<>',0)->select('id','name')->get();
+		    $list = Category::orderBy('sort')->where('type','articles')->where('status','<>',0)->select('id','name')->get();
         return response()->json(array('code'=>0,'msg'=>'成功','data'=>$list));
     }
     /**
@@ -37,7 +38,7 @@ class CategorieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function user_cate(){
+     public function my_category(){
        $user_id = $request->input('user_id');
        $token      = $request->input('token');
       //验证token
@@ -46,6 +47,11 @@ class CategorieController extends Controller
       {
       	return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
       }
-      $list = Category::orderBy('sort')->where('type','articles')->select('id','name')->get();
+      $all_category = Category::orderBy('sort')->where('type','articles')->lists('id','name');
+      var_dump($all_category);
+      $all_category_ids = array();
+      $left_category_ids = array();
+      $user_categor_ids = UserCategory::where('uid','=',$user_id)->lists('category_id');
+      var_dump($user_categor_ids);
      }
 }
