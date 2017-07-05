@@ -67,10 +67,11 @@ class CategorieController extends Controller
       foreach($left_category_ids as $left_ids){
         $left_category[]=$all_category[$left_ids];
       }
+      $user_category = array();
       foreach($user_category_ids as $user_ids){
         $user_category[]=$all_category[$user_ids];
       }
-      $data = new \stdClass;
+      $data = new \stdClass();
       $data->user_category = $user_category;
       $data->left_category = $left_category;
       return response()->json(array('code'=>0,'msg'=>'操作成功','data'=>$data));
