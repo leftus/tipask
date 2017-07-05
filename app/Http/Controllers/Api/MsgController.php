@@ -90,47 +90,48 @@ class MsgController extends Controller
 		if($check_validate!='1333888999'){
 			return 'error';
 		}
-
     $cate_list = Category::where('type','articles')->where('status','<>',0)->lists('id');
-		$article = Article::select('id','title','logo','content')->whereIn('category_id',$cate_list)->orderBy('id','desc')->first();
-    $count = Msg::where('content','=',$article->id)->count();
-    if($count>0){
-      return response()->json($article);
-    }
-		$article->desc    = str_limit($this->format_html($article->content), $limit = 40, $end = '');
-    if(strpos($article->logo,'http')===FALSE){
-		    $article->logo    = 'https://us.m9n.com/image/show'.$article->logo;
-    }
-		$title = $article->title;
-		$content = $article->title;
-		$custom = array('id'=>$article->id,'title'=>$article->title,'logo'=>$article->logo,'desc'=>trim($article->desc));
+		$article = Article::select('id','title','logo','content')->where('is_send','<>',1)->whereIn('category_id',$cate_list)->orderBy('id','desc')->first();
+		if($article){
+			$article->desc    = str_limit($this->format_html($article->content), $limit = 40, $end = '');
+	    if(strpos($article->logo,'http')===FALSE){
+			    $article->logo    = 'https://us.m9n.com/image/show'.$article->logo;
+	    }
+			$title = $article->title;
+			$content = $article->title;
+			$custom = array('id'=>$article->id,'title'=>$article->title,'logo'=>$article->logo,'desc'=>trim($article->desc));
 
-		//给所有设备发送
-		 //IOS
-		$ios_callback = $this->DemoPushAllIos($content,$custom,1);
-		$ios_pushid = 'error';
-		$error = 0;
-		if($ios_callback['ret_code']!=0)
-		{
-			return response()->json(array('ios_callback'=>$ios_callback));
+			//给所有设备发送
+			 //IOS
+			$ios_callback = $this->DemoPushAllIos($content,$custom,1);
+			$ios_pushid = 'error';
+			$error = 0;
+			if($ios_callback['ret_code']!=0)
+			{
+				return response()->json(array('ios_callback'=>$ios_callback));
+			}else{
+				$ios_pushid = $ios_callback['result']['push_id'];
+			}
+
+			//给所有安卓设备发消息
+			$and_pushid = 'error';
+			$androd_callback = $this->DemoPushAllAndroid($title,$content,$custom);
+			if($androd_callback['ret_code']!=0)
+			{
+	      return response()->json(array('androd_callback'=>$androd_callback));
+			}else{
+				$and_pushid = $androd_callback['result']['push_id'];
+			}
+			$post_data = ['title'=>$article->title,'article_id'=>$article->id,'post_time'=>date('Y-m-d H:i:s'),'ios_pushid'=>$ios_pushid,'and_pushid'=>$and_pushid];
+			DB::table('postlog')->insert($post_data);
+	    $msg_data = ['title'=>$article->title,'content'=>$article->id,'type'=>1,'post_time'=>date('Y-m-d H:i:s')];
+	    DB::table('msg')->insert($msg_data);
+			Article::where('id','=',$article->id)->update(['is_send'=>1]);
+	    return response()->json(array('ios_callback'=>$ios_callback,'androd_callback'=>$androd_callback));
 		}else{
-			$ios_pushid = $ios_callback['result']['push_id'];
+			return response()->json('暂无数据');
 		}
 
-		//给所有安卓设备发消息
-		$and_pushid = 'error';
-		$androd_callback = $this->DemoPushAllAndroid($title,$content,$custom);
-		if($androd_callback['ret_code']!=0)
-		{
-      return response()->json(array('androd_callback'=>$androd_callback));
-		}else{
-			$and_pushid = $androd_callback['result']['push_id'];
-		}
-		$post_data = ['title'=>$article->title,'article_id'=>$article->id,'post_time'=>date('Y-m-d H:i:s'),'ios_pushid'=>$ios_pushid,'and_pushid'=>$and_pushid];
-		DB::table('postlog')->insert($post_data);
-    $msg_data = ['title'=>$article->title,'content'=>$article->id,'type'=>1,'post_time'=>date('Y-m-d H:i:s')];
-    DB::table('msg')->insert($msg_data);
-    return response()->json(array('ios_callback'=>$ios_callback,'androd_callback'=>$androd_callback));
 	}
 
   public function DemoPushAllAndroid($title, $content,$custom)
