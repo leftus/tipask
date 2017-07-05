@@ -26,7 +26,7 @@ class UserController extends Controller
 		$province = $request->input('province');
 		$country  = $request->input('country');
 		$headimgurl = $request->input('headimgurl');
-		
+
 		$error = new \stdClass();
 		if(empty($nickname)){
 			$nickname = '新用户';
@@ -38,14 +38,10 @@ class UserController extends Controller
 		}else{
 		  $sex = 1;//未知
 		}
-		
-		if(empty($openid)||empty($login_type)||empty($device_token)||empty($device_type))
+
+		if(empty($openid)||empty($login_type))
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>$error));
-		}
-		if($device_type!=1&&$device_type!=2)
-		{
-			return response()->json(array('code'=>2,'msg'=>'参数错误','data'=>$error));
 		}
 		$wx_openid = $fc_openid = $wx2_openid ='';
 		if($login_type=='wechat')
@@ -58,7 +54,7 @@ class UserController extends Controller
 		}elseif($login_type=='wx2'){
 			$where =  "wx2_openid='$openid'";
 			$wx2_openid = $openid;
-			
+
 		}else{
 			return response()->json(array('code'=>2,'msg'=>'参数错误','data'=>$error));
 		}
@@ -91,9 +87,9 @@ class UserController extends Controller
 			//新用户插入
 			$password = md5('HTTP://us.m9n.com');
 			$email = time().'@none.com';
-			
+
 			$new_user = ['name'=>$nickname,'wx_openid'=>$wx_openid,'fc_openid'=>$fc_openid,'wx2_openid'=>$wx2_openid,'email'=>$email,'password'=>$password,'city'=>$city,'province'=>$province,'headimg'=>$headimgurl,'gender'=>$sex,'created_at'=>date('Y-m-d H:i:s',time()),'sort'=>$sort];
-			$user->id   = User::insertGetId($new_user); 
+			$user->id   = User::insertGetId($new_user);
 			$user->name = $nickname;
 			$user->province = $province;
 			$user->city = $city;
@@ -104,7 +100,9 @@ class UserController extends Controller
 			$user->token = md5($password.$sort);
 		}
 		//修改用户的当前登录设备
-		$update_data = ['device_token'=>$device_token,'device_type'=>$device_type];
+    if(!empty($device_token) && in_array($device_type,[1,2])){
+      $update_data = ['device_token'=>$device_token,'device_type'=>$device_type];
+    }
 		User::where('id','=',$user->id)->update($update_data);
 		if(empty($user->province))
 		{
@@ -160,8 +158,8 @@ class UserController extends Controller
 			$user->headimg = '未知';
 		}
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$user));
-		
-		
+
+
 	}
 
 }
