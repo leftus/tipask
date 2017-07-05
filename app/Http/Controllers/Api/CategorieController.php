@@ -56,7 +56,8 @@ class CategorieController extends Controller
         $all_category[$list->id] = ['category_id'=>$list->id,'category_name'=>$list->name];
         $all_category_ids[] = $list->id;
       }
-      $user_category_ids = UserCategory::where('uid','=',$user_id)->pluck('category_id')->toArray();
+      $user_category_ids = UserCategory::where('uid','=',$user_id)->pluck('category_id');
+      var_dump($user_category_ids);die();
       $left_category_ids = array_diff($all_category_ids,$user_category_ids);
       $left_category = array();
       foreach($left_category_ids as $left_ids){
