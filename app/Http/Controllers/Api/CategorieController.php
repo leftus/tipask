@@ -32,6 +32,15 @@ class CategorieController extends Controller
         }
         //$list = Category::orderBy('id','desc')->get(['id','title','summary','logo','views','created_at'])->chunk(10);
 		    $list = Category::orderBy('sort')->where('type','articles')->where('status','<>',0)->select('id','name')->get();
+        $my_category = UserCategory::select('category_id')->where('uid','=','user_id')->get();
+        if($my_category){
+          foreach ($my_category as $key => $value) {
+            $value->id=$value->category_id;
+            $value->name = Category::where('id','=',$value->category_id)->pluck('name');
+            unset($value->category_id);
+          }
+        }
+        $list->push($my_category);
         return response()->json(array('code'=>0,'msg'=>'成功','data'=>$list));
     }
     /**
