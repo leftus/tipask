@@ -38,8 +38,9 @@ class CategorieController extends Controller
             $value->id=$value->category_id;
             $value->name = Category::where('id','=',$value->category_id)->pluck('name');
             unset($value->category_id);
+            $list->push($value);
           }
-          $list->push($my_category);
+
         }
         return response()->json(array('code'=>0,'msg'=>'成功','data'=>$list));
     }
