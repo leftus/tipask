@@ -95,7 +95,7 @@ class MsgController extends Controller
 		$article = Article::select('id','title','logo','content')->whereIn('category_id',$cate_list)->orderBy('id','desc')->first();
     $count = Msg::where('content','=',$article->id)->count();
     if($count>0){
-      return response()->json('已发送此新闻');
+      return response()->json($article);
     }
 		$article->desc    = str_limit($this->format_html($article->content), $limit = 40, $end = '');
     if(strpos($article->logo,'http')===FALSE){

@@ -24,9 +24,10 @@ class CategorieController extends Controller
     public function lists(Request $request)
     {
         $page = $request->input('page');
+        $user_id = $request->input('user_id');
         if(empty($page)){
             $page = 1;
-        } 
+        }
         //$list = Category::orderBy('id','desc')->get(['id','title','summary','logo','views','created_at'])->chunk(10);
 		$list = Category::orderBy('sort')->where('type','articles')->where('status','<>',0)->select('id','name')->get();
         return response()->json(array('code'=>0,'msg'=>'成功','data'=>$list));
@@ -36,5 +37,15 @@ class CategorieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-   
+     public function user_cate(){
+       $user_id = $request->input('user_id');
+       $token      = $request->input('token');
+      //验证token
+      $user = User::where('id',$user_id)->select('password','sort')->first();
+      if(md5(($user->password).($user->sort)) != $token)
+      {
+      	return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
+      }
+      $list = Category::orderBy('sort')->where('type','articles')->select('id','name')->get();
+     }
 }
