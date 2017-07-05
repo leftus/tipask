@@ -42,6 +42,7 @@ class CategorieController extends Controller
           }
 
         }
+        $list->unique();
         return response()->json(array('code'=>0,'msg'=>'成功','data'=>$list));
     }
     /**
