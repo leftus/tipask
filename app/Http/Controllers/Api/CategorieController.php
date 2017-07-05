@@ -60,11 +60,13 @@ class CategorieController extends Controller
       }
       //var_dump($all_category);
       //var_dump($all_category_ids);
-      $user_category_ids = UserCategory::select('category_id')->where('uid','=',$user_id)->get()->toArray();
-      if(empty($user_category_ids)){
-        $user_category_ids=array();
+      $user_categorys = UserCategory::select('category_id')->where('uid','=',$user_id)->get();
+      $user_category_ids=array();
+      if($user_categorys){
+        foreach ($user_category as $user_cate) {
+          $user_category_ids[]=$user_cate->category_id;
+        }
       }
-      var_dump($user_category_ids);
       $left_category_ids = array_diff($all_category_ids,$user_category_ids);
       $left_category = array();
       foreach($left_category_ids as $left_ids){
