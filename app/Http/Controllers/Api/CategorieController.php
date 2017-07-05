@@ -60,7 +60,7 @@ class CategorieController extends Controller
       }
       //var_dump($all_category);
       //var_dump($all_category_ids);
-      $user_category_ids = UserCategory::where('uid','=',$user_id)->pluck('category_id');
+      $user_category_ids = UserCategory::where('uid','=',$user_id)->pluck('category_id')->toArray();
       if(empty($user_category_ids)){
         $user_category_ids=array();
       }
