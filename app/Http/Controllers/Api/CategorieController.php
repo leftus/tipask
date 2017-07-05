@@ -52,12 +52,16 @@ class CategorieController extends Controller
       $all_category = array();
       $all_category_ids = array();
       $lists = Category::select('id','name')->where('type','articles')->orderBy('sort')->get();
-      foreach($lists as $list){
-        $all_category[$list->id] = ['category_id'=>$list->id,'category_name'=>$list->name];
-        $all_category_ids[] = $list->id;
+      if($lists){
+        foreach($lists as $list){
+          $all_category[$list->id] = ['category_id'=>$list->id,'category_name'=>$list->name];
+          $all_category_ids[] = $list->id;
+        }
       }
       $user_category_ids = UserCategory::where('uid','=',$user_id)->pluck('category_id');
-      var_dump($user_category_ids);die();
+      if(empty($user_category_ids)){
+        $user_category_ids=array();
+      }
       $left_category_ids = array_diff($all_category_ids,$user_category_ids);
       $left_category = array();
       foreach($left_category_ids as $left_ids){
