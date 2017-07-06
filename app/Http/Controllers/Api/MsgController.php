@@ -55,22 +55,21 @@ class MsgController extends Controller
 		foreach($msg as $k=>$v)
 		{
 			$article = Article::where('id',$v->content)->select('id','title','summary','logo','views','created_at')->first();
-			if($article)
-			{
+			if(empty($article)){
+				unset($v);
+			}else{
 				$v->id = $article->id;
 				$v->title = $article->title;
 				$v->summary = $article->summary;
 				if(strpos($article->logo,'http')===FALSE){
 					$logo = 'https://us.m9n.com/image/show/'.$article->logo;
 				}else{
-          $logo = $article->logo;
-        }
+					$logo = $article->logo;
+				}
 				$v->logo = [$logo];
 				$v->views = $article->views;
 				$v->created_at = $article->created_at;
 				unset($v->content);
-			}else{
-				unset($v);
 			}
 		}
 		if($count_show)
