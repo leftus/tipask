@@ -244,6 +244,7 @@
 </body>
 </html>
 <script type="text/javascript">
+$('img').removeAttr('style');
  $("#sharetxt").click(
 	 function(){
 		 $("#popwiow1").show();
