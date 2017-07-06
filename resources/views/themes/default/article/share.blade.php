@@ -264,14 +264,14 @@ var u = navigator.userAgent;
 var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
 var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
 $('.download').click(function(){
-	if(isAndroid){
-		location.href="http://zhushou.360.cn/detail/index/soft_id/3862371?recrefer=SE_D_";
-	}else{
+	// if(isAndroid){
+	// 	location.href="http://zhushou.360.cn/detail/index/soft_id/3862371?recrefer=SE_D_";
+	// }else{
 		location.href="https://itunes.apple.com/cn/app/%E5%8D%A1%E5%8D%A1%E8%90%A5%E9%94%80/id1244664884?mt=8";
-	}
-	if(isiOS){
-		location.href="https://itunes.apple.com/cn/app/%E5%8D%A1%E5%8D%A1%E8%90%A5%E9%94%80/id1244664884?mt=8";
-	}
+	//}
+	// if(isiOS){
+	// 	location.href="https://itunes.apple.com/cn/app/%E5%8D%A1%E5%8D%A1%E8%90%A5%E9%94%80/id1244664884?mt=8";
+	// }
 })
 
 </script>
