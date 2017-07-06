@@ -228,6 +228,7 @@ class IndexController extends Controller
 	}
 
   public function qrcode(){
-    return view('theme::home.qrcode');
+    $qrcode = '/share/images/hardy_yin.jpg';
+    return view('theme::home.qrcode')->with(compact('qrcode'));
   }
 }
