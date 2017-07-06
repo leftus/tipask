@@ -68,8 +68,6 @@ class MsgController extends Controller
 				$v->views = $article->views;
 				$v->created_at = $article->created_at;
 				unset($v->content);
-			}else{
-				$msg->pull($v);
 			}
 		}
 		if($count_show)
