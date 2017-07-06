@@ -257,7 +257,7 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
     Route::post('categorie/toggle_my_category',['as'=>'api.categorie.toggle_my_category','uses'=>'CategorieController@toggle_my_category']);
 
 
-
+  Route::get('/qrcode',['as'=>'website.qrcode','uses'=>'IndexController@qrcode']);
 
 	/*自定义链接添加*/
     Route::post('link/add',['as'=>'api.link.add','uses'=>'LinkController@add']);

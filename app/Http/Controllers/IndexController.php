@@ -32,7 +32,7 @@ class IndexController extends Controller
      * @return Response
      */
     public function index()
-    { 
+    {
         /*热门话题*/
         $hotTags =  Taggable::globalHotTags();
 
@@ -124,7 +124,7 @@ class IndexController extends Controller
 
     public function blog($categorySlug='all', $filter='newest')
     {
-		
+
         $article = new Article();
         if(!method_exists($article,$filter)){
             abort(404);
@@ -226,4 +226,8 @@ class IndexController extends Controller
         $content = str_replace('https://www.stpaulsfriends.club', '', $content);
 		return view('theme::home.article_h5',['content'=>$content]);
 	}
+
+  public function qrcode(){
+    return view('theme::home.qrcode');
+  }
 }
