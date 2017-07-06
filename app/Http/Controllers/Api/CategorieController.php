@@ -64,7 +64,7 @@ class CategorieController extends Controller
       $lists = Category::select('id','name')->where('type','articles')->orderBy('sort')->get();
       if($lists){
         foreach($lists as $list){
-          $all_category[$list->id] = ['category_id'=>$list->id,'category_name'=>$list->name];
+          $all_category[$list->id] = ['id'=>$list->id,'name'=>$list->name];
           $all_category_ids[] = $list->id;
         }
       }
@@ -82,7 +82,7 @@ class CategorieController extends Controller
       foreach($left_category_ids as $left_ids){
         $left_category[]=$all_category[$left_ids];
       }
-      $user_category = array(array('category_id'=>10,'category_name'=>"爆文"));
+      $user_category = array(array('id'=>10,'name'=>"爆文"));
       foreach($user_category_ids as $user_ids){
         $user_category[]=$all_category[$user_ids];
       }
