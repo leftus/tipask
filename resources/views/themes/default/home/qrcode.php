@@ -20,7 +20,7 @@
 </head>
 <body>
   <div class="qrcode">
-    <p><img src="/home/www/stpaulsfriends/public/share/images/hardy_yin.jpg" /></p>
+    <p><img src="share/images/hardy_yin.jpg" /></p>
     <p>长按识别图中二维码加好友咨询！</p>
   </div>
 </body>
