@@ -102,8 +102,8 @@ class UserController extends Controller
 		//修改用户的当前登录设备
     if(!empty($device_token) && in_array($device_type,[1,2])){
       $update_data = ['device_token'=>$device_token,'device_type'=>$device_type];
+      User::where('id','=',$user->id)->update($update_data);
     }
-		User::where('id','=',$user->id)->update($update_data);
 		if(empty($user->province))
 		{
 			$user->province = '某省';
