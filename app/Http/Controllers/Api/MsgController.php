@@ -77,7 +77,7 @@ class MsgController extends Controller
 			$count = Msg::whereRaw('to_user in ('.$user_id.',0) and type=1')->count('id');
 			return response()->json(array('code'=>0,'msg'=>'成功','count'=>$count,'data'=>$msg));
 		}
-		return response()->json(array('code'=>0,'msg'=>'成功','data'=> $msg->all()));
+		return response()->json(array('code'=>0,'msg'=>'成功','data'=> $msg->flatten()));
     }
 	//定时发送信息
 	public function postmsg_auto(Request $request)
