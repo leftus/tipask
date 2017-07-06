@@ -61,7 +61,7 @@ class CategorieController extends Controller
 
       $all_category = array();
       $all_category_ids = array();
-      $lists = Category::select('id','name')->where('type','articles')->orderBy('sort')->get();
+      $lists = Category::select('id','name')->where('type','articles')->whereNotIn('id',[4,12,11,9])->orderBy('sort')->get();
       if($lists){
         foreach($lists as $list){
           $all_category[$list->id] = ['id'=>$list->id,'name'=>$list->name];
