@@ -239,7 +239,11 @@
 			 <p class="start">想在这样的文章中添加自己的产品广告吗？</p>
 			 <p class="end">下载app只需要一分钟就能将你的产品推广出去！</p>
 		 </div>
-		 <div class="download"><img src="/share/images/kkyx_down.png"></div>
+		 <?php if(strpos($_SERVER['HTTP_USER_AGENT'], 'iPhone')||strpos($_SERVER['HTTP_USER_AGENT'], 'iPad')):?>
+		 		<a href="https://itunes.apple.com/cn/app/%E5%8D%A1%E5%8D%A1%E8%90%A5%E9%94%80/id1244664884?mt=8"><div class="download"><img src="/share/images/kkyx_down.png"></div></a>
+	 	 <?php else:?>
+			 <a href="http://zhushou.360.cn/detail/index/soft_id/3862371?recrefer=SE_D_"><div class="download"><img src="/share/images/kkyx_down.png"></div></a>
+		 <?php endif;?>
 	 </div>
 </body>
 </html>
@@ -260,19 +264,4 @@ $('img').removeAttr('style');
  $('.guanbi').click(function(){
 	 $('.adshow').hide();
  })
-
-var u = navigator.userAgent;
-var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-$('.download').click(function(){
-	// if(isAndroid){
-	// 	location.href="http://zhushou.360.cn/detail/index/soft_id/3862371?recrefer=SE_D_";
-	// }else{
-		location.href="https://itunes.apple.com/cn/app/%E5%8D%A1%E5%8D%A1%E8%90%A5%E9%94%80/id1244664884?mt=8";
-	//}
-	// if(isiOS){
-	// 	location.href="https://itunes.apple.com/cn/app/%E5%8D%A1%E5%8D%A1%E8%90%A5%E9%94%80/id1244664884?mt=8";
-	// }
-})
-
 </script>
