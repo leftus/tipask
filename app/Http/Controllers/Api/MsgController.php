@@ -55,9 +55,7 @@ class MsgController extends Controller
 		foreach($msg as $k=>$v)
 		{
 			$article = Article::where('id',$v->content)->select('id','title','summary','logo','views','created_at')->first();
-			if(empty($article)){
-				$msg->pull($v);
-			}else{
+			if($article){
 				$v->id = $article->id;
 				$v->title = $article->title;
 				$v->summary = $article->summary;
@@ -70,6 +68,8 @@ class MsgController extends Controller
 				$v->views = $article->views;
 				$v->created_at = $article->created_at;
 				unset($v->content);
+			}else{
+				$msg->pull($v);
 			}
 		}
 		if($count_show)
