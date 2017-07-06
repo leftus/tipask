@@ -68,10 +68,10 @@ class MsgController extends Controller
 				$v->logo = [$logo];
 				$v->views = $article->views;
 				$v->created_at = $article->created_at;
+				unset($v->content);
 			}else{
 				unset($v);
 			}
-			unset($v->content);
 		}
 		if($count_show)
 		{
