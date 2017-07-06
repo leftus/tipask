@@ -69,7 +69,7 @@ class MsgController extends Controller
 				$v->created_at = $article->created_at;
 				unset($v->content);
 			}else{
-				$msg->forget($k);
+				$msg->pull($k);
 			}
 		}
 		if($count_show)
