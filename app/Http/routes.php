@@ -257,7 +257,6 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
     Route::post('categorie/toggle_my_category',['as'=>'api.categorie.toggle_my_category','uses'=>'CategorieController@toggle_my_category']);
 
 
-  Route::get('/qrcode',['as'=>'website.qrcode','uses'=>'IndexController@qrcode']);
 
 	/*自定义链接添加*/
     Route::post('link/add',['as'=>'api.link.add','uses'=>'LinkController@add']);
@@ -300,6 +299,7 @@ Route::Group(['namespace'=>'Blog'],function(){
     Route::get('article/{id}',['as'=>'blog.article.detail','uses'=>'ArticleController@show'])->where(['id'=>'[0-9]+']);
     //二维码
 	  Route::get('qrcode',['as'=>'blog.article.qrcode','uses'=>'ArticleController@qrcode']);
+    Route::get('qr_code',['as'=>'blog.article.qr_code','uses'=>'ArticleController@qr_code']);
 	/*文章分享页面*/
     Route::get('article_share/{article_id}/user/{user_id}',['as'=>'blog.article.detail_share','uses'=>'ArticleController@share'])->where(['article_id'=>'[0-9]+']);
 

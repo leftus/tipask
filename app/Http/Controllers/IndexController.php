@@ -226,8 +226,4 @@ class IndexController extends Controller
         $content = str_replace('https://www.stpaulsfriends.club', '', $content);
 		return view('theme::home.article_h5',['content'=>$content]);
 	}
-
-  public function qrcode(){
-    return view('theme::home.qrcode');
-  }
 }
