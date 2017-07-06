@@ -82,7 +82,7 @@ class CategorieController extends Controller
       foreach($left_category_ids as $left_ids){
         $left_category[]=$all_category[$left_ids];
       }
-      $user_category = array(array('id'=>10,'name'=>"爆文"));
+      $user_category = array(array('id'=>4,'name'=>"热点"),array('id'=>12,'name'=>"心灵鸡汤"),array('id'=>11,'name'=>"健康养生"),array('id'=>9,'name'=>"视频搞笑"));
       foreach($user_category_ids as $user_ids){
         $user_category[]=$all_category[$user_ids];
       }
