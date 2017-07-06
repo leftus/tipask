@@ -56,7 +56,7 @@ class MsgController extends Controller
 		{
 			$article = Article::where('id',$v->content)->select('id','title','summary','logo','views','created_at')->first();
 			if(empty($article)){
-				unset($v);
+				$msg->pull($v);
 			}else{
 				$v->id = $article->id;
 				$v->title = $article->title;
