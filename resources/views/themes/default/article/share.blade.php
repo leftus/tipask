@@ -240,7 +240,7 @@
 			 <p class="end">下载app只需要一分钟就能将你的产品推广出去！</p>
 		 </div>
 		 <?php if(strpos($_SERVER['HTTP_USER_AGENT'], 'iPhone')||strpos($_SERVER['HTTP_USER_AGENT'], 'iPad')):?>
-		 		<a href="https://itunes.apple.com/cn/app/%E5%8D%A1%E5%8D%A1%E8%90%A5%E9%94%80/id1244664884?mt=8"><div class="download"><img src="/share/images/kkyx_down.png"></div></a>
+		 		<a href="http://mp.weixin.qq.com/mp/redirect?url=https://itunes.apple.com/cn/app/%E5%8D%A1%E5%8D%A1%E8%90%A5%E9%94%80/id1244664884?mt=8"><div class="download"><img src="/share/images/kkyx_down.png"></div></a>
 	 	 <?php else:?>
 			 <a href="http://zhushou.360.cn/detail/index/soft_id/3862371?recrefer=SE_D_"><div class="download"><img src="/share/images/kkyx_down.png"></div></a>
 		 <?php endif;?>
