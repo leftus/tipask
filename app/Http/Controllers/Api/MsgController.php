@@ -68,6 +68,8 @@ class MsgController extends Controller
 				$v->logo = [$logo];
 				$v->views = $article->views;
 				$v->created_at = $article->created_at;
+			}else{
+				unset($v)
 			}
 			unset($v->content);
 		}
