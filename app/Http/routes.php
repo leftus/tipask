@@ -42,6 +42,7 @@ Route::get('/kbak',['as'=>'website.kbak',function(){
 
 /*H5接口页面*/
 Route::get('/article_detail_h5/{id}','IndexController@article_detail_h5');
+Route::get('/introduction','IndexController@introduction');
 
 /*用户账号管理，包含用户登录注册等操作*/
 Route::Group(['namespace'=>'Account'],function(){
