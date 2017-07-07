@@ -53,6 +53,9 @@ class CategorieController extends Controller
        $token      = $request->input('token');
       //验证token
       $user = User::where('id',$user_id)->select('password','sort')->first();
+      if(empty($user)){
+        return response()->json(array('code'=>1,'msg'=>'登陆失效','data'=>array()));
+      }
       if(md5(($user->password).($user->sort)) != $token)
       {
       	return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
