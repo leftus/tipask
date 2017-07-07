@@ -119,6 +119,8 @@ class FavoriteController extends Controller
   				$logo = 'https://us.m9n.com/image/show/'.$article->logo;
   			}
   			$v->logo = [$logo];
+        $v->id = $v->article_id;
+        unset($v->article_id);
       }else{
         $favorite->pull($k);
       }
