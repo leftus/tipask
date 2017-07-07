@@ -106,19 +106,23 @@ class FavoriteController extends Controller
 		$favorite = Favorite::select('article_id')->where('user_id',$user_id)->skip($skip)->take($take)->orderBy('id','desc')->get();
 		foreach($favorite as $k=>$v)
 		{
-			$favorite[$k] = Article::where('id',$v->article_id)->select('id','title','summary','logo','views','created_at','share_count')->first();
-			if($favorite[$k]->views>0){
-				$favorite[$k]->rate = '转发率:'.(number_format($favorite[$k]->share_count/$favorite[$k]->views,2)*100).'%';
-			}else{
-				$favorite[$k]->rate = '转发率:100%';
-			}
-			$favorite[$k]->views = '阅读量:'.$favorite[$k]->views;
-			unset($favorite[$k]->share_count);
-      $logo = '';
-			if(strpos($favorite[$k]->logo,'http')===FALSE){
-				$logo = 'https://us.m9n.com/image/show/'.$favorite[$k]->logo;
-			}
-			$favorite[$k]->logo = [$logo];
+			$article = Article::where('id',$v->article_id)->select('id','title','summary','logo','views','created_at','share_count')->first();
+      if($article){
+        if($article->views>0){
+  				$v->rate = '转发率:'.(number_format($article->share_count/$article->views,2)*100).'%';
+  			}else{
+  				$v->rate = '转发率:100%';
+  			}
+  			$v->views = '阅读量:'.$article->views;
+        $logo = '';
+  			if(strpos($article->logo,'http')===FALSE){
+  				$logo = 'https://us.m9n.com/image/show/'.$article->logo;
+  			}
+  			$$v->logo = [$logo];
+      }else{
+        $favorite->pull($k);
+      }
+
 		}
 		if($count_show)
 		{
