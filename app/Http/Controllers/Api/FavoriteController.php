@@ -70,8 +70,8 @@ class FavoriteController extends Controller
 				return response()->json(array('code'=>4,'msg'=>'未收藏此文章','data'=>array()));
 			}
 		}
-		
-		
+
+
 		return response()->json(array('code'=>0,'msg'=>'取消成功','data'=>array()));
     }
 	 public function lists(Request $request)
@@ -90,7 +90,7 @@ class FavoriteController extends Controller
 		{
 			$page = 1;
 		}
-		
+
 		if(empty($user_id)||empty($token))
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
@@ -114,6 +114,7 @@ class FavoriteController extends Controller
 			}
 			$favorite[$k]->views = '阅读量:'.$favorite[$k]->views;
 			unset($favorite[$k]->share_count);
+      $logo = '';
 			if(strpos($favorite[$k]->logo,'http')===FALSE){
 				$logo = 'https://us.m9n.com/image/show/'.$favorite[$k]->logo;
 			}
