@@ -118,7 +118,7 @@ class FavoriteController extends Controller
   			if(strpos($article->logo,'http')===FALSE){
   				$logo = 'https://us.m9n.com/image/show/'.$article->logo;
   			}
-  			$$v->logo = [$logo];
+  			$v->logo = [$logo];
       }else{
         $favorite->pull($k);
       }
