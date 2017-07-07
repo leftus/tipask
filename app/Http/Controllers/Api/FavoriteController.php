@@ -129,6 +129,6 @@ class FavoriteController extends Controller
 			$count = Favorite::where('user_id',$user_id)->count('id');
 			return response()->json(array('code'=>0,'msg'=>'成功','count'=>$count,'data'=>$favorite));
 		}
-		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$favorite));
+		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$favorite->flatten()));
 	}
 }
