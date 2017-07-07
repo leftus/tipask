@@ -87,16 +87,28 @@ class UserController extends Controller
 			//新用户插入
 			$password = md5($openid);
 			$email = time().'@none.com';
-
-			$new_user = ['name'=>$nickname,'wx_openid'=>$wx_openid,'fc_openid'=>$fc_openid,'wx2_openid'=>$wx2_openid,'email'=>$email,'password'=>$password,'city'=>$city,'province'=>$province,'headimg'=>$headimgurl,'gender'=>$sex,'created_at'=>date('Y-m-d H:i:s',time()),'sort'=>$sort];
+			$new_user=[
+        'name'=>$nickname,
+        'wx_openid'=>$wx_openid,
+        'fc_openid'=>$fc_openid,
+        'wx2_openid'=>$wx2_openid,
+        'email'=>$email,
+        'password'=>$password,
+        'city'=>$city,
+        'province'=>$province,
+        'headimg'=>$headimgurl,
+        'gender'=>$sex,
+        'created_at'=>date('Y-m-d H:i:s',time()),
+        'sort'=>$sort,
+        'indate'=>3,
+        'start_time'=>date('Y-m-d H:i:s')
+      ];
 			$user->id   = User::insertGetId($new_user);
 			$user->name = $nickname;
 			$user->province = $province;
 			$user->city = $city;
 			$user->title = '';
 			$user->headimg = $headimgurl;
-			$user->indate = 3;
-			$user->start_time = date('Y-m-d H:i:s');
 			$user->token = md5($password.$sort);
 		}
 		//修改用户的当前登录设备
