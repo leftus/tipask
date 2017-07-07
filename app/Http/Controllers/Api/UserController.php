@@ -58,7 +58,7 @@ class UserController extends Controller
 		}else{
 			return response()->json(array('code'=>2,'msg'=>'参数错误','data'=>$error));
 		}
-         $user = User::whereRaw($where)->select('id','name','province','city','title','password','headimg')->first();
+    $user = User::whereRaw($where)->select('id','name','province','city','title','password','headimg')->first();
 		 $sort = rand(1000,9999);
 		 if($user)
 		 {
@@ -85,7 +85,7 @@ class UserController extends Controller
 		 }else{
 			$user = new \stdClass();
 			//新用户插入
-			$password = md5('HTTP://us.m9n.com');
+			$password = md5($openid);
 			$email = time().'@none.com';
 
 			$new_user = ['name'=>$nickname,'wx_openid'=>$wx_openid,'fc_openid'=>$fc_openid,'wx2_openid'=>$wx2_openid,'email'=>$email,'password'=>$password,'city'=>$city,'province'=>$province,'headimg'=>$headimgurl,'gender'=>$sex,'created_at'=>date('Y-m-d H:i:s',time()),'sort'=>$sort];

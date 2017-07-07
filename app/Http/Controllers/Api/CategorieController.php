@@ -40,7 +40,6 @@ class CategorieController extends Controller
             unset($value->category_id);
             $list->push($value);
           }
-
         }
         return response()->json(array('code'=>0,'msg'=>'成功','data'=>$list->unique()));
     }
