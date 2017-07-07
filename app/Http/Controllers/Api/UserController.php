@@ -158,8 +158,6 @@ class UserController extends Controller
 			$user->headimg = '未知';
 		}
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$user));
-
-
 	}
 
 }
