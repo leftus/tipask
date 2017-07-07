@@ -51,11 +51,11 @@ class CategorieController extends Controller
      public function my_category(Request $request){
        $user_id = $request->input('user_id');
        $token      = $request->input('token');
+       if(empty($user_id) || empty($token)){
+         return response()->json(array('code'=>1,'msg'=>'参数错误','data'=>array()));
+       }
       //验证token
       $user = User::where('id',$user_id)->select('password','sort')->first();
-      if(empty($user)){
-        return response()->json(array('code'=>1,'msg'=>'登陆失效','data'=>array()));
-      }
       if(md5(($user->password).($user->sort)) != $token)
       {
       	return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
@@ -104,6 +104,9 @@ class CategorieController extends Controller
        $token      = $request->input('token');
        $action = $request->input('action');
        $category_id = $request->input('category_id');
+       if(empty($user_id) || empty($token) || empty($action) || empty($category_id)){
+         return response()->json(array('code'=>1,'msg'=>'参数错误','data'=>array()));
+       }
       //验证token
       $user = User::where('id',$user_id)->select('password','sort')->first();
       if(md5(($user->password).($user->sort)) != $token)
