@@ -114,10 +114,11 @@ class FavoriteController extends Controller
   				$v->rate = '转发率:100%';
   			}
   			$v->views = '阅读量:'.$article->views;
-        $logo = '';
   			if(strpos($article->logo,'http')===FALSE){
   				$logo = 'https://us.m9n.com/image/show/'.$article->logo;
-  			}
+  			}else{
+          $logo = $article->logo;
+        }
   			$v->logo = [$logo];
         $v->id = $article->id;
         $v->title = $article->title;
