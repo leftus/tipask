@@ -54,10 +54,14 @@ class MsgController extends Controller
 		$msg  = Msg::whereRaw('to_user in ('.$user_id.',0) and type=1')->orderBy('post_time','desc')->skip($skip)->take($take)->select('id','content')->get();
 		foreach($msg as $k=>$v)
 		{
-			$article = Article::where('id',$v->content)->select('id','title','summary','logo','views','created_at')->first();
+			$article = Article::where('id',$v->content)->select('id','title','summary','logo','views','created_at','category_id','summary')->first();
 			if($article){
+				if($article->category_id==9){
+					$v->title = trim($article->summary);
+				}else{
+					$v->title = $article->title;
+				}
 				$v->id = $article->id;
-				$v->title = $article->title;
 				$v->summary = $article->summary;
 				if(strpos($article->logo,'http')===FALSE){
 					$logo = 'https://us.m9n.com/image/show/'.$article->logo;
@@ -88,13 +92,8 @@ class MsgController extends Controller
 			return 'error';
 		}
     $cate_list = Category::where('type','articles')->where('status','<>',0)->lists('id');
-		$article = Article::select('id','title','logo','content','category_id','summary')->where('is_send','<>',1)->whereIn('category_id',$cate_list)->orderBy('id','desc')->first();
+		$article = Article::select('id','title','logo','content')->where('is_send','<>',1)->whereIn('category_id',$cate_list)->orderBy('id','desc')->first();
 		if($article){
-			if($article->category_id==9){
-				$article->title = trim($article->summary);
-			}
-			unset($article->category_id);
-			unset($article->summary);
 			$article->desc    = str_limit($this->format_html($article->content), $limit = 40, $end = '');
 	    if(strpos($article->logo,'http')===FALSE){
 			    $article->logo    = 'https://us.m9n.com/image/show'.$article->logo;
