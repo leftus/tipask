@@ -177,7 +177,7 @@ class ArticleController extends Controller
   }
 
   public function download_qrcode(){
-    return response()->download('/share/images/hardy_yin.jpg');
+    return response()->download(public_path('/share/images/hardy_yin.jpg'));
   }
 	public function share($article_id,$user_id,Request $request)
     {
