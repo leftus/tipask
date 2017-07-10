@@ -1,26 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content=" width=device-width, initial-scale=1,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<title>使用说明</title>
-	<style type="text/css">
-  body{
-    background: #f5f5f5;
-  }
-  .qrcode{
-    text-align: center;
-    margin:50% auto;
-    width:300px;
-  }
-  .qrcode img{
-    width:100%;
-  }
-	</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="/about/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/about/css/base.css" />
+    <link rel="stylesheet" href="/about/css/video.css" />
 </head>
 <body>
-  <div class="qrcode">
-    <p>使用说明</p>
-  </div>
+	<div class="main container-box">
+		<div class="row-box">
+			<div class="box-title">
+				<img src="/about/img/title-01.png" alt=""/>
+			</div>
+			<img src="/about/img/video-bg.jpg" alt="" class="video-bg"/>
+			<!-- 这是视频 -->
+			<!-- <video class="video" src="http://xxx.baidu.com/xx.mp4" autobuffer autoloop loop controls poster="/images/video.png"></video> -->
+		</div>
+		<div class="row-box">
+			<div class="box-title">
+				<img src="/about/img/title-02.png" alt=""/>
+			</div>
+			<ul class="help-list">
+				<li>快速帮我们<span>推广产品</span></li>
+				<li>快速帮我们<span>推广活动</span></li>
+				<li>快速帮我们<span>销售产品</span></li>
+				<li>快速帮我们<span>推广事业</span></li>
+				<li>快速帮我们<span>发展团队</span></li>
+				<li>快速帮我们<span>传播信息</span></li>
+				<li>快速帮我们<span>推广微店、微商城、企业网站</span></li>
+				<li class="last"><span>这就是移动互联网的时代、也是卡卡营销的时代！</span></li>
+			</ul>
+		</div>
+		<div class="row-box">
+			<div class="box-title">
+				<img src="/about/img/title-03.png" alt=""/>
+			</div>
+			<div class="icon-list">
+				<div class="col-xs-2">
+				</div>
+				<div class="col-xs-3">
+					<img src="/about/img/andriod@2x.png" alt="" />
+					<span>andriod</span>
+				</div>
+				<div class="col-xs-2">
+				</div>
+				<div class="col-xs-3">
+					<img src="/about/img/ios@2x.png" alt="" />
+					<span>ios</span>
+				</div>
+				<div class="col-xs-2">
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="foot-box">
+		<p>酷巴酷（北京）网络科技有限公司</p>
+		<img src="/about/img/foot.jpg" alt="" />
+	</div>
 </body>
 </html>
