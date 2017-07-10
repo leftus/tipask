@@ -151,7 +151,12 @@ class UserController extends Controller
 		$diff = date_diff($date1,$date2);
 		$days = $diff->format('%a');
 		if($user->indate > $days){
-			$user->warnning = '  您的账号还有'.($user->indate-$days).'天到期，为了不影响您的使用，请联系我们！';
+      $left_days = $user->indate-$days;
+      if($left_days<=3){
+        $user->warnning = '  您的账号还有'.$left_days.'天到期，为了不影响您的使用，请联系我们！';
+      }else{
+        $user->warnning = '';
+      }
 		}else{
 			$user->warnning = '  您的账号已到期，请联系我们';
 		}
