@@ -173,8 +173,7 @@ class ArticleController extends Controller
   }
 
   public function qr_code(){
-    $qrcode = "/share/images/hardy_yin.jpg";
-    return view("theme::article.qrcode")->with('qrcode',urldecode($qrcode));
+    return view("theme::article.about");
   }
 	public function share($article_id,$user_id,Request $request)
     {
