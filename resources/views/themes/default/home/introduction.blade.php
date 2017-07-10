@@ -63,7 +63,6 @@
 
 	<div class="foot-box">
 		<p>酷巴酷（北京）网络科技有限公司</p>
-		<img src="/about/img/foot.jpg" alt="" />
 	</div>
 </body>
 </html>
