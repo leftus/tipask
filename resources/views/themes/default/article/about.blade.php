@@ -19,7 +19,7 @@
 
 		<div class="weChatBox row-shadown">
 			<img src="/about/img/weChat.png" alt="" />
-			<span class="save" onclick="download()">保存到手机</span>
+			<a href="<?php echo url('download_qrcode');?>" download="qrcode"><span class="save">保存到手机</span></a>
 		</div>
 	</div>
 
@@ -34,7 +34,7 @@
 </body>
 </html>
 <script>
-function download(){
-  window.location.href="<?php echo url('download_qrcode');?>";
-}
+// function download(){
+//   window.location.href="<?php echo url('download_qrcode');?>";
+// }
 </script>
