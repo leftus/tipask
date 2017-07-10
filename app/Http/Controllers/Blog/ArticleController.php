@@ -175,6 +175,10 @@ class ArticleController extends Controller
   public function qr_code(){
     return view("theme::article.about");
   }
+
+  public function download_qrcode(){
+    return response()->download('/share/images/hardy_yin.jpg');
+  }
 	public function share($article_id,$user_id,Request $request)
     {
 		if(empty($article_id))

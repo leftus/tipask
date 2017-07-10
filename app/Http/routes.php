@@ -254,7 +254,9 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
 
 	 /*分类列表*/
     Route::any('categorie/list',['as'=>'api.categorie.list','uses'=>'CategorieController@lists']);
+    //我的分类
     Route::post('categorie/my_category',['as'=>'api.categorie.my_category','uses'=>'CategorieController@my_category']);
+    //编辑我的分类
     Route::post('categorie/toggle_my_category',['as'=>'api.categorie.toggle_my_category','uses'=>'CategorieController@toggle_my_category']);
 
 
@@ -276,7 +278,7 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
 	/*广告修改*/
     Route::post('adv/update',['as'=>'api.adv.update','uses'=>'AdvController@update']);
     /*选择广告*/
-	Route::post('adv/select',['as'=>'api.adv.select','uses'=>'AdvController@select']);
+	  Route::post('adv/select',['as'=>'api.adv.select','uses'=>'AdvController@select']);
     /*删除广告*/
     Route::post('adv/delete',['as'=>'api.adv.delete','uses'=>'AdvController@delete']);
 
@@ -284,7 +286,8 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
     Route::post('msg/post_all',['as'=>'api.msg.post','uses'=>'MsgController@post_all']);
 	/*我的消息*/
     Route::post('msg/list',['as'=>'api.msg.post','uses'=>'MsgController@lists']);
-	Route::get('msg/postmsg_auto',['as'=>'api.msg.postmsg_auto','uses'=>'MsgController@postmsg_auto']);
+    //自动发送消息
+	  Route::get('msg/postmsg_auto',['as'=>'api.msg.postmsg_auto','uses'=>'MsgController@postmsg_auto']);
 
 	 /*用户登录*/
     Route::post('user/login',['as'=>'api.login.list','uses'=>'UserController@login']);
@@ -300,7 +303,10 @@ Route::Group(['namespace'=>'Blog'],function(){
     Route::get('article/{id}',['as'=>'blog.article.detail','uses'=>'ArticleController@show'])->where(['id'=>'[0-9]+']);
     //二维码
 	  Route::get('qrcode',['as'=>'blog.article.qrcode','uses'=>'ArticleController@qrcode']);
+    //联系我们
     Route::get('qr_code',['as'=>'blog.article.qr_code','uses'=>'ArticleController@qr_code']);
+    //下载二位吗
+    Route::get('download_qrcode',['as'=>'blog.article.download_qrcode','uses'=>'ArticleController@download_qrcode']);
 	/*文章分享页面*/
     Route::get('article_share/{article_id}/user/{user_id}',['as'=>'blog.article.detail_share','uses'=>'ArticleController@share'])->where(['article_id'=>'[0-9]+']);
 

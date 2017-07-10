@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/about/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/about/css/base.css" />
     <link rel="stylesheet" href="/about/css/contactUs.css" />
+    <script type="text/javascript" src="/share/js/jquery-1.11.1.min.js"></script>
 </head>
 <body>
 	<div class="main">
@@ -34,3 +35,8 @@
 	</div>
 </body>
 </html>
+<script>
+$('.save').click(function(){
+  $.get('/download_qrcode');
+})
+</script>
