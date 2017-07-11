@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/about/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/about/css/base.css" />
     <link rel="stylesheet" href="/about/css/contactUs.css" />
+		<script type="text/javascript" src="/share/js/jquery-1.11.1.min.js"></script>
 </head>
 <body>
 	<div class="main">
@@ -19,7 +20,7 @@
 
 		<div class="weChatBox row-shadown">
 			<img src="/about/img/weChat.png" alt="" />
-			<span class="save" onclick="download()">保存到手机</span>
+			<span class="save">保存到手机</span>
 		</div>
 	</div>
 
@@ -34,8 +35,24 @@
 </body>
 </html>
 <script>
-function download(){
-  window.location.href="<?php echo url('download_qrcode');?>";
-  window.webkit.messageHandlers.observer.postMessage("<?php echo url('download_qrcode');?>");
+$('.save').click(function(){
+	DownLoadReportIMG("<?php echo url('/download_qrcode')?>");
+})
+function DownLoadReportIMG(imgPathURL) {
+    //如果隐藏IFRAME不存在，则添加
+    if (!document.getElementById("IframeReportImg"))
+        $('<iframe style="display:none;" id="IframeReportImg" name="IframeReportImg" onload="DoSaveAsIMG();" width="0" height="0" src="about:blank"></iframe>').appendTo("body");
+    if (document.all.IframeReportImg.src != imgPathURL) {
+        //加载图片
+        document.all.IframeReportImg.src = imgPathURL;
+    }
+    else {
+        //图片直接另存为
+        DoSaveAsIMG();
+    }
+}
+function DoSaveAsIMG() {
+    if (document.all.IframeReportImg.src != "about:blank")
+        window.frames["IframeReportImg"].document.execCommand("SaveAs");
 }
 </script>
