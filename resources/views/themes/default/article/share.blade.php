@@ -131,7 +131,11 @@
 	 		<span style="display:inline-block;" class="fl ratesimg1"><img style="max-height:99%;" src="<?php echo '/'.$advert->img;?>" alt=""><span style="display:inline-block;height:100%;width:0%;"></span></span>
 	 		<div class="fl rateprt1">
 	 			<p class="ratep1"><?php echo $advert->title;?></p>
-	 			<a href="<?php echo $advert->jump_url?>"><p class="ratep2"><?php echo $advert->descri;?><?php if($advert->jump_url):?><span style="color: #1792e8;">查看详情>></span><?php endif;?></p></a>
+				<?php if($advert->jump_url && strpos($advert->jump_url,'http')!==FALSE):?>
+	 			<a href="<?php echo $advert->jump_url?>"><p class="ratep2"><?php echo $advert->descri;?><span style="color: #1792e8;">查看详情>></span></p></a>
+				<?php else:?>
+					<p class="ratep2"><?php echo $advert->descri;?></p>
+				<?php endif;?>
 	 		</div>
 	 		<div class="fl contact">
 	 		<p class="fl ratep3"><a href="tel:<?php echo $advert->tel;?>"><img src="/share/images/diandian.png"></a></p>
