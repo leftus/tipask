@@ -40,15 +40,13 @@
 			<div class="icon-list">
 				<div class="col-xs-2">
 				</div>
-				<div class="col-xs-3">
+				<div class="col-xs-4">
           <a href="http://zhushou.360.cn/detail/index/soft_id/3862371?recrefer=SE_D_">
 					<img src="/about/img/andriod@2x.png" alt="" />
 					<span>andriod</span>
           </a>
 				</div>
-				<div class="col-xs-2">
-				</div>
-				<div class="col-xs-3">
+				<div class="col-xs-4">
           <a href="https://itunes.apple.com/cn/app/%E5%8D%A1%E5%8D%A1%E8%90%A5%E9%94%80/id1244664884?mt=8">
 					<img src="/about/img/ios@2x.png" alt="" />
 					<span>ios</span>
@@ -57,7 +55,6 @@
 				<div class="col-xs-2">
 				</div>
 			</div>
-
 		</div>
 	</div>
 
