@@ -92,12 +92,15 @@ class MsgController extends Controller
 			return 'error';
 		}
     $cate_list = Category::where('type','articles')->where('status','<>',0)->lists('id');
-		$article = Article::select('id','title','logo','content')->where('is_send','<>',1)->whereIn('category_id',$cate_list)->orderBy('id','desc')->first();
+		$article = Article::select('id','title','logo','content','category_id','summary')->where('is_send','<>',1)->whereIn('category_id',$cate_list)->orderBy('id','desc')->first();
 		if($article){
 			$article->desc    = str_limit($this->format_html($article->content), $limit = 40, $end = '');
 	    if(strpos($article->logo,'http')===FALSE){
 			    $article->logo    = 'https://us.m9n.com/image/show'.$article->logo;
 	    }
+			if($article->category_id==9){
+				$article->title = trim($article->summary);
+			}
 			$title = $article->title;
 			$content = $article->title;
 			$custom = array('id'=>$article->id,'title'=>$article->title,'logo'=>$article->logo,'desc'=>trim($article->desc));
