@@ -10,8 +10,9 @@ use App\Models\Question;
 use App\Models\Tag;
 use App\Models\UserData;
 use App\Models\UserTag;
-use Illuminate\Http\Request;
+use App\Models\UserArticle;
 
+use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
@@ -197,6 +198,9 @@ class ArticleController extends Controller
 		if($user_id>0)
 		{
 			$advert = Advert::where('user_id',$user_id)->where('status','=',1)->select('title','descri','img','tel','link_id','type','qrcode')->first();
+      $userarticle = UserArticle::where('uid',$user_id)->where('aid',$article_id)->first();
+      $userarticle->views+=1;
+      $userarticle->save();
 		}
 		$data->comments = $data->views;
 		unset($data->views);
