@@ -116,7 +116,7 @@
 	    width: 1.4rem;
 	    padding-top: 0.2rem;
 		}
-		#relations{
+		#relations ul li{
 			height:100px;
 			padding:5px;
 			width:100%;
@@ -129,7 +129,7 @@
 		}
 		#relations .logo{
 			width:80px;
-			heigh:80px;
+			height:80px;
 			overflow: hidden;
 		}
 
@@ -178,7 +178,6 @@
 					<div class="fl">
 						<div class="title"><?php echo $v->title;?></div>
 						<div class="rate"><span><?php echo $v->rate;?></span><span>阅读量：<?php echo $v->views;?></span></div>
-						<div class="clearfix"></div>
 					</div>
 				</li>
 			<?php endforeach;?>
