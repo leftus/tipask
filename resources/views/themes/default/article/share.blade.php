@@ -137,6 +137,7 @@
 		}
 		#relations .right .rate{
 			margin-top:0.5rem;
+			color:#8c8c8c;
 		}
 		#relations .right .rate span{
 			margin-right:20px;
