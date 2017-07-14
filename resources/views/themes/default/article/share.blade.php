@@ -119,6 +119,12 @@
 		#relations{
 			margin-top:20px;
 		}
+		#relations h2{
+			font-size: 0.5rem;
+			color: #252525;
+			line-height: 0.7rem;
+			font-weight: 600;
+		}
 		#relations ul li{
 			height:80px;
 			padding:5px 0;
