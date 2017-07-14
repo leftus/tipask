@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\Area;
 use App\Models\UserArticle;
 use App\Models\Article;
+use App\Models\UserArticleViews;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -235,8 +236,10 @@ class UserController extends Controller
 					$logo = $article->logo;
 				}
 				$v->logo = [$logo];
-        $v->today_views = ' 今日量 0';
-        $v->yestoday_views = ' 昨日量 0';
+        $today_views = UserArticleViews::where('user_article_id',$userarticle->id)->where('created_at','>',date('Y-m-d H:i:s',strtotime(date('Y-m-d'))))->count();
+        $yestoday_views = UserArticleViews::where('user_article_id',$userarticle->id)->whereBetween('created_at',[date('Y-m-d H:i:s',strtotime(date('Y-m-d',strtotime('-1 day')))),date('Y-m-d H:i:s',strtotime(date('Y-m-d')))])->count();
+        $v->today_views = ' 今日量 '.$today_views;
+        $v->yestoday_views = ' 昨日量 .'$yestoday_views;
 				unset($v->aid);
 			}else{
 				$userarticle->pull($k);
