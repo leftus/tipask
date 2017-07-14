@@ -219,7 +219,7 @@ class UserController extends Controller
 		{
 			return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
 		}
-    $userarticle = UserArticle::select('aid','views','created_at')->where('uid',$user_id)->get();
+    $userarticle = UserArticle::select('id','aid','views','created_at')->where('uid',$user_id)->get();
     foreach ($userarticle as $k => $v) {
       $article = Article::where('id',$v->aid)->select('title','summary','logo','views','created_at','category_id','summary')->first();
       if($article){
@@ -241,6 +241,7 @@ class UserController extends Controller
         $v->today_views = ' 今日量 '.$today_views;
         $v->yestoday_views = ' 昨日量 '.$yestoday_views;
 				unset($v->aid);
+        unset($v->id);
 			}else{
 				$userarticle->pull($k);
 			}
