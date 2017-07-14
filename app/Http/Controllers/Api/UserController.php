@@ -235,8 +235,8 @@ class UserController extends Controller
 					$logo = $article->logo;
 				}
 				$v->logo = [$logo];
-        $v->today_views = ' 今日阅读 0';
-        $v->yestoday_views = ' 昨日阅读 0';
+        $v->today_views = ' 今日量 0';
+        $v->yestoday_views = ' 昨日量 0';
 				unset($v->aid);
 			}else{
 				$userarticle->pull($k);
