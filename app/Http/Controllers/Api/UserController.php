@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use App\Models\Area;
-use APP\Models\UserArticle;
+use App\Models\UserArticle;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
