@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\User;
 use App\Models\Area;
 use App\Models\UserArticle;
+use App\Models\Article;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -181,7 +182,7 @@ class UserController extends Controller
     $user_id = $request->input('user_id');
 		$token      = $request->input('token');
     $aid      = $request->input('aid');
-    if(empty($user_id)||empty($token))
+    if(empty($user_id)||empty($token) || empty($aid))
 		{
 			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
 		}
@@ -199,5 +200,46 @@ class UserController extends Controller
     $userarticle->aid = $aid;
     $userarticle->save();
     return response()->json(array('code'=>0,'msg'=>'成功','data'=>array()));
+  }
+
+  public function forward_list(Request $request){
+    $user_id = $request->input('user_id');
+		$token      = $request->input('token');
+    if(empty($user_id)||empty($token))
+		{
+			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
+		}
+		//验证token
+		$user = User::where('id',$user_id)->select('password','sort')->first();
+    if(empty($user)){
+      return response()->json(array('code'=>2,'msg'=>'用户不存在','data'=>array()));
+    }
+		if(md5(($user->password).($user->sort)) != $token)
+		{
+			return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
+		}
+    $userarticle = UserArticle::select('aid','views','created_at')->where('uid',$user_id)->get();
+    foreach ($userarticle as $k => $v) {
+      $article = Article::where('id',$v->aid)->select('title','summary','logo','views','created_at','category_id','summary')->first();
+      if($article){
+				if($article->category_id==9){
+					$v->title = trim($article->summary);
+				}else{
+					$v->title = $article->title;
+				}
+				$v->id = $v->aid;
+				$v->summary = $article->summary;
+				if(strpos($article->logo,'http')===FALSE){
+					$logo = 'https://us.m9n.com/image/show/'.$article->logo;
+				}else{
+					$logo = $article->logo;
+				}
+				$v->logo = [$logo];
+				unset($v->aid);
+			}else{
+				$userarticle->pull($k);
+			}
+    }
+    return response()->json(array('code'=>0,'msg'=>'成功','data'=> $userarticle->flatten()));
   }
 }

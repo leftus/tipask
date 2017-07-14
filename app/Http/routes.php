@@ -295,6 +295,8 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
     Route::post('user/info',['as'=>'api.user.info','uses'=>'UserController@info']);
     //用户转发文章
     Route::post('user/forward',['as'=>'api.user.forward','uses'=>'UserController@forward']);
+    //用户转发文章列表
+    Route::post('user/forward_list',['as'=>'api.user.forward_list','uses'=>'UserController@forward_list']);
 });
 
 
