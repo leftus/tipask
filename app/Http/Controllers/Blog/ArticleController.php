@@ -11,6 +11,7 @@ use App\Models\Tag;
 use App\Models\UserData;
 use App\Models\UserTag;
 use App\Models\UserArticle;
+use App\Models\UserArticleViews;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -216,6 +217,9 @@ class ArticleController extends Controller
       if($userarticle){
         $userarticle->views+=1;
         $userarticle->save();
+        $userarticleviews = new UserArticleViews;
+        $userarticleviews->user_article_id = $userarticle->id;
+        $userarticleviews->save();
       }
 		}else{
       $user_id='';
