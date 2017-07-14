@@ -153,6 +153,17 @@
 
 
 	 	<div id="news"><?php echo $listData->content;?></div>
+		<div id="relations">
+			<ul>
+			<?php foreach($relations as $k=>$v):?>
+				<li>
+					<div class="logo"><img src="<?php echo $v->logo;?>"></div>
+					<div class="title"><?php echo $v->title;?></div>
+					<div class="rate"><span><?php echo $v->rate;?></span><span>阅读量：<?php echo $v->views;?></span></div>
+				</li>
+			<?php endforeach;?>
+			</ul>
+		</div>
 		<!-- 推广尾部-->
 		<?php if($advert && $advert->type==3):?>
 	 	<div class="clearfix ad-rate ad-bottom">

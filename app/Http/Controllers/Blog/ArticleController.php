@@ -181,19 +181,33 @@ class ArticleController extends Controller
     return response()->download(public_path('/share/images/hardy_yin.jpg'));
   }
 	public function share($article_id,$user_id,Request $request)
-    {
+  {
 		if(empty($article_id))
 		{
 			print('缺少参数');
 			exit();
 		}
 		$data = Article::where('id',$article_id)->select('id','title','source','created_at','views','content','category_id','summary')->first();
-        $data->content = str_replace('https://www.stpaulsfriends.club', '', $data->content);
-        if($data->category_id==9){
-            $data->title = trim($data->summary);
-        }
-        unset($data->category_id);
-        unset($data->summary);
+    $relations=Article::where('category_id',$data->category_id)->select('id','title','created_at','views','summary','category_id','share_count','logo')->orderBy('created_at','desc')->take(10)->get();
+    foreach ($relations as $k => $v) {
+      if(strpos($v->logo,'http')===FALSE){
+        $v->logo = 'https://us.m9n.com/image/show/'.$v->logo;
+      }
+      if($v->category_id==9){
+          $v->title = trim($v->summary);
+      }
+      if($v->views>0){
+        $v->rate = '转发率:'.(number_format($v->share_count/$v->views,2)*100).'%';
+      }else{
+        $v->rate = '转发率:100%';
+      }
+    }
+    $data->content = str_replace('https://www.stpaulsfriends.club', '', $data->content);
+    if($data->category_id==9){
+        $data->title = trim($data->summary);
+    }
+    unset($data->category_id);
+    unset($data->summary);
 		$data->created_at = date('Y-m-d',strtotime($data->created_at));
 		if($user_id>0)
 		{
@@ -203,22 +217,24 @@ class ArticleController extends Controller
         $userarticle->views+=1;
         $userarticle->save();
       }
-		}
+		}else{
+      $user_id='';
+    }
 		$data->comments = $data->views;
 		unset($data->views);
 		if(!empty($advert))
 		{
 			$link   = Link::where('id',$advert->link_id)->value('jump_url');
 			$advert->jump_url = $link;
-            $advert->title = str_limit($advert->title,50);
-            $advert->descri = str_limit($advert->descri,50);
+      $advert->title = str_limit($advert->title,50);
+      $advert->descri = str_limit($advert->descri,50);
 			unset($advert->link_id);
 			$data->isadv = 1;
-            $data->type = $advert->type;
+      $data->type = $advert->type;
 		}else{
 			$advert = new \stdClass();
 			$data->isadv = 0;
-            $data->type = 0;
+      $data->type = 0;
 			$advert->title = $advert->descri = $advert->img = $advert->tel = $advert->jump_url ='';
 		}
 		$data->advert = $advert;
@@ -236,8 +252,8 @@ class ArticleController extends Controller
 				$data->is_favorite = 1;
 			}
 		}
-		return view("theme::article.share")->with('article',$data);
-    }
+		return view("theme::article.share",['article'=>$data,'relations'=>$relations,'user_id'=>$user_id]);
+  }
     /**
      * 显示文字编辑页面
      * @param  int  $id
