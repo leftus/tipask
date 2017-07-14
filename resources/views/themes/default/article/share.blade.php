@@ -124,6 +124,7 @@
 			padding:5px 0;
 			width:100%;
 			border-bottom: 1px solid #e9e9e9;
+			color:#252525;
 		}
 		#relations .left{
 			width:25%;
@@ -183,6 +184,7 @@
 
 	 	<div id="news"><?php echo $listData->content;?></div>
 		<div id="relations">
+			<h2>相关阅读</h2>
 			<ul>
 			<?php foreach($relations as $k=>$v):?>
 				<a href="<?php echo url('article_share/'.$v->id.'/user/'.$user_id);?>">
