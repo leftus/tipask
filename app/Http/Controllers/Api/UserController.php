@@ -1,10 +1,11 @@
 <?php
 namespace App\Http\Controllers\Api;
 
-
-use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Area;
+use APP\Models\UserArticle;
+
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -176,5 +177,24 @@ class UserController extends Controller
 		}
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$user));
 	}
-
+  public function forward(Request $request){
+    $user_id = $request->input('user_id');
+		$token      = $request->input('token');
+    $aid      = $request->input('aid');
+    if(empty($user_id)||empty($token))
+		{
+			return response()->json(array('code'=>1,'msg'=>'缺少参数','data'=>array()));
+		}
+		//验证token
+		$user = User::where('id',$user_id)->select('password','sort')->first();
+		if(md5(($user->password).($user->sort)) != $token)
+		{
+			return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
+		}
+    $userarticle = new UserArticle;
+    $userarticle->uid = $user_id;
+    $userarticle->aid = $aid;
+    $userarticle->save();
+    return response()->json(array('code'=>0,'msg'=>'成功','data'=>array()));
+  }
 }

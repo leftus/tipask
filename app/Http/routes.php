@@ -293,6 +293,8 @@ Route::Group(['prefix'=>'api','namespace'=>'Api'],function(){
     Route::post('user/login',['as'=>'api.login.list','uses'=>'UserController@login']);
 	 /*个人中心*/
     Route::post('user/info',['as'=>'api.user.info','uses'=>'UserController@info']);
+    //用户转发文章
+    Route::post('user/forward',['as'=>'api.user.forward','uses'=>'UserController@forward']);
 });
 
 
