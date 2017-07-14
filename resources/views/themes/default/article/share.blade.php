@@ -122,7 +122,7 @@
 			width:100%;
 		}
 		#relations .left{
-			width:20%;
+			width:25%;
 			height:80px;
 			overflow: hidden;
 		}
@@ -134,7 +134,7 @@
 			margin-top:0.5rem;
 		}
 		#relations .right .rate span{
-			margin-right:0.1rem;
+			margin-right:20px;
 		}
 		#relations .right .title{
 			font-size: 0.36rem;
