@@ -176,6 +176,7 @@
 					<div class="logo"><img src="<?php echo $v->logo;?>" width="80"></div>
 					<div class="title"><?php echo $v->title;?></div>
 					<div class="rate"><span><?php echo $v->rate;?></span><span>阅读量：<?php echo $v->views;?></span></div>
+					<div class="clearfix"></div>
 				</li>
 			<?php endforeach;?>
 			</ul>
