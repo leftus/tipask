@@ -187,6 +187,9 @@ class UserController extends Controller
 		}
 		//验证token
 		$user = User::where('id',$user_id)->select('password','sort')->first();
+    if(empty($user)){
+      return response()->json(array('code'=>2,'msg'=>'用户不存在','data'=>array()));
+    }
 		if(md5(($user->password).($user->sort)) != $token)
 		{
 			return response()->json(array('code'=>3,'msg'=>'token验证失败','data'=>array()));
