@@ -122,15 +122,19 @@
 			width:100%;
 		}
 		#relations .left{
-			width:30%;
-		}
-		#relations .right{
-			width:70%;
-		}
-		#relations .logo{
-			width:80px;
+			width:20%;
 			height:80px;
 			overflow: hidden;
+		}
+		#relations .right{
+			width:80%;
+			padding-left:10px;
+		}
+		#relations .right .rate{
+			margin-top:30px;
+		}
+		#relations .right .title{
+			font-size: 0.36rem;
 		}
 
 	</style>
