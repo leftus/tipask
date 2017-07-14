@@ -117,7 +117,7 @@
 	    padding-top: 0.2rem;
 		}
 		#relations ul li{
-			height:100px;
+			height:80px;
 			padding:5px;
 			width:100%;
 		}
@@ -174,8 +174,8 @@
 			<ul>
 			<?php foreach($relations as $k=>$v):?>
 				<li>
-					<div class="logo fl"><img src="<?php echo $v->logo;?>" width="80"></div>
-					<div class="fl">
+					<div class="logo fl left"><img src="<?php echo $v->logo;?>" width="80"></div>
+					<div class="fl right">
 						<div class="title"><?php echo $v->title;?></div>
 						<div class="rate"><span><?php echo $v->rate;?></span><span>阅读量：<?php echo $v->views;?></span></div>
 					</div>
