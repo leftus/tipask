@@ -183,9 +183,9 @@
 
 	 	<div id="news"><?php echo $listData->content;?></div>
 		<div id="relations">
-			<h3>相关阅读</h3>
 			<ul>
 			<?php foreach($relations as $k=>$v):?>
+				<a href="<?php echo url('article_share/'.$v->id.'/user/'.$user_id);?>">
 				<li>
 					<div class="logo fl left"><img src="<?php echo $v->logo;?>" width="80"></div>
 					<div class="fl right">
@@ -193,6 +193,7 @@
 						<div class="rate"><span><?php echo $v->rate;?></span><span>阅读量：<?php echo $v->views;?></span></div>
 					</div>
 				</li>
+				</a>
 			<?php endforeach;?>
 			</ul>
 		</div>
