@@ -116,6 +116,11 @@
 	    width: 1.4rem;
 	    padding-top: 0.2rem;
 		}
+		#relations{
+			height:100px;
+			padding:5px;
+			width:100%;
+		}
 		#relations .logo{
 			width:80px;
 			heigh:80px;
@@ -123,6 +128,9 @@
 			float:left;
 		}
 		#relations .title{
+			float:left;
+		}
+		#relations .rate{
 			float:left;
 		}
 	</style>
