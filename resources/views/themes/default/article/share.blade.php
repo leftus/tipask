@@ -133,8 +133,12 @@
 		#relations .right .rate{
 			margin-top:0.5rem;
 		}
+		#relations .right .rate span{
+			margin-right:0.1rem;
+		}
 		#relations .right .title{
 			font-size: 0.36rem;
+			height:40px;
 		}
 
 	</style>
