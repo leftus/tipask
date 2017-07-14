@@ -191,7 +191,7 @@
 
 	 	<div id="news"><?php echo $listData->content;?></div>
 		<div id="relations">
-			<h2>-相关阅读-</h2>
+			<h2>--相关阅读--</h2>
 			<ul>
 			<?php foreach($relations as $k=>$v):?>
 				<a href="<?php echo url('article_share/'.$v->id.'/user/'.$user_id);?>">
