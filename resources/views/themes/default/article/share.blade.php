@@ -118,7 +118,7 @@
 		}
 		#relations ul li{
 			height:80px;
-			padding:5px;
+			padding:5px 0;
 			width:100%;
 			border-bottom: 1px solid #e9e9e9;
 		}
