@@ -121,17 +121,18 @@
 			padding:5px;
 			width:100%;
 		}
+		#relations .left{
+			width:30%;
+		}
+		#relations .right{
+			width:70%;
+		}
 		#relations .logo{
 			width:80px;
 			heigh:80px;
 			overflow: hidden;
-			float:left;
 		}
-		#relations .title{
-			float:left;
-		}
-		#relations .rate{
-		}
+
 	</style>
 </head>
 <body>
@@ -173,10 +174,12 @@
 			<ul>
 			<?php foreach($relations as $k=>$v):?>
 				<li>
-					<div class="logo"><img src="<?php echo $v->logo;?>" width="80"></div>
-					<div class="title"><?php echo $v->title;?></div>
-					<div class="rate"><span><?php echo $v->rate;?></span><span>阅读量：<?php echo $v->views;?></span></div>
-					<div class="clearfix"></div>
+					<div class="logo fl"><img src="<?php echo $v->logo;?>" width="80"></div>
+					<div class="fl">
+						<div class="title"><?php echo $v->title;?></div>
+						<div class="rate"><span><?php echo $v->rate;?></span><span>阅读量：<?php echo $v->views;?></span></div>
+						<div class="clearfix"></div>
+					</div>
 				</li>
 			<?php endforeach;?>
 			</ul>
