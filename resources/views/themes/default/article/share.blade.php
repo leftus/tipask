@@ -131,7 +131,6 @@
 			float:left;
 		}
 		#relations .rate{
-			float:left;
 		}
 	</style>
 </head>
