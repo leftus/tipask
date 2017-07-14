@@ -199,8 +199,10 @@ class ArticleController extends Controller
 		{
 			$advert = Advert::where('user_id',$user_id)->where('status','=',1)->select('title','descri','img','tel','link_id','type','qrcode')->first();
       $userarticle = UserArticle::where('uid',$user_id)->where('aid',$article_id)->first();
-      $userarticle->views+=1;
-      $userarticle->save();
+      if($userarticle){
+        $userarticle->views+=1;
+        $userarticle->save();
+      }
 		}
 		$data->comments = $data->views;
 		unset($data->views);
