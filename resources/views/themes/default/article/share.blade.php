@@ -116,6 +116,9 @@
 	    width: 1.4rem;
 	    padding-top: 0.2rem;
 		}
+		#relations{
+			margin-top:20px;
+		}
 		#relations ul li{
 			height:80px;
 			padding:5px 0;
