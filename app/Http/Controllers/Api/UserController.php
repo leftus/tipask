@@ -236,8 +236,8 @@ class UserController extends Controller
 					$logo = $article->logo;
 				}
 				$v->logo = [$logo];
-        $today_views = UserArticleViews::where('user_article_id',$userarticle->id)->where('created_at','>',date('Y-m-d H:i:s',strtotime(date('Y-m-d'))))->count();
-        $yestoday_views = UserArticleViews::where('user_article_id',$userarticle->id)->whereBetween('created_at',[date('Y-m-d H:i:s',strtotime(date('Y-m-d',strtotime('-1 day')))),date('Y-m-d H:i:s',strtotime(date('Y-m-d')))])->count();
+        $today_views = UserArticleViews::where('user_article_id',$v->id)->where('created_at','>',date('Y-m-d H:i:s',strtotime(date('Y-m-d'))))->count();
+        $yestoday_views = UserArticleViews::where('user_article_id',$v->id)->whereBetween('created_at',[date('Y-m-d H:i:s',strtotime(date('Y-m-d',strtotime('-1 day')))),date('Y-m-d H:i:s',strtotime(date('Y-m-d')))])->count();
         $v->today_views = ' 今日量 '.$today_views;
         $v->yestoday_views = ' 昨日量 '.$yestoday_views;
 				unset($v->aid);
