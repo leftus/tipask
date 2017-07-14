@@ -120,6 +120,7 @@
 			height:80px;
 			padding:5px;
 			width:100%;
+			border-bottom: 1px solid #e9e9e9;
 		}
 		#relations .left{
 			width:25%;
@@ -179,6 +180,7 @@
 
 	 	<div id="news"><?php echo $listData->content;?></div>
 		<div id="relations">
+			<h3>相关阅读</h3>
 			<ul>
 			<?php foreach($relations as $k=>$v):?>
 				<li>
