@@ -179,7 +179,7 @@ class UserController extends Controller
 		return response()->json(array('code'=>0,'msg'=>'成功','data'=>$user));
 	}
   public function forward(Request $request){
-    $user_id = $request->input('uid');
+    $user_id = $request->input('user_id');
 		$token      = $request->input('token');
     $aid      = $request->input('aid');
     if(empty($user_id)||empty($token) || empty($aid))
@@ -203,7 +203,7 @@ class UserController extends Controller
   }
 
   public function forward_list(Request $request){
-    $user_id = $request->input('uid');
+    $user_id = $request->input('user_id');
 		$token      = $request->input('token');
     if(empty($user_id)||empty($token))
 		{
